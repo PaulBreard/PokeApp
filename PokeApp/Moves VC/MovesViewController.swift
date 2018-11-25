@@ -1,0 +1,153 @@
+//
+//  MovesViewController.swift
+//  PokeApp
+//
+//  Created by Paul BREARD on 03/11/2018.
+//  Copyright © 2018 Paul BREARD. All rights reserved.
+//
+
+import UIKit
+import Alamofire
+
+class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var movesArray = [Pokemon]()
+    var movesFilteredArray = [Pokemon]()
+    
+    @IBOutlet weak var moveTableView: UITableView!
+    @IBOutlet weak var loadingLabel: UILabel!
+    @IBOutlet weak var moveActivityIndicator: UIActivityIndicatorView!
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.barStyle = .black
+        searchController.searchBar.placeholder = "Search a move"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        // set the cell height
+        self.moveTableView.rowHeight = 71.0
+        
+        loadMoves()
+    }
+    
+    private func loadMoves() {
+        // start activity indicator
+        moveActivityIndicator.startAnimating()
+        
+        Alamofire.request(Constants.MoveApi.moveApi).responseJSON { response in
+            if let jsonDict = response.result.value as? [String: Any] {
+                if let moves = jsonDict["results"] as? [[String: Any]] {
+                    self.movesArray = moves.map { pokeJson -> Pokemon in
+                        return Pokemon(pokeJson: pokeJson)!
+                    }
+                    
+                    // tell UITable View to reload UI from the move array
+                    self.moveTableView.reloadData()
+                    
+                    self.title = "\(self.movesArray.count) Moves"
+                }
+                // stop activity indicator
+                self.moveActivityIndicator.stopAnimating()
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.loadingLabel.isHidden = true
+                })
+            }
+        }
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        movesFilteredArray = movesArray.filter({(move : Pokemon) -> Bool in
+            return move.name.lowercased().contains(searchText.lowercased())
+        })
+        moveTableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return movesFilteredArray.count
+        }
+        return movesArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // create a real cell using the prototype
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell" , for: indexPath) as! MainMoveTableViewCell
+        
+        // change the selected cell background color
+        let customSelectedCellColor = UIView()
+        customSelectedCellColor.backgroundColor = UIColor.darkGray
+        cell.selectedBackgroundView = customSelectedCellColor
+        
+        // fill the cell
+        let move: Pokemon
+        if isFiltering() {
+            move = movesFilteredArray[indexPath.row]
+        }
+        else {
+            move = movesArray[indexPath.row]
+        }
+        cell.setMoveCell(move: move)
+        return cell
+    }
+    
+    // auto deselect cell
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = self.moveTableView.indexPathForSelectedRow {
+            self.moveTableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // check if it is the right destination View Controller
+        if let detailMove = segue.destination as? MoveInfoViewController {
+            // get selected cell
+            if let cell = sender as? UITableViewCell {
+                // get its index
+                let indexPath = moveTableView.indexPath(for: cell)
+                // get move object at that index
+                let selectedMove: Pokemon
+                if isFiltering() {
+                    selectedMove = movesFilteredArray[indexPath!.row]
+                }
+                else {
+                    selectedMove = movesArray[indexPath!.row]
+                }
+                // send the move selected to the destination View Controller
+                detailMove.selectedMove = selectedMove
+            }
+        }
+    }
+    
+}
+
+class MainMoveTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
+    
+    func setMoveCell(move: Pokemon) {
+        nameLabel.text = move.name
+        detailLabel.text = move.url
+    }
+    
+    func setSearchMoveCell(moveSearch: Pokemon) {
+        nameLabel.text = moveSearch.name
+        detailLabel.text = moveSearch.url
+    }
+}
