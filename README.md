@@ -10,6 +10,7 @@ iOS app based on pokeapi.co API
 - Added berry sprite in berries list
 - Temporarily disabling "Show Shiny" button because of a bug
 - Temporarily removing changelog
+- Added build number
 - Data parsing has been completely rewritten
 - Other internal improvements 
 
