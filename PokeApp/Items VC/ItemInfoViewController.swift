@@ -12,13 +12,16 @@ import AlamofireImage
 
 class ItemInfoViewController: UIViewController {
     
-    var selectedItem: Pokemon!
+    var selectedItem: Items!
     
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var blurImageView: UIView!
     @IBOutlet weak var itemImageActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var itemNameLabel: UILabel!
+    @IBOutlet weak var itemInfoView: UIView!
+    @IBOutlet weak var itemCost: UILabel!
     @IBOutlet weak var itemCostLabel: UILabel!
+    @IBOutlet weak var attributes: UILabel!
     @IBOutlet weak var attributesLabel: UILabel!
     @IBOutlet weak var itemEffectLabel: UILabel!
     @IBOutlet weak var blurView: UIView!
@@ -42,6 +45,32 @@ class ItemInfoViewController: UIViewController {
         loadItemDetails()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // check from if dark theme is enabled
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        
+        // if dark theme is enabled, app theme will be dark, else it will be light
+        if darkSwitch == true {
+            darkTheme()
+            itemNameLabel.textColor = UIColor.white
+            itemCost.textColor = UIColor.white
+            itemCostLabel.textColor = UIColor.white
+            attributes.textColor = UIColor.white
+            attributesLabel.textColor = UIColor.white
+            itemEffectLabel.textColor = UIColor.white
+            itemInfoView.backgroundColor = Constants.Colors.gray40
+        } else {
+            lightTheme()
+            itemNameLabel.textColor = UIColor.black
+            itemCost.textColor = UIColor.black
+            itemCostLabel.textColor = UIColor.black
+            attributes.textColor = UIColor.black
+            attributesLabel.textColor = UIColor.black
+            itemEffectLabel.textColor = UIColor.black
+            itemInfoView.backgroundColor = UIColor.white
+        }
+    }
+    
     func loadItemDetails() {
         // start activity indicator
         itemInfoActivityIndicator.startAnimating()
@@ -63,68 +92,27 @@ class ItemInfoViewController: UIViewController {
         Alamofire.request(selectedItem.url).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
                 
-                // get the item's cost
-                guard let itemCost = jsonDict["cost"] as? Int
-                    else {
-                        return
-                }
-                // display results in the console
-                print("Cost:", itemCost)
+                // set the cost, attributes, description and sprite from jsonDict
+                self.selectedItem.setCost(jsonObject: jsonDict)
+                self.selectedItem.setAttributes(jsonObject: jsonDict)
+                self.selectedItem.setItemDescription(jsonObject: jsonDict)
+                self.selectedItem.setSprite(jsonObject: jsonDict)
                 
                 // display the item's cost
-                self.itemCostLabel.text = "₽\(itemCost)"
+                self.itemCostLabel.text = "₽\(self.selectedItem.cost!)"
                 
-                // get the items attributes array
-                guard let itemAttributesArray = jsonDict["attributes"] as? [[String: String]]
-                    else {
-                        return
-                }
-                var arrayOfAttributes: [String] = []
-                // get all the attributes of the item
-                for dic in itemAttributesArray {
-                    let attributesName = dic["name"]
-
-                    // create an array with the attributes of the selected item
-                    arrayOfAttributes.append(attributesName!.capitalized)
-                    // concatenate the attributes into a single string
-                    let selectedItemAttributes = arrayOfAttributes.joined(separator: ", ")
-                    
-                    // display the attributes in the View Controller, wrap text and set number of lines
-                    self.attributesLabel.text = selectedItemAttributes.replacingOccurrences(of: "-", with: " ")
-                    self.attributesLabel.lineBreakMode = .byWordWrapping
-                    self.attributesLabel.numberOfLines = 0
-                    
-                    // display results in the console
-                    print("Attributes:", selectedItemAttributes)
-                }
+                // display the attributes in the View Controller, wrap text and set number of lines
+                self.attributesLabel.text = self.selectedItem.attributes!
+                self.attributesLabel.lineBreakMode = .byWordWrapping
+                self.attributesLabel.numberOfLines = 0
                 
-                // get the item's description dictionary
-                guard let itemEffectArray = jsonDict["effect_entries"] as? [[String: Any]]
-                    else {
-                        return
-                }
-                // get the effect from the dictionary
-                for dic in itemEffectArray {
-                    let itemEffect = dic["effect"] as? String
-
-                    // display the item's description in the View Controller, wrap text and set number of lines
-                    self.itemEffectLabel.text = itemEffect?.replacingOccurrences(of: "\n:   ", with: ": \n").replacingOccurrences(of: "\n\n    ", with: "\n\n")
-                    self.itemEffectLabel.lineBreakMode = .byWordWrapping
-                    self.itemEffectLabel.numberOfLines = 0
-                }
-                
-                // get the sprites dictionary
-                guard let itemSprite = jsonDict["sprites"] as? [String: String],
-                    // get one sprite link from the dictionary
-                    let defaultSprite = itemSprite["default"]
-                    else {
-                        return
-                }
-                // display results in the console
-                print("Sprite URL:", defaultSprite)
+                // display the item's description in the View Controller, wrap text and set number of lines
+                self.itemEffectLabel.text = self.selectedItem.description!
+                self.itemEffectLabel.lineBreakMode = .byWordWrapping
+                self.itemEffectLabel.numberOfLines = 0
                 
                 // get and display the sprite from the link
-                Alamofire.request(defaultSprite).responseImage { response in
+                Alamofire.request(self.selectedItem.sprite!).responseImage { response in
                     if let img = response.result.value {
                         self.itemImage.image = img
                     }

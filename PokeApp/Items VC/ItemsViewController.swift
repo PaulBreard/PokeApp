@@ -12,8 +12,8 @@ import AlamofireImage
 
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var itemsArray = [Pokemon]()
-    var itemsFilteredArray = [Pokemon]()
+    var itemsArray = [Items]()
+    var itemsFilteredArray = [Items]()
     
     @IBOutlet weak var itemTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -27,7 +27,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.barStyle = .black
         searchController.searchBar.placeholder = "Search an item"
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -38,6 +37,33 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         loadPokemon()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // check from if dark theme is enabled
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        
+        // if dark theme is enabled, app theme will be dark, else it will be light
+        if darkSwitch == true {
+            darkTheme()
+            searchController.searchBar.barStyle = .black
+            loadingLabel.textColor = UIColor.white
+            itemActivityIndicator.color = UIColor.white
+            // table view separator color
+            itemTableView.separatorColor = UIColor.darkGray
+        } else {
+            lightTheme()
+            searchController.searchBar.barStyle = .default
+            loadingLabel.textColor = UIColor.black
+            itemActivityIndicator.color = UIColor.black
+            // table view separator color
+            itemTableView.separatorColor = UIColor.lightGray
+        }
+        
+        // auto deselect cell
+        if let index = self.itemTableView.indexPathForSelectedRow {
+            self.itemTableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
     private func loadPokemon() {
         // start activity indicator
         itemActivityIndicator.startAnimating()
@@ -45,8 +71,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         Alamofire.request(Constants.ItemApi.itemApi).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
                 if let items = jsonDict["results"] as? [[String: Any]] {
-                    self.itemsArray = items.map { pokeJson -> Pokemon in
-                        return Pokemon(pokeJson: pokeJson)!
+                    self.itemsArray = items.map { pokeJson -> Items in
+                        return Items(pokeJson: pokeJson)!
                     }
                     
                     // tell UITable View to reload UI from the items array
@@ -69,7 +95,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        itemsFilteredArray = itemsArray.filter({(items : Pokemon) -> Bool in
+        itemsFilteredArray = itemsArray.filter({(items : Items) -> Bool in
             return items.name.lowercased().contains(searchText.lowercased())
         })
         itemTableView.reloadData()
@@ -90,13 +116,26 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // create a real cell using the prototype
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell" , for: indexPath) as! MainItemTableViewCell
         
-        // change the selected cell background color
         let customSelectedCellColor = UIView()
-        customSelectedCellColor.backgroundColor = UIColor.darkGray
-        cell.selectedBackgroundView = customSelectedCellColor
+        // change background color and labels' color to match the app theme
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        if darkSwitch == true {
+            cell.nameLabel.textColor = UIColor.white
+            cell.detailLabel.textColor = UIColor.lightGray
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.darkGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
+        else {
+            cell.nameLabel.textColor = UIColor.black
+            cell.detailLabel.textColor = UIColor.darkGray
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
         
         // fill the cell
-        let items: Pokemon
+        let items: Items
         if isFiltering() {
             items = itemsFilteredArray[indexPath.row]
         }
@@ -104,15 +143,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             items = itemsArray[indexPath.row]
         }
         cell.setItemCell(items: items)
-        cell.setItemImageCell(items: items)
         return cell
-    }
-    
-    // auto deselect cell
-    override func viewWillAppear(_ animated: Bool) {
-        if let index = self.itemTableView.indexPathForSelectedRow {
-            self.itemTableView.deselectRow(at: index, animated: true)
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -123,7 +154,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 // get its index
                 let indexPath = itemTableView.indexPath(for: cell)
                 // get item object at that index
-                let selectedItem: Pokemon
+                let selectedItem: Items
                 if isFiltering() {
                     selectedItem = itemsFilteredArray[indexPath!.row]
                 }
@@ -144,36 +175,20 @@ class MainItemTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
-    func setItemCell(items: Pokemon) {
+    func setItemCell(items: Items) {
         nameLabel.text = items.name
         detailLabel.text = items.url
-    }
-    
-    func setSearchItemCell(itemSearch: Pokemon) {
-        nameLabel.text = itemSearch.name
-        detailLabel.text = itemSearch.url
-    }
-    
-    func setItemImageCell(items: Pokemon) {
+
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!
         spriteImage.image = placeholderImage
         
-        Alamofire.request(items.url).responseJSON { response in
-            if let jsonDict = response.result.value as? [String: Any] {
-                // get the sprites dictionary
-                guard let itemSprite = jsonDict["sprites"] as? [String: String],
-                    // get one sprite link from the dictionary
-                    let defaultSprite = itemSprite["default"]
-                    else {
-                        return
-                }
-                
-                // get and display the sprite from the link
-                Alamofire.request(defaultSprite).responseImage { response in
-                    if let img = response.result.value {
-                        self.spriteImage.image = img
-                    }
-                }
+        // add item name in sprite url
+        let itemName = items.name.lowercased().replacingOccurrences(of: " ", with: "-")
+        let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png"
+        // get and display the sprite from the image link
+        Alamofire.request(sprite).responseImage { response in
+            if let img = response.result.value {
+                self.spriteImage.image = img
             }
         }
     }

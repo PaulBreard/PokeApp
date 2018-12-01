@@ -9,14 +9,16 @@
 /* Begin PBXBuildFile section */
 		6281C9D066111FC4F5A1E94F /* Pods_PokeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0128F6C88495370531202089 /* Pods_PokeApp.framework */; };
 		DA0C885C218CF8EA00EC4489 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C885B218CF8EA00EC4489 /* Extensions.swift */; };
+		DA29157D21ABF3AC00297C14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA29157C21ABF3AC00297C14 /* HomeViewController.swift */; };
 		DA3066ED21833D8300459188 /* PokeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3066EC21833D8300459188 /* PokeInfoViewController.swift */; };
 		DA3066F22183B15700459188 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3066F12183B15600459188 /* Assets.xcassets */; };
+		DA30AC9021B07856000DA614 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA30AC8F21B07856000DA614 /* Items.swift */; };
+		DA30AC9221B1CB49000DA614 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA30AC9121B1CB49000DA614 /* Moves.swift */; };
 		DA82540821AACBCB00A009CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA82540721AACBCB00A009CC /* SettingsViewController.swift */; };
 		DA8F928321788D7D00FB11F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8F928221788D7D00FB11F8 /* Constants.swift */; };
 		DAB22DCB218E4F9700619BB1 /* ChangelogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DCA218E4F9700619BB1 /* ChangelogViewController.swift */; };
 		DAB22DCD218E5F9E00619BB1 /* MovesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DCC218E5F9E00619BB1 /* MovesViewController.swift */; };
 		DAB22DCF218E602700619BB1 /* BerriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DCE218E602700619BB1 /* BerriesViewController.swift */; };
-		DAB22DD5218E713100619BB1 /* MoveInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DD4218E713100619BB1 /* MoveInfoViewController.swift */; };
 		DAB22DDB218F142100619BB1 /* BerryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DDA218F142100619BB1 /* BerryInfoViewController.swift */; };
 		DAB22DE0218F1C5500619BB1 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DDF218F1C5500619BB1 /* ItemsViewController.swift */; };
 		DAB22DE2218F22BE00619BB1 /* ItemInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DE1218F22BE00619BB1 /* ItemInfoViewController.swift */; };
@@ -25,8 +27,7 @@
 		DAD805C221762457004EF9C4 /* PokeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD805C121762457004EF9C4 /* PokeViewController.swift */; };
 		DAD805C521762457004EF9C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD805C321762457004EF9C4 /* Main.storyboard */; };
 		DAD805CA2176245A004EF9C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD805C82176245A004EF9C4 /* LaunchScreen.storyboard */; };
-		DAE958972186FA0E0091A55A /* PokemonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE958962186FA0E0091A55A /* PokemonDetails.swift */; };
-		DAE958BD21892BBA0091A55A /* PokeMoveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE958BC21892BBA0091A55A /* PokeMoveViewController.swift */; };
+		DAE958BD21892BBA0091A55A /* MoveInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE958BC21892BBA0091A55A /* MoveInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,14 +35,16 @@
 		4596BD93B393357FC29F8DEA /* Pods-PokeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PokeApp/Pods-PokeApp.release.xcconfig"; sourceTree = "<group>"; };
 		72B1F73E4413A2A75BCF3FD6 /* Pods-PokeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PokeApp/Pods-PokeApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DA0C885B218CF8EA00EC4489 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DA29157C21ABF3AC00297C14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DA3066EC21833D8300459188 /* PokeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeInfoViewController.swift; sourceTree = "<group>"; };
 		DA3066F12183B15600459188 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA30AC8F21B07856000DA614 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		DA30AC9121B1CB49000DA614 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DA82540721AACBCB00A009CC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA8F928221788D7D00FB11F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DAB22DCA218E4F9700619BB1 /* ChangelogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogViewController.swift; sourceTree = "<group>"; };
 		DAB22DCC218E5F9E00619BB1 /* MovesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovesViewController.swift; sourceTree = "<group>"; };
 		DAB22DCE218E602700619BB1 /* BerriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerriesViewController.swift; sourceTree = "<group>"; };
-		DAB22DD4218E713100619BB1 /* MoveInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInfoViewController.swift; sourceTree = "<group>"; };
 		DAB22DDA218F142100619BB1 /* BerryInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerryInfoViewController.swift; sourceTree = "<group>"; };
 		DAB22DDF218F1C5500619BB1 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		DAB22DE1218F22BE00619BB1 /* ItemInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoViewController.swift; sourceTree = "<group>"; };
@@ -52,8 +55,7 @@
 		DAD805C421762457004EF9C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DAD805C92176245A004EF9C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAD805CB2176245A004EF9C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAE958962186FA0E0091A55A /* PokemonDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetails.swift; sourceTree = "<group>"; };
-		DAE958BC21892BBA0091A55A /* PokeMoveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeMoveViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		DAE958BC21892BBA0091A55A /* MoveInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInfoViewController.swift; sourceTree = "<group>"; wrapsLines = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +101,6 @@
 			children = (
 				DAD805C121762457004EF9C4 /* PokeViewController.swift */,
 				DA3066EC21833D8300459188 /* PokeInfoViewController.swift */,
-				DAE958BC21892BBA0091A55A /* PokeMoveViewController.swift */,
 			);
 			path = "Pokemon VC";
 			sourceTree = "<group>";
@@ -108,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB22DCC218E5F9E00619BB1 /* MovesViewController.swift */,
-				DAB22DD4218E713100619BB1 /* MoveInfoViewController.swift */,
+				DAE958BC21892BBA0091A55A /* MoveInfoViewController.swift */,
 			);
 			path = "Moves VC";
 			sourceTree = "<group>";
@@ -135,7 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				DACCAA2221787EBB00594824 /* Pokemon.swift */,
-				DAE958962186FA0E0091A55A /* PokemonDetails.swift */,
+				DA30AC9121B1CB49000DA614 /* Moves.swift */,
+				DA30AC8F21B07856000DA614 /* Items.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,8 +166,9 @@
 				DA8F928421788D8300FB11F8 /* Utils */,
 				DACCAA1F21787CF100594824 /* Models */,
 				DAD805BF21762457004EF9C4 /* AppDelegate.swift */,
-				DAB22DCA218E4F9700619BB1 /* ChangelogViewController.swift */,
+				DA29157C21ABF3AC00297C14 /* HomeViewController.swift */,
 				DA82540721AACBCB00A009CC /* SettingsViewController.swift */,
+				DAB22DCA218E4F9700619BB1 /* ChangelogViewController.swift */,
 				DAB22DD2218E6EBA00619BB1 /* Pokemon VC */,
 				DAB22DD3218E70FA00619BB1 /* Moves VC */,
 				DAB22DD7218E776F00619BB1 /* Berries VC */,
@@ -301,16 +304,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD805C221762457004EF9C4 /* PokeViewController.swift in Sources */,
-				DAE958972186FA0E0091A55A /* PokemonDetails.swift in Sources */,
 				DAB22DDB218F142100619BB1 /* BerryInfoViewController.swift in Sources */,
+				DA29157D21ABF3AC00297C14 /* HomeViewController.swift in Sources */,
+				DA30AC9021B07856000DA614 /* Items.swift in Sources */,
 				DAD805C021762457004EF9C4 /* AppDelegate.swift in Sources */,
 				DAB22DCD218E5F9E00619BB1 /* MovesViewController.swift in Sources */,
-				DAB22DD5218E713100619BB1 /* MoveInfoViewController.swift in Sources */,
 				DA0C885C218CF8EA00EC4489 /* Extensions.swift in Sources */,
 				DA82540821AACBCB00A009CC /* SettingsViewController.swift in Sources */,
-				DAE958BD21892BBA0091A55A /* PokeMoveViewController.swift in Sources */,
+				DAE958BD21892BBA0091A55A /* MoveInfoViewController.swift in Sources */,
 				DAB22DCB218E4F9700619BB1 /* ChangelogViewController.swift in Sources */,
 				DAB22DCF218E602700619BB1 /* BerriesViewController.swift in Sources */,
+				DA30AC9221B1CB49000DA614 /* Moves.swift in Sources */,
 				DACCAA2321787EBB00594824 /* Pokemon.swift in Sources */,
 				DAB22DE0218F1C5500619BB1 /* ItemsViewController.swift in Sources */,
 				DA8F928321788D7D00FB11F8 /* Constants.swift in Sources */,

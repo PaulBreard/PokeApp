@@ -11,8 +11,8 @@ import Alamofire
 
 class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var movesArray = [Pokemon]()
-    var movesFilteredArray = [Pokemon]()
+    var movesArray = [Moves]()
+    var movesFilteredArray = [Moves]()
     
     @IBOutlet weak var moveTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -26,7 +26,6 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.barStyle = .black
         searchController.searchBar.placeholder = "Search a move"
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -37,6 +36,33 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         loadMoves()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // check from if dark theme is enabled
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        
+        // if dark theme is enabled, app theme will be dark, else it will be light
+        if darkSwitch == true {
+            darkTheme()
+            searchController.searchBar.barStyle = .black
+            loadingLabel.textColor = UIColor.white
+            moveActivityIndicator.color = UIColor.white
+            // table view separator color
+            moveTableView.separatorColor = UIColor.darkGray
+        } else {
+            lightTheme()
+            searchController.searchBar.barStyle = .default
+            loadingLabel.textColor = UIColor.black
+            moveActivityIndicator.color = UIColor.black
+            // table view separator color
+            moveTableView.separatorColor = UIColor.lightGray
+        }
+        
+        // auto deselect cell
+        if let index = self.moveTableView.indexPathForSelectedRow {
+            self.moveTableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
     private func loadMoves() {
         // start activity indicator
         moveActivityIndicator.startAnimating()
@@ -44,10 +70,9 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         Alamofire.request(Constants.MoveApi.moveApi).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
                 if let moves = jsonDict["results"] as? [[String: Any]] {
-                    self.movesArray = moves.map { pokeJson -> Pokemon in
-                        return Pokemon(pokeJson: pokeJson)!
+                    self.movesArray = moves.map { pokeJson -> Moves in
+                        return Moves(pokeJson: pokeJson)!
                     }
-                    
                     // tell UITable View to reload UI from the move array
                     self.moveTableView.reloadData()
                     
@@ -68,7 +93,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        movesFilteredArray = movesArray.filter({(move : Pokemon) -> Bool in
+        movesFilteredArray = movesArray.filter({(move : Moves) -> Bool in
             return move.name.lowercased().contains(searchText.lowercased())
         })
         moveTableView.reloadData()
@@ -89,13 +114,26 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // create a real cell using the prototype
         let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell" , for: indexPath) as! MainMoveTableViewCell
         
-        // change the selected cell background color
         let customSelectedCellColor = UIView()
-        customSelectedCellColor.backgroundColor = UIColor.darkGray
-        cell.selectedBackgroundView = customSelectedCellColor
+        // change background color and labels' color to match the app theme
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        if darkSwitch == true {
+            cell.nameLabel.textColor = UIColor.white
+            cell.detailLabel.textColor = UIColor.lightGray
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.darkGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
+        else {
+            cell.nameLabel.textColor = UIColor.black
+            cell.detailLabel.textColor = UIColor.darkGray
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
         
         // fill the cell
-        let move: Pokemon
+        let move: Moves
         if isFiltering() {
             move = movesFilteredArray[indexPath.row]
         }
@@ -106,13 +144,6 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    // auto deselect cell
-    override func viewWillAppear(_ animated: Bool) {
-        if let index = self.moveTableView.indexPathForSelectedRow {
-            self.moveTableView.deselectRow(at: index, animated: true)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check if it is the right destination View Controller
         if let detailMove = segue.destination as? MoveInfoViewController {
@@ -121,7 +152,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 // get its index
                 let indexPath = moveTableView.indexPath(for: cell)
                 // get move object at that index
-                let selectedMove: Pokemon
+                let selectedMove: Moves
                 if isFiltering() {
                     selectedMove = movesFilteredArray[indexPath!.row]
                 }
@@ -141,12 +172,12 @@ class MainMoveTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
-    func setMoveCell(move: Pokemon) {
+    func setMoveCell(move: Moves) {
         nameLabel.text = move.name
         detailLabel.text = move.url
     }
     
-    func setSearchMoveCell(moveSearch: Pokemon) {
+    func setSearchMoveCell(moveSearch: Moves) {
         nameLabel.text = moveSearch.name
         detailLabel.text = moveSearch.url
     }

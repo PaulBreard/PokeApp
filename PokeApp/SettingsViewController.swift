@@ -21,103 +21,81 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var otherThemeOptionLabel: UILabel!
     @IBOutlet weak var comingSoonLabel: UILabel!
     @IBOutlet weak var changelogLabel: UILabel!
-
-    let gray40 = UIColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
-    let gray28 = UIColor(red: 28.0/255.0, green: 28.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+    
+    let customSelectedCellColor = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // check from if dark theme is enabled
-        let themeDefault = UserDefaults.standard
-        darkSwitch.isOn = themeDefault.bool(forKey: "themeDefault")
-        print(themeDefault.bool(forKey: "themeDefault"))
+        darkSwitch.isOn = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
 
-        // if dark theme is enabled, app theme will be dark
+        // if dark theme is enabled, app theme will be dark, else it will be light
         if darkSwitch.isOn == true {
             darkTheme()
+            darkThemeSettings()
         }
-        // if dark theme is not enabled, app theme will be light
         else {
             lightTheme()
+            lightThemeSettings()
         }
 
         // show app version
         let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
-        appVersionLabel.text = "Version \(appVersion ?? "1.0")"
+        let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+        appVersionLabel.text = "Version \(appVersion ?? "1.0") (\(buildNumber))"
     }
     
-    func darkTheme() {
-        UIView.animate(withDuration: 0.3, animations: {
-            // view background color
-            self.view.backgroundColor = self.gray28
-            
-            // navigation controller's background style, color and tint color
-            self.navigationController?.navigationBar.barStyle = .black
-            self.navigationController?.navigationBar.barTintColor = self.gray28
-            self.navigationController?.navigationBar.tintColor = UIColor.white
-            
-            // tab bar controller's background style, color and tint color
-            self.tabBarController?.tabBar.barStyle = .black
-            self.tabBarController?.tabBar.barTintColor = self.gray28
-            self.tabBarController?.tabBar.tintColor = UIColor.white
-            
-            // table view separator color
-            self.tableView.separatorColor = UIColor.darkGray
-            
-            // cells background color
-            self.themeModeCell.backgroundColor = self.gray40
-            self.otherThemeOptionCell.backgroundColor = self.gray40
-            self.comingSoonCell.backgroundColor = self.gray40
-            self.versionCell.backgroundColor = self.gray40
-            self.changelogCell.backgroundColor = self.gray40
-            
-            // cell text color
-            self.themeModeLabel.textColor = UIColor.white
-            self.otherThemeOptionLabel.textColor = UIColor.white
-            self.comingSoonLabel.textColor = UIColor.white
-            self.appVersionLabel.textColor = UIColor.white
-            self.changelogLabel.textColor = UIColor.white
-        })
+    func darkThemeSettings() {
+        // table view separator color
+        tableView.separatorColor = UIColor.darkGray
+
+        // cells background color
+        themeModeCell.backgroundColor = Constants.Colors.gray40
+        otherThemeOptionCell.backgroundColor = Constants.Colors.gray40
+        comingSoonCell.backgroundColor = Constants.Colors.gray40
+        versionCell.backgroundColor = Constants.Colors.gray40
+        changelogCell.backgroundColor = Constants.Colors.gray40
+
+        // cell text color
+        themeModeLabel.textColor = UIColor.white
+        otherThemeOptionLabel.textColor = UIColor.white
+        comingSoonLabel.textColor = UIColor.white
+        appVersionLabel.textColor = UIColor.white
+        changelogLabel.textColor = UIColor.white
+    
+        // change the selected cell background color
+        customSelectedCellColor.backgroundColor = UIColor.darkGray
+        changelogCell.selectedBackgroundView = customSelectedCellColor
     }
     
-    func lightTheme() {
-        UIView.animate(withDuration: 0.3, animations: {
-            // view background color
-            self.view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)
-            
-            // navigation controller's background style, color and tint color
-            self.navigationController?.navigationBar.barStyle = .default
-            self.navigationController?.navigationBar.barTintColor = UIColor.white
-            self.navigationController?.navigationBar.tintColor = UIColor.black
-            
-            // tab bar controller's background style, color and tint color
-            self.tabBarController?.tabBar.barStyle = .default
-            self.tabBarController?.tabBar.barTintColor = UIColor.white
-            self.tabBarController?.tabBar.tintColor = UIColor.black
-            
-            // table view separator color
-            self.tableView.separatorColor = UIColor.lightGray
-            
-            // cells background color
-            self.themeModeCell.backgroundColor = UIColor.white
-            self.otherThemeOptionCell.backgroundColor = UIColor.white
-            self.comingSoonCell.backgroundColor = UIColor.white
-            self.versionCell.backgroundColor = UIColor.white
-            self.changelogCell.backgroundColor = UIColor.white
-            
-            // cell text color
-            self.themeModeLabel.textColor = UIColor.black
-            self.otherThemeOptionLabel.textColor = UIColor.black
-            self.comingSoonLabel.textColor = UIColor.black
-            self.appVersionLabel.textColor = UIColor.black
-            self.changelogLabel.textColor = UIColor.black
-        })
+    func lightThemeSettings() {
+        // table view separator color
+        tableView.separatorColor = UIColor.lightGray
+
+        // cells background color
+        themeModeCell.backgroundColor = UIColor.white
+        otherThemeOptionCell.backgroundColor = UIColor.white
+        comingSoonCell.backgroundColor = UIColor.white
+        versionCell.backgroundColor = UIColor.white
+        changelogCell.backgroundColor = UIColor.white
+
+        // cell text color
+        themeModeLabel.textColor = UIColor.black
+        otherThemeOptionLabel.textColor = UIColor.black
+        comingSoonLabel.textColor = UIColor.black
+        appVersionLabel.textColor = UIColor.black
+        changelogLabel.textColor = UIColor.black
+        
+        // change the selected cell background color
+        customSelectedCellColor.backgroundColor = UIColor.lightGray
+        changelogCell.selectedBackgroundView = customSelectedCellColor
     }
     
     @IBAction func changeMode(_ sender: UISwitch) {
         if darkSwitch.isOn == true {
             darkTheme()
+            darkThemeSettings()
             
             // save in app
             let themeDefault = UserDefaults.standard
@@ -125,6 +103,7 @@ class SettingsTableViewController: UITableViewController {
         }
         if darkSwitch.isOn == false {
             lightTheme()
+            lightThemeSettings()
             
             // save in app
             let themeDefault = UserDefaults.standard

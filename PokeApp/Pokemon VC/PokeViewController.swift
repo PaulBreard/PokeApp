@@ -12,6 +12,11 @@ import AlamofireImage
 
 class PokeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // faire un dictionnaire comprenant les lettres de l'alphabet en clé et les tableaux de pokémon pokeArray en valeur
+    // créer un tableau contenant les titres de section
+    var pokeDict = [String: [Pokemon]]()
+    var pokeSectionTitles = [String]()
+    
     var pokeArray = [Pokemon]()
     var pokeFilteredArray = [Pokemon]()
     
@@ -24,18 +29,49 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pokeActivityIndicator.style = .whiteLarge
+        
         // setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.barStyle = .black
         searchController.searchBar.placeholder = "Search a Pokémon"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+//        // Setup the Scope Bar
+//        searchController.searchBar.scopeButtonTitles = ["All", "Poison", "Grass", "Fire", "Other", "Poison", "Grass", "Fire"]
+//        searchController.searchBar.delegate = self
         
         // set the cell height
         self.pokeTableView.rowHeight = 71.0
         
         loadPokemon()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // check from if dark theme is enabled
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        
+        // if dark theme is enabled, app theme will be dark, else it will be light
+        if darkSwitch == true {
+            darkTheme()
+            searchController.searchBar.barStyle = .black
+            loadingLabel.textColor = UIColor.white
+            pokeActivityIndicator.color = UIColor.white
+            // table view separator color
+            pokeTableView.separatorColor = UIColor.darkGray
+        } else {
+            lightTheme()
+            searchController.searchBar.barStyle = .default
+            loadingLabel.textColor = UIColor.black
+            pokeActivityIndicator.color = UIColor.black
+            // table view separator color
+            pokeTableView.separatorColor = UIColor.lightGray
+        }
+        
+        // auto deselect cell
+        if let index = self.pokeTableView.indexPathForSelectedRow {
+            self.pokeTableView.deselectRow(at: index, animated: true)
+        }
     }
     
     private func loadPokemon() {
@@ -48,6 +84,14 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.pokeArray = pokemons.map { pokeJson -> Pokemon in
                         return Pokemon(pokeJson: pokeJson)!
                     }
+//                    for pokemon in self.pokeArray {
+//                        let pokeKey = self.pokeArray.prefix(1)
+//                        if var pokeValues = pokeDict[pokeKey] {
+//
+//                        }
+//                    }
+                    // sort pokémon alphabetically
+                    //self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
                     
                     // tell UITable View to reload UI from the poke array
                     self.pokeTableView.reloadData()
@@ -70,13 +114,21 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         pokeFilteredArray = pokeArray.filter({(poke : Pokemon) -> Bool in
-            return poke.name.lowercased().contains(searchText.lowercased())
+            let doesCategoryMatch = (scope == "All") //|| ("Poison" == scope)
+            
+            if searchBarIsEmpty() {
+                return doesCategoryMatch
+            } else {
+                return doesCategoryMatch && poke.name.lowercased().contains(searchText.lowercased())
+            }
         })
         pokeTableView.reloadData()
     }
+
     
     func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,14 +138,39 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return pokeArray.count
     }
     
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerLabel = UILabel()
+//        headerLabel.text = "A"
+//        return headerLabel
+//    }
+    
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        <#code#>
+//    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a real cell using the prototype
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokeCell" , for: indexPath) as! MainPokeTableViewCell
         
-        // change the selected cell background color
         let customSelectedCellColor = UIView()
-        customSelectedCellColor.backgroundColor = UIColor.darkGray
-        cell.selectedBackgroundView = customSelectedCellColor
+        // change background color and labels' color to match the app theme
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        if darkSwitch == true {
+            cell.nameLabel.textColor = UIColor.white
+            cell.detailLabel.textColor = UIColor.lightGray
+//            cell.backgroundColor = Constants.Colors.gray28
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.darkGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
+        else {
+            cell.nameLabel.textColor = UIColor.black
+            cell.detailLabel.textColor = UIColor.darkGray
+//            cell.backgroundColor = Constants.Colors.light
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
         
         // fill the cell
         let poke: Pokemon
@@ -104,15 +181,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             poke = pokeArray[indexPath.row]
         }
         cell.setPokeCell(poke: poke)
-        cell.setPokeImageCell(poke: poke)
         return cell
-    }
-    
-    // auto deselect cell
-    override func viewWillAppear(_ animated: Bool) {
-        if let index = self.pokeTableView.indexPathForSelectedRow {
-            self.pokeTableView.deselectRow(at: index, animated: true)
-        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,34 +214,45 @@ class MainPokeTableViewCell: UITableViewCell {
     @IBOutlet weak var detailLabel: UILabel!
     
     func setPokeCell(poke: Pokemon) {
+        // setting name label with pokemon name
         nameLabel.text = poke.name
-        detailLabel.text = poke.url
-    }
-    
-    func setSearchPokeCell(pokeSearch: Pokemon) {
-        nameLabel.text = pokeSearch.name
-        detailLabel.text = pokeSearch.url
-    }
-    
-    func setPokeImageCell(poke: Pokemon) {
-        let placeholderImage: UIImage = UIImage(named: "Placeholder")!
-        spriteImage.image = placeholderImage
         
+        // setting detail label with types
         Alamofire.request(poke.url).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
-                // get the sprites dictionary
-                guard let pokeSprite = jsonDict["sprites"] as? [String: String],
-                    // get one sprite link from the dictionary
-                    let frontSprite = pokeSprite["front_default"]
+                // get the pokemon types array
+                guard let pokeTypesArray = jsonDict["types"] as? [[String: Any]]
                     else {
                         return
                 }
-                
-                // get and display the sprite from the link
-                Alamofire.request(frontSprite).responseImage { response in
-                    if let img = response.result.value {
-                        self.spriteImage.image = img
-                    }
+                var arrayOfPokeTypes: [String] = []
+                // get all the types of the pokemon
+                for dic in pokeTypesArray {
+                    let pokeType = dic["type"] as? [String: String]
+                    let pokeTypeName = pokeType!["name"]
+                    
+                    // create an array with the types of the selected pokemon
+                    arrayOfPokeTypes.append(pokeTypeName!.capitalized)
+                    // concatenate the types into a single string
+                    let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
+                    
+                    // display the types in the View Controller
+                    self.detailLabel.text = selectedPokemonTypes
+                }
+            }
+        }
+        
+        // setting image
+        let placeholderImage: UIImage = UIImage(named: "Placeholder")!
+        spriteImage.image = placeholderImage
+        
+        // récupère l'id du pokemon dans l'url
+        if let pokeId = poke.url.split(separator: "/").last {
+            let frontSprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokeId).png"
+            // get and display the sprite from the image link + the pokemon id
+            Alamofire.request(frontSprite).responseImage { response in
+                if let img = response.result.value {
+                    self.spriteImage.image = img
                 }
             }
         }

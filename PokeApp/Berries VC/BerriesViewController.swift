@@ -11,8 +11,8 @@ import Alamofire
 
 class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var berriesArray = [Pokemon]()
-    var berriesFilteredArray = [Pokemon]()
+    var berriesArray = [Items]()
+    var berriesFilteredArray = [Items]()
     
     @IBOutlet weak var berryTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -26,7 +26,6 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.barStyle = .black
         searchController.searchBar.placeholder = "Search a berry"
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -37,6 +36,33 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         loadBerries()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // check from if dark theme is enabled
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        
+        // if dark theme is enabled, app theme will be dark, else it will be light
+        if darkSwitch == true {
+            darkTheme()
+            searchController.searchBar.barStyle = .black
+            loadingLabel.textColor = UIColor.white
+            berryActivityIndicator.color = UIColor.white
+            // table view separator color
+            berryTableView.separatorColor = UIColor.darkGray
+        } else {
+            lightTheme()
+            searchController.searchBar.barStyle = .default
+            loadingLabel.textColor = UIColor.black
+            berryActivityIndicator.color = UIColor.black
+            // table view separator color
+            berryTableView.separatorColor = UIColor.lightGray
+        }
+        
+        // auto deselect cell
+        if let index = self.berryTableView.indexPathForSelectedRow {
+            self.berryTableView.deselectRow(at: index, animated: true)
+        }
+    }
+    
     private func loadBerries() {
         // start activity indicator
         berryActivityIndicator.startAnimating()
@@ -44,10 +70,9 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         Alamofire.request(Constants.BerryApi.berryApi).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
                 if let berries = jsonDict["results"] as? [[String: Any]] {
-                    self.berriesArray = berries.map { pokeJson -> Pokemon in
-                        return Pokemon(pokeJson: pokeJson)!
+                    self.berriesArray = berries.map { pokeJson -> Items in
+                        return Items(pokeJson: pokeJson)!
                     }
-                    
                     // tell UITable View to reload UI from the berry array
                     self.berryTableView.reloadData()
                     
@@ -68,7 +93,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        berriesFilteredArray = berriesArray.filter({(berry : Pokemon) -> Bool in
+        berriesFilteredArray = berriesArray.filter({(berry : Items) -> Bool in
             return berry.name.lowercased().contains(searchText.lowercased())
         })
         berryTableView.reloadData()
@@ -89,13 +114,26 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         // create a real cell using the prototype
         let cell = tableView.dequeueReusableCell(withIdentifier: "berryCell" , for: indexPath) as! MainBerryTableViewCell
         
-        // change the selected cell background color
         let customSelectedCellColor = UIView()
-        customSelectedCellColor.backgroundColor = UIColor.darkGray
-        cell.selectedBackgroundView = customSelectedCellColor
+        // change background color and labels' color to match the app theme
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        if darkSwitch == true {
+            cell.nameLabel.textColor = UIColor.white
+            cell.detailLabel.textColor = UIColor.lightGray
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.darkGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
+        else {
+            cell.nameLabel.textColor = UIColor.black
+            cell.detailLabel.textColor = UIColor.darkGray
+            // change the selected cell background color
+            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            cell.selectedBackgroundView = customSelectedCellColor
+        }
         
         // fill the cell
-        let berry: Pokemon
+        let berry: Items
         if isFiltering() {
             berry = berriesFilteredArray[indexPath.row]
         }
@@ -106,13 +144,6 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    // auto deselect cell
-    override func viewWillAppear(_ animated: Bool) {
-        if let index = self.berryTableView.indexPathForSelectedRow {
-            self.berryTableView.deselectRow(at: index, animated: true)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check if it is the right destination View Controller
         if let detailBerry = segue.destination as? BerryInfoViewController {
@@ -121,7 +152,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 // get its index
                 let indexPath = berryTableView.indexPath(for: cell)
                 // get berry object at that index
-                let selectedBerry: Pokemon
+                let selectedBerry: Items
                 if isFiltering() {
                     selectedBerry = berriesFilteredArray[indexPath!.row]
                 }
@@ -138,16 +169,22 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
 class MainBerryTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var spriteImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
-    func setBerryCell(berry: Pokemon) {
+    func setBerryCell(berry: Items) {
         nameLabel.text = berry.name
         detailLabel.text = berry.url
-    }
-    
-    func setSearchBerryCell(berrySearch: Pokemon) {
-        nameLabel.text = berrySearch.name
-        detailLabel.text = berrySearch.url
+        
+        // add berry name in sprite url
+        let berryName = berry.name.lowercased().replacingOccurrences(of: " ", with: "-")
+        let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(berryName)-berry.png"
+        // get and display the sprite from the image link
+        Alamofire.request(sprite).responseImage { response in
+            if let img = response.result.value {
+                self.spriteImage.image = img
+            }
+        }
     }
 }

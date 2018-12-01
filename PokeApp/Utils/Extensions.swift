@@ -9,24 +9,59 @@
 import UIKit
 import Foundation
 
-extension Notification.Name {
-    static let darkModeEnabled = Notification.Name("net.sltch.vcoin.notifications.darkModeEnabled")
-    static let darkModeDisabled = Notification.Name("net.sltch.vcoin.notifications.darkModeDisabled")
+extension UIViewController {    
+    func darkTheme() {
+        // view background color
+        view.backgroundColor = Constants.Colors.gray28
+        
+        // navigation controller's background style, color and tint color
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = Constants.Colors.gray28
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
+        // tab bar controller's background style, color and tint color
+        tabBarController?.tabBar.barStyle = .black
+        tabBarController?.tabBar.barTintColor = Constants.Colors.gray28
+        tabBarController?.tabBar.tintColor = UIColor.white
+        
+        // search bar and keyboard
+        UISearchBar.appearance().tintColor = UIColor.white
+        UITextField.appearance().keyboardAppearance = .dark
+    }
+    
+    func lightTheme() {
+        // view background color
+        view.backgroundColor = Constants.Colors.light
+        
+        // navigation controller's background style, color and tint color
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.tintColor = UIColor.black
+        
+        // tab bar controller's background style, color and tint color
+        tabBarController?.tabBar.barStyle = .default
+        tabBarController?.tabBar.barTintColor = UIColor.white
+        tabBarController?.tabBar.tintColor = UIColor.black
+        
+        // search bar and keyboard
+        UISearchBar.appearance().tintColor = UIColor.black
+        UITextField.appearance().keyboardAppearance = .light
+    }
 }
-
-//extension UIViewController : UISearchControllerDelegate {
-//
-//    private func willPresentSearchController(_ searchController: UISearchController) {
-//        // update text color
-//        searchController.searchBar.textField?.textColor = .white
-//    }
-//}
 
 extension PokeViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
+//        let searchBar = searchController.searchBar
+//        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!)//, scope: scope)
     }
 }
+
+//extension PokeViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+//        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+//    }
+//}
 
 extension MovesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -47,7 +82,6 @@ extension ItemsViewController: UISearchResultsUpdating {
 }
 
 extension UIView {
-    
     // enables to apply cornerRadius on a few corners (not on every corner like layer.cornerRadius)
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
@@ -55,11 +89,9 @@ extension UIView {
         mask.path = path.cgPath
         self.layer.mask = mask
     }
-    
 }
 
 extension UIStackView {
-    
     @objc open class func animateVisibilityOfViews(visible: [UIView], hidden: [UIView], duration: TimeInterval = 0.25) {
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
             if !visible.isEmpty {
