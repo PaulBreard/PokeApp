@@ -9,7 +9,7 @@ iOS app based on pokeapi.co API
 - The detail label of the Pokémon list now shows Pokemon type instead of its detail link
 - Added berry sprite in berries list
 - Temporarily disabling "Show Shiny" button because of a bug
-- Temporarily removing the changelog page
+- Temporarily removing changelog
 - Data parsing has been completely rewritten
 - Other internal improvements 
 
