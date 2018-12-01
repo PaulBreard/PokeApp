@@ -59,6 +59,7 @@ iOS app based on pokeapi.co API
 
 ### 2.0
 - Added search bar
+- Added the Pokémon's moves list to the details view
 
 ### 1.2
 - Added "Show Shiny" button to display the Pokémon's shiny sprite
