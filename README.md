@@ -3,11 +3,18 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.1
+- Added berry sprite in berry details
+- Updated berry details (added units)
+- Resized item details' sprite
+- Now showing move's type instead of its link in the moves list
+- Internal improvements
+
 ### 5.0
-- Fixed missing Pokémon sprites
+- Fixed missing Pokémon's sprites
 - Fixed and finished light mode
-- The detail label of the Pokémon list now shows Pokemon type instead of its detail link
-- Added berry sprite in berries list
+- Now showing Pokemon's type instead of its detail link in the Pokémon list
+- Added berry's sprite in berries list
 - Temporarily disabling "Show Shiny" button because of a bug
 - Temporarily removing changelog
 - Added build number
@@ -57,7 +64,7 @@ iOS app based on pokeapi.co API
 
 ### 2.1
 - Redesigned Pokémon list with bigger custom cells
-- Added Pokémon sprites to the list
+- Added Pokémon sprite to the list
 
 ### 2.0
 - Added search bar

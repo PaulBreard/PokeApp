@@ -174,11 +174,18 @@ class MainMoveTableViewCell: UITableViewCell {
     
     func setMoveCell(move: Moves) {
         nameLabel.text = move.name
-        detailLabel.text = move.url
-    }
-    
-    func setSearchMoveCell(moveSearch: Moves) {
-        nameLabel.text = moveSearch.name
-        detailLabel.text = moveSearch.url
+        
+        // setting detail label with types
+        Alamofire.request(move.url).responseJSON { response in
+            if let jsonDict = response.result.value as? [String: Any] {
+                // get the pokemon types array
+                guard let moveType = jsonDict["type"] as? [String: Any],
+                    let moveTypeName = moveType["name"] as? String
+                    else {
+                        return
+                }
+                self.detailLabel.text = moveTypeName
+            }
+        }
     }
 }

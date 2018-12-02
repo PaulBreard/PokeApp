@@ -21,9 +21,9 @@ struct Items {
     
     // berries details
     var firmness: String?
-    var growthTime: Int?
+    var growthTime: String?
     var maxHarvest: Int?
-    var size: Int?
+    var size: String?
     var smoothness: Int?
     var giftPower: Int?
     var giftType: String?
@@ -97,7 +97,7 @@ struct Items {
             let berryFirmness = berryFirmnessArray["name"],
             let berryGrowthTime = jsonObject["growth_time"] as? Int? ?? 0,
             let berryMaxHarvest = jsonObject["max_harvest"] as? Int? ?? 0,
-            let berrySize = jsonObject["size"] as? Int? ?? 0,
+            let berrySize = jsonObject["size"] as? Double? ?? 0,
             let berrySmoothness = jsonObject["smoothness"] as? Int? ?? 0,
             let berryGiftPower = jsonObject["natural_gift_power"] as? Int? ?? 0,
             let berryGiftTypeArray = jsonObject["natural_gift_type"] as? [String: String],
@@ -106,9 +106,9 @@ struct Items {
                 return
         }
         firmness = berryFirmness.capitalized.replacingOccurrences(of: "-", with: " ")
-        growthTime = berryGrowthTime
+        growthTime = "\(berryGrowthTime) hours"
         maxHarvest = berryMaxHarvest
-        size = berrySize
+        size = "\(berrySize/10) cm"
         smoothness = berrySmoothness
         giftPower = berryGiftPower
         giftType = berryGiftType.capitalized

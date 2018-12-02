@@ -15,13 +15,9 @@ class ItemInfoViewController: UIViewController {
     var selectedItem: Items!
     
     @IBOutlet weak var itemImage: UIImageView!
-    @IBOutlet weak var blurImageView: UIView!
-    @IBOutlet weak var itemImageActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemInfoView: UIView!
-    @IBOutlet weak var itemCost: UILabel!
     @IBOutlet weak var itemCostLabel: UILabel!
-    @IBOutlet weak var attributes: UILabel!
     @IBOutlet weak var attributesLabel: UILabel!
     @IBOutlet weak var itemEffectLabel: UILabel!
     @IBOutlet weak var blurView: UIView!
@@ -39,9 +35,6 @@ class ItemInfoViewController: UIViewController {
         itemNameLabel.adjustsFontSizeToFitWidth = true
         itemNameLabel.lineBreakMode = .byClipping
         
-        // overlay on item image
-        self.blurImageView.alpha = 0.0
-        
         loadItemDetails()
     }
     
@@ -53,18 +46,14 @@ class ItemInfoViewController: UIViewController {
         if darkSwitch == true {
             darkTheme()
             itemNameLabel.textColor = UIColor.white
-            itemCost.textColor = UIColor.white
             itemCostLabel.textColor = UIColor.white
-            attributes.textColor = UIColor.white
             attributesLabel.textColor = UIColor.white
             itemEffectLabel.textColor = UIColor.white
             itemInfoView.backgroundColor = Constants.Colors.gray40
         } else {
             lightTheme()
             itemNameLabel.textColor = UIColor.black
-            itemCost.textColor = UIColor.black
             itemCostLabel.textColor = UIColor.black
-            attributes.textColor = UIColor.black
             attributesLabel.textColor = UIColor.black
             itemEffectLabel.textColor = UIColor.black
             itemInfoView.backgroundColor = UIColor.white
@@ -74,7 +63,6 @@ class ItemInfoViewController: UIViewController {
     func loadItemDetails() {
         // start activity indicator
         itemInfoActivityIndicator.startAnimating()
-        itemImageActivityIndicator.startAnimating()
         // blur overlay while loading data
         if !UIAccessibility.isReduceTransparencyEnabled {
             self.blurView.backgroundColor = .clear
@@ -99,10 +87,10 @@ class ItemInfoViewController: UIViewController {
                 self.selectedItem.setSprite(jsonObject: jsonDict)
                 
                 // display the item's cost
-                self.itemCostLabel.text = "₽\(self.selectedItem.cost!)"
+                self.itemCostLabel.attributedText = self.attributedText(withString: String(format: "Cost: %@", "₽\(self.selectedItem.cost!)"), regularString: "₽\(self.selectedItem.cost!)", font: self.itemCostLabel.font)
                 
                 // display the attributes in the View Controller, wrap text and set number of lines
-                self.attributesLabel.text = self.selectedItem.attributes!
+                self.attributesLabel.attributedText = self.attributedText(withString: String(format: "Attributes: %@", self.selectedItem.attributes!), regularString: self.selectedItem.attributes!, font: self.attributesLabel.font)
                 self.attributesLabel.lineBreakMode = .byWordWrapping
                 self.attributesLabel.numberOfLines = 0
                 
@@ -117,7 +105,6 @@ class ItemInfoViewController: UIViewController {
                         self.itemImage.image = img
                     }
                     // stop activity indicator
-                    self.itemImageActivityIndicator.stopAnimating()
                     self.itemInfoActivityIndicator.stopAnimating()
                     UIView.animate(withDuration: 0.6, animations: {
                         self.blurView.alpha = 0.0
@@ -126,6 +113,5 @@ class ItemInfoViewController: UIViewController {
                 }
             }
         }
-    }
-    
+    }    
 }

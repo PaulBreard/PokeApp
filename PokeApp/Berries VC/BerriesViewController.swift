@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 

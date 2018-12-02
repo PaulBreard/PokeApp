@@ -8,34 +8,30 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class BerryInfoViewController: UIViewController {
 
     var selectedBerry: Items!
     
+    @IBOutlet weak var berryImage: UIImageView!
+    @IBOutlet weak var berryNameLabel: UILabel!
+    @IBOutlet weak var berryInfoView: UIView!
+    @IBOutlet weak var firmnessLabel: UILabel!
+    @IBOutlet weak var growthTimeLabel: UILabel!
+    @IBOutlet weak var maxHarvestLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var smoothnessLabel: UILabel!
+    @IBOutlet weak var giftPowerLabel: UILabel!
+    @IBOutlet weak var giftTypeLabel: UILabel!
     @IBOutlet weak var blurView: UIView!
     @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var berryInfoActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var berryNameLabel: UILabel!
-    @IBOutlet weak var berryInfoView: UIView!
-    @IBOutlet weak var berryFirmness: UILabel!
-    @IBOutlet weak var berryFirmnessLabel: UILabel!
-    @IBOutlet weak var berryGrowthTime: UILabel!
-    @IBOutlet weak var berryGrowthTimeLabel: UILabel!
-    @IBOutlet weak var berryMaxHarvest: UILabel!
-    @IBOutlet weak var berryMaxHarvestLabel: UILabel!
-    @IBOutlet weak var berrySize: UILabel!
-    @IBOutlet weak var berrySizeLabel: UILabel!
-    @IBOutlet weak var berrySmoothness: UILabel!
-    @IBOutlet weak var berrySmoothnessLabel: UILabel!
-    @IBOutlet weak var berryGiftPower: UILabel!
-    @IBOutlet weak var berryGiftPowerLabel: UILabel!
-    @IBOutlet weak var berryGiftType: UILabel!
-    @IBOutlet weak var berryGiftTypeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // display berry name in the Navigation Bar title and a label
         self.title = selectedBerry.name
         self.berryNameLabel.text = selectedBerry.name
         
@@ -51,39 +47,25 @@ class BerryInfoViewController: UIViewController {
             darkTheme()
             berryInfoView.backgroundColor = Constants.Colors.gray40
             berryNameLabel.textColor = UIColor.white
-            berryFirmness.textColor = UIColor.white
-            berryFirmnessLabel.textColor = UIColor.white
-            berryGrowthTime.textColor = UIColor.white
-            berryGrowthTimeLabel.textColor = UIColor.white
-            berryMaxHarvest.textColor = UIColor.white
-            berryMaxHarvestLabel.textColor = UIColor.white
-            berrySize.textColor = UIColor.white
-            berrySizeLabel.textColor = UIColor.white
-            berrySmoothness.textColor = UIColor.white
-            berrySmoothnessLabel.textColor = UIColor.white
-            berryGiftPower.textColor = UIColor.white
-            berryGiftPowerLabel.textColor = UIColor.white
-            berryGiftType.textColor = UIColor.white
-            berryGiftTypeLabel.textColor = UIColor.white
+            firmnessLabel.textColor = UIColor.white
+            growthTimeLabel.textColor = UIColor.white
+            maxHarvestLabel.textColor = UIColor.white
+            sizeLabel.textColor = UIColor.white
+            smoothnessLabel.textColor = UIColor.white
+            giftPowerLabel.textColor = UIColor.white
+            giftTypeLabel.textColor = UIColor.white
         } else {
             lightTheme()
             berryInfoView.backgroundColor = UIColor.white
             berryNameLabel.textColor = UIColor.black
             berryNameLabel.textColor = UIColor.black
-            berryFirmness.textColor = UIColor.black
-            berryFirmnessLabel.textColor = UIColor.black
-            berryGrowthTime.textColor = UIColor.black
-            berryGrowthTimeLabel.textColor = UIColor.black
-            berryMaxHarvest.textColor = UIColor.black
-            berryMaxHarvestLabel.textColor = UIColor.black
-            berrySize.textColor = UIColor.black
-            berrySizeLabel.textColor = UIColor.black
-            berrySmoothness.textColor = UIColor.black
-            berrySmoothnessLabel.textColor = UIColor.black
-            berryGiftPower.textColor = UIColor.black
-            berryGiftPowerLabel.textColor = UIColor.black
-            berryGiftType.textColor = UIColor.black
-            berryGiftTypeLabel.textColor = UIColor.black
+            firmnessLabel.textColor = UIColor.black
+            growthTimeLabel.textColor = UIColor.black
+            maxHarvestLabel.textColor = UIColor.black
+            sizeLabel.textColor = UIColor.black
+            smoothnessLabel.textColor = UIColor.black
+            giftPowerLabel.textColor = UIColor.black
+            giftTypeLabel.textColor = UIColor.black
         }
     }
     
@@ -111,23 +93,36 @@ class BerryInfoViewController: UIViewController {
                 self.selectedBerry.setBerryInfo(jsonObject: jsonDict)
                 
                 // display the firmness, growth time, max harvest, size, smoothness, gift power and gift type of the berry
-                self.berryFirmnessLabel.text = self.selectedBerry.firmness!
-                self.berryGrowthTimeLabel.text = "\(self.selectedBerry.growthTime!)"
-                self.berryMaxHarvestLabel.text = "\(self.selectedBerry.maxHarvest!)"
-                self.berrySizeLabel.text = "\(self.selectedBerry.size!)"
-                self.berrySmoothnessLabel.text = "\(self.selectedBerry.smoothness!)"
-                self.berryGiftPowerLabel.text = "\(self.selectedBerry.giftPower!)"
-                self.berryGiftTypeLabel.text = self.selectedBerry.giftType!
+                self.firmnessLabel.attributedText = self.attributedText(withString: String(format: "Firmness: %@", self.selectedBerry.firmness!), regularString: self.selectedBerry.firmness!, font: self.firmnessLabel.font)
                 
-                // stop activity indicator
-                self.berryInfoActivityIndicator.stopAnimating()
-                UIView.animate(withDuration: 0.6, animations: {
-                    self.blurView.alpha = 0.0
-                    self.loadingLabel.isHidden = true
-                })
+                self.growthTimeLabel.attributedText = self.attributedText(withString: String(format: "Growth Time: %@", "\(self.selectedBerry.growthTime!)"), regularString: "\(self.selectedBerry.growthTime!)", font: self.growthTimeLabel.font)
+                
+                self.maxHarvestLabel.attributedText = self.attributedText(withString: String(format: "Max Harvest: %@", "\(self.selectedBerry.maxHarvest!)"), regularString: "\(self.selectedBerry.maxHarvest!)", font: self.maxHarvestLabel.font)
+                
+                self.sizeLabel.attributedText = self.attributedText(withString: String(format: "Size: %@", "\(self.selectedBerry.size!)"), regularString: "\(self.selectedBerry.size!)", font: self.sizeLabel.font)
+                
+                self.smoothnessLabel.attributedText = self.attributedText(withString: String(format: "Smoothness: %@", "\(self.selectedBerry.smoothness!)"), regularString: "\(self.selectedBerry.smoothness!)", font: self.smoothnessLabel.font)
+                
+                self.giftPowerLabel.attributedText = self.attributedText(withString: String(format: "Gift Power: %@", "\(self.selectedBerry.giftPower!)"), regularString: "\(self.selectedBerry.giftPower!)", font: self.giftPowerLabel.font)
+                
+                self.giftTypeLabel.attributedText = self.attributedText(withString: String(format: "Gift Type: %@", self.selectedBerry.giftType!), regularString: self.selectedBerry.giftType!, font: self.giftTypeLabel.font)
+                
+                // add berry name in sprite url
+                let berryName = self.selectedBerry.name.lowercased().replacingOccurrences(of: " ", with: "-")
+                let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(berryName)-berry.png"
+                // get and display the sprite from the image link
+                Alamofire.request(sprite).responseImage { response in
+                    if let img = response.result.value {
+                        self.berryImage.image = img
+                    }
+                    // stop activity indicator
+                    self.berryInfoActivityIndicator.stopAnimating()
+                    UIView.animate(withDuration: 0.6, animations: {
+                        self.blurView.alpha = 0.0
+                        self.loadingLabel.isHidden = true
+                    })
+                }
             }
         }
     }
-
-
 }

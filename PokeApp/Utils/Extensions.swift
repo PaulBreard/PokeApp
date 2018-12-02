@@ -47,6 +47,14 @@ extension UIViewController {
         UISearchBar.appearance().tintColor = UIColor.black
         UITextField.appearance().keyboardAppearance = .light
     }
+    
+    func attributedText(withString string: String, regularString: String, font: UIFont) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font: font])
+        let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize)]
+        let range = (string as NSString).range(of: regularString)
+        attributedString.addAttributes(boldFontAttribute, range: range)
+        return attributedString
+    }
 }
 
 extension PokeViewController: UISearchResultsUpdating {
