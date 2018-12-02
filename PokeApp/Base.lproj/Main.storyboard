@@ -621,6 +621,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="XpD-Se-RxK"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Hkn-cU-O2l" id="dOt-yH-hv8"/>
                         <outlet property="blurView" destination="SGo-MF-uJk" id="2sN-tH-kZA"/>
                         <outlet property="changeSpriteLabel" destination="Jjd-JB-5uE" id="jg4-cj-tTS"/>
                         <outlet property="loadingLabel" destination="y6W-H3-spD" id="r4S-vI-8bC"/>
@@ -630,7 +631,6 @@
                         <outlet property="pokeHeightLabel" destination="8RB-AM-ebo" id="iAX-2B-bvi"/>
                         <outlet property="pokeImage" destination="c8V-zg-LuF" id="goi-gk-WO3"/>
                         <outlet property="pokeImageActivityIndicator" destination="25O-cu-AME" id="NAE-VP-JAS"/>
-                        <outlet property="pokeInfoActivityIndicator" destination="Hkn-cU-O2l" id="AI7-zt-9fj"/>
                         <outlet property="pokeInfoView" destination="eCh-yW-Gbh" id="TYC-Zv-mxm"/>
                         <outlet property="pokeMoveTableView" destination="ZiQ-n2-0AZ" id="qFV-ps-tLj"/>
                         <outlet property="pokeMovesViewButton" destination="HBI-eg-Ywv" id="TQg-Iq-qcj"/>
@@ -1048,11 +1048,11 @@
                     <connections>
                         <outlet property="accuracy" destination="gW7-Az-XIO" id="o1J-Zo-roI"/>
                         <outlet property="accuracyLabel" destination="aeX-ON-4AR" id="yIL-pi-Ilr"/>
+                        <outlet property="activityIndicator" destination="6iU-Wa-yxb" id="pbU-o7-02f"/>
                         <outlet property="blurView" destination="IsF-sS-FEv" id="nBv-JZ-PbD"/>
                         <outlet property="damageClass" destination="NCE-B7-N3L" id="8qV-WK-Wf0"/>
                         <outlet property="damageClassLabel" destination="enn-9H-kPz" id="JXc-rb-1kk"/>
                         <outlet property="loadingLabel" destination="Zjf-zX-3nO" id="Hww-bQ-rWL"/>
-                        <outlet property="moveActivityIndicator" destination="6iU-Wa-yxb" id="gQG-49-0ht"/>
                         <outlet property="movePower" destination="wmt-0o-IgN" id="h4g-bc-hJS"/>
                         <outlet property="movePowerLabel" destination="RuQ-ri-fgX" id="MRn-Tn-cuh"/>
                         <outlet property="movePowerPoints" destination="QVR-gK-vDQ" id="mWK-eA-rkt"/>
@@ -1324,12 +1324,12 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="PWl-HU-ySq"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="qdB-dg-AyX" id="NHr-Ex-c3e"/>
                         <outlet property="attributesLabel" destination="8Sg-K2-Q9c" id="vcX-Tx-pcv"/>
                         <outlet property="blurView" destination="i6w-xS-uGT" id="apS-QD-1aE"/>
                         <outlet property="itemCostLabel" destination="QYM-4Y-qwP" id="dcw-IV-IWW"/>
                         <outlet property="itemEffectLabel" destination="g8N-id-B0b" id="5W4-lO-mwP"/>
                         <outlet property="itemImage" destination="1Mw-Dk-94D" id="lSX-Jr-CG8"/>
-                        <outlet property="itemInfoActivityIndicator" destination="qdB-dg-AyX" id="8Ru-kN-4ml"/>
                         <outlet property="itemInfoView" destination="142-ZV-i9p" id="NwG-VX-IAD"/>
                         <outlet property="itemNameLabel" destination="1KH-Dn-WnN" id="EE9-0N-bHF"/>
                         <outlet property="loadingLabel" destination="gWo-UX-NFQ" id="7V5-uY-UQG"/>
@@ -1497,8 +1497,8 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="iOt-FE-mes"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="3kq-uL-CbJ" id="Joz-hN-YuX"/>
                         <outlet property="berryImage" destination="89m-NY-09M" id="EiT-zR-Rfl"/>
-                        <outlet property="berryInfoActivityIndicator" destination="3kq-uL-CbJ" id="WvS-ih-bGF"/>
                         <outlet property="berryInfoView" destination="zIe-L6-82d" id="URB-m8-fd9"/>
                         <outlet property="berryNameLabel" destination="7OT-wX-y85" id="nQl-rN-YHo"/>
                         <outlet property="blurView" destination="6X9-1W-PRM" id="VC6-fj-rR5"/>

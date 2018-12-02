@@ -186,7 +186,7 @@ class MainBerryTableViewCell: UITableViewCell {
                     else {
                         return
                 }
-                self.detailLabel.text = berryFirmness
+                self.detailLabel.text = berryFirmness.capitalized.replacingOccurrences(of: "-", with: " ")
             }
         }
         

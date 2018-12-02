@@ -22,7 +22,7 @@ class ItemInfoViewController: UIViewController {
     @IBOutlet weak var itemEffectLabel: UILabel!
     @IBOutlet weak var blurView: UIView!
     @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet weak var itemInfoActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +50,9 @@ class ItemInfoViewController: UIViewController {
             attributesLabel.textColor = UIColor.white
             itemEffectLabel.textColor = UIColor.white
             itemInfoView.backgroundColor = Constants.Colors.gray40
+            // activity indicator
+            activityIndicator.color = UIColor.white
+            loadingLabel.textColor = UIColor.white
         } else {
             lightTheme()
             itemNameLabel.textColor = UIColor.black
@@ -57,23 +60,40 @@ class ItemInfoViewController: UIViewController {
             attributesLabel.textColor = UIColor.black
             itemEffectLabel.textColor = UIColor.black
             itemInfoView.backgroundColor = UIColor.white
+            // activity indicator
+            activityIndicator.color = UIColor.black
+            loadingLabel.textColor = UIColor.black
         }
     }
     
     func loadItemDetails() {
         // start activity indicator
-        itemInfoActivityIndicator.startAnimating()
+        activityIndicator.startAnimating()
         // blur overlay while loading data
+        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         if !UIAccessibility.isReduceTransparencyEnabled {
             self.blurView.backgroundColor = .clear
-            let blurEffect = UIBlurEffect(style: .dark)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            //always fill the view
-            blurEffectView.frame = self.blurView.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            self.blurView.addSubview(blurEffectView)
+            if darkSwitch == true {
+                let blurEffect = UIBlurEffect(style: .dark)
+                let blurEffectView = UIVisualEffectView(effect: blurEffect)
+                // always fill the view
+                blurEffectView.frame = self.blurView.bounds
+                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                self.blurView.addSubview(blurEffectView)
+            } else {
+                let blurEffect = UIBlurEffect(style: .light)
+                let blurEffectView = UIVisualEffectView(effect: blurEffect)
+                // always fill the view
+                blurEffectView.frame = self.blurView.bounds
+                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                self.blurView.addSubview(blurEffectView)
+            }
         } else {
-            self.blurView.backgroundColor = .black
+            if darkSwitch == true {
+                self.blurView.backgroundColor = Constants.Colors.gray28
+            } else {
+                self.blurView.backgroundColor = .white
+            }
         }
         
         // get the detail dictionary of the item from the url of the item
@@ -105,7 +125,7 @@ class ItemInfoViewController: UIViewController {
                         self.itemImage.image = img
                     }
                     // stop activity indicator
-                    self.itemInfoActivityIndicator.stopAnimating()
+                    self.activityIndicator.stopAnimating()
                     UIView.animate(withDuration: 0.6, animations: {
                         self.blurView.alpha = 0.0
                         self.loadingLabel.isHidden = true

@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-extension UIViewController {    
+extension UIViewController {
     func darkTheme() {
         // view background color
         view.backgroundColor = Constants.Colors.gray28

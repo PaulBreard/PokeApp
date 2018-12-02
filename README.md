@@ -3,6 +3,12 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.1.2
+- Capitalized berry's firmness type in the berries list
+- Replaced hyphens in berries name with blank spaces
+- Bug fixes on settings' page
+- Blur overlay while loading details pages now adapts to the theme mode
+
 ### 5.1.1
 - Now showing berry's firmness instead of its link in the berries list
 - Now showing item's cost instead of its link in the items list
