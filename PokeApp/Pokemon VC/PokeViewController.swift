@@ -38,7 +38,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         navigationItem.searchController = searchController
         definesPresentationContext = true
 //        // Setup the Scope Bar
-//        searchController.searchBar.scopeButtonTitles = ["All", "Poison", "Grass", "Fire", "Other", "Poison", "Grass", "Fire"]
+//        searchController.searchBar.scopeButtonTitles = ["All", "Poison", "Grass", "Fire"]
 //        searchController.searchBar.delegate = self
         
         // set the cell height
@@ -91,7 +91,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
 //                        }
 //                    }
                     // sort pokémon alphabetically
-                    //self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
+//                    self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
                     
                     // tell UITable View to reload UI from the poke array
                     self.pokeTableView.reloadData()
@@ -158,7 +158,6 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if darkSwitch == true {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
-//            cell.backgroundColor = Constants.Colors.gray28
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
@@ -166,7 +165,6 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
-//            cell.backgroundColor = Constants.Colors.light
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.lightGray
             cell.selectedBackgroundView = customSelectedCellColor
@@ -204,7 +202,6 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
-    
 }
 
 class MainPokeTableViewCell: UITableViewCell {

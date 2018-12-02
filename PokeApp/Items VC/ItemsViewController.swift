@@ -166,7 +166,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
 }
 
 class MainItemTableViewCell: UITableViewCell {
