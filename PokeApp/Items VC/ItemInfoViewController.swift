@@ -18,6 +18,7 @@ class ItemInfoViewController: UIViewController {
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemInfoView: UIView!
     @IBOutlet weak var itemCostLabel: UILabel!
+    @IBOutlet weak var itemCategoryLabel: UILabel!
     @IBOutlet weak var attributesLabel: UILabel!
     @IBOutlet weak var itemEffectLabel: UILabel!
     @IBOutlet weak var blurView: UIView!
@@ -47,6 +48,7 @@ class ItemInfoViewController: UIViewController {
             darkTheme()
             itemNameLabel.textColor = UIColor.white
             itemCostLabel.textColor = UIColor.white
+            itemCategoryLabel.textColor = UIColor.white
             attributesLabel.textColor = UIColor.white
             itemEffectLabel.textColor = UIColor.white
             itemInfoView.backgroundColor = Constants.Colors.gray40
@@ -57,6 +59,7 @@ class ItemInfoViewController: UIViewController {
             lightTheme()
             itemNameLabel.textColor = UIColor.black
             itemCostLabel.textColor = UIColor.black
+            itemCategoryLabel.textColor = UIColor.black
             attributesLabel.textColor = UIColor.black
             itemEffectLabel.textColor = UIColor.black
             itemInfoView.backgroundColor = UIColor.white
@@ -102,12 +105,16 @@ class ItemInfoViewController: UIViewController {
                 
                 // set the cost, attributes, description and sprite from jsonDict
                 self.selectedItem.setCost(jsonObject: jsonDict)
+                self.selectedItem.setCategory(jsonObject: jsonDict)
                 self.selectedItem.setAttributes(jsonObject: jsonDict)
                 self.selectedItem.setItemDescription(jsonObject: jsonDict)
                 self.selectedItem.setSprite(jsonObject: jsonDict)
                 
                 // display the item's cost
                 self.itemCostLabel.attributedText = self.attributedText(withString: String(format: "Cost: %@", self.selectedItem.cost!), regularString: self.selectedItem.cost!, font: self.itemCostLabel.font)
+                
+                // display the item's category
+                self.itemCategoryLabel.attributedText = self.attributedText(withString: String(format: "Category: %@", self.selectedItem.category!), regularString: self.selectedItem.category!, font: self.itemCategoryLabel.font)
                 
                 // display the attributes in the View Controller, wrap text and set number of lines
                 self.attributesLabel.attributedText = self.attributedText(withString: String(format: "Attributes: %@", self.selectedItem.attributes!), regularString: self.selectedItem.attributes!, font: self.attributesLabel.font)

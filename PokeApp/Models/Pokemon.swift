@@ -29,25 +29,17 @@ struct Pokemon {
         self.url = pokeUrl
     }
     
-    mutating func setDefaultSprites(jsonObject: [String: Any]) {
+    mutating func setSprites(jsonObject: [String: Any]) {
         // get the sprites dictionary
         guard let pokeSprite = jsonObject["sprites"] as? [String: Any],
             // get the default sprite's link from the dictionary
-            let frontSprite = pokeSprite["front_default"] as? String
+            let frontSprite = pokeSprite["front_default"] as? String? ?? "error",
+            // get the shiny sprite's link from the dictionary
+            let frontShinySprite = pokeSprite["front_shiny"] as? String? ?? "error"
             else {
                 return
         }
         defaultSprite = frontSprite
-    }
-    
-    mutating func setShinySprites(jsonObject: [String: Any]) {
-        // get the sprites dictionary
-        guard let pokeSprite = jsonObject["sprites"] as? [String: Any],
-            // get the shiny sprite's link from the dictionary
-            let frontShinySprite = pokeSprite["front_shiny"] as? String
-            else {
-                return
-        }
         shinySprite = frontShinySprite
     }
     

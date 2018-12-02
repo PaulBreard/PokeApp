@@ -14,6 +14,7 @@
 		DA3066F22183B15700459188 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3066F12183B15600459188 /* Assets.xcassets */; };
 		DA30AC9021B07856000DA614 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA30AC8F21B07856000DA614 /* Items.swift */; };
 		DA30AC9221B1CB49000DA614 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA30AC9121B1CB49000DA614 /* Moves.swift */; };
+		DA476E3621B4468400F20B50 /* PokeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA476E3421B4468400F20B50 /* PokeApp.xcdatamodeld */; };
 		DA82540821AACBCB00A009CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA82540721AACBCB00A009CC /* SettingsViewController.swift */; };
 		DA8F928321788D7D00FB11F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8F928221788D7D00FB11F8 /* Constants.swift */; };
 		DAB22DCB218E4F9700619BB1 /* ChangelogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DCA218E4F9700619BB1 /* ChangelogViewController.swift */; };
@@ -40,6 +41,7 @@
 		DA3066F12183B15600459188 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA30AC8F21B07856000DA614 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		DA30AC9121B1CB49000DA614 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
+		DA476E3521B4468400F20B50 /* PokeApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PokeApp.xcdatamodel; sourceTree = "<group>"; };
 		DA82540721AACBCB00A009CC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA8F928221788D7D00FB11F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DAB22DCA218E4F9700619BB1 /* ChangelogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangelogViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				DAD805C321762457004EF9C4 /* Main.storyboard */,
 				DAD805C82176245A004EF9C4 /* LaunchScreen.storyboard */,
 				DA3066F12183B15600459188 /* Assets.xcassets */,
+				DA476E3421B4468400F20B50 /* PokeApp.xcdatamodeld */,
 				DAD805CB2176245A004EF9C4 /* Info.plist */,
 			);
 			path = PokeApp;
@@ -311,6 +314,7 @@
 				DAB22DCD218E5F9E00619BB1 /* MovesViewController.swift in Sources */,
 				DA0C885C218CF8EA00EC4489 /* Extensions.swift in Sources */,
 				DA82540821AACBCB00A009CC /* SettingsViewController.swift in Sources */,
+				DA476E3621B4468400F20B50 /* PokeApp.xcdatamodeld in Sources */,
 				DAE958BD21892BBA0091A55A /* MoveInfoViewController.swift in Sources */,
 				DAB22DCB218E4F9700619BB1 /* ChangelogViewController.swift in Sources */,
 				DAB22DCF218E602700619BB1 /* BerriesViewController.swift in Sources */,
@@ -521,6 +525,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DA476E3421B4468400F20B50 /* PokeApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DA476E3521B4468400F20B50 /* PokeApp.xcdatamodel */,
+			);
+			currentVersion = DA476E3521B4468400F20B50 /* PokeApp.xcdatamodel */;
+			path = PokeApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DAD805B421762457004EF9C4 /* Project object */;
 }

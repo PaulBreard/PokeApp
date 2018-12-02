@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import CoreData
 
 class PokeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,6 +17,8 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // créer un tableau contenant les titres de section
     var pokeDict = [String: [Pokemon]]()
     var pokeSectionTitles = [String]()
+    
+//    var people: [NSManagedObject] = []
     
     var pokeArray = [Pokemon]()
     var pokeFilteredArray = [Pokemon]()

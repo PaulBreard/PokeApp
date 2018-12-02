@@ -16,7 +16,8 @@ struct Items {
     // items details
     var sprite: String?
     var cost: String?
-    var attributes: String?
+    var category: String?
+    var attributes: String? = "None"
     var description: String?
     
     // berries details
@@ -34,7 +35,7 @@ struct Items {
             else {
                 return nil
         }
-        self.name = itemName.capitalized.replacingOccurrences(of: "-", with: " ")
+        self.name = itemName.capitalized.replacingOccurrences(of: "-", with: " ").replacingOccurrences(of: "Tm", with: "TM").replacingOccurrences(of: "Hm", with: "HM")
         self.url = itemUrl
     }
     
@@ -56,6 +57,16 @@ struct Items {
                 return
         }
         cost = "₽\(itemCost)"
+    }
+    
+    mutating func setCategory(jsonObject: [String: Any]) {
+        // get the item's category
+        guard let itemCategory = jsonObject["category"] as? [String: Any],
+            let itemCategoryName = itemCategory["name"] as? String
+            else {
+                return
+        }
+        category = itemCategoryName.capitalized.replacingOccurrences(of: "-", with: " ")
     }
     
     mutating func setAttributes(jsonObject: [String: Any]) {

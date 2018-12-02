@@ -3,6 +3,14 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.2
+- Fixed "Show Shiny" button
+- Displaying an alert if a Pokémon does not have a shiny sprite
+- Added item's category in item details
+- Fixed crash when opening item details of an item that does not have attributes
+- Fixed crash when opening Pokémon details of a Pokémon that does not have a default sprite
+- Added placeholder in Pokémon details when the default Pokémon's sprite is missing
+
 ### 5.1.2
 - Capitalized berry's firmness type in the berries list
 - Replaced hyphens in berries name with blank spaces

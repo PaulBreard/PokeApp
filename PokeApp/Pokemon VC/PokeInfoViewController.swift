@@ -38,8 +38,6 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeSpriteLabel.isEnabled = false // disabling shiny button for now
-        
         // display pokemon name in the Navigation Bar title and a label
         self.title = selectedPokemon.name
         pokeNameLabel.text = selectedPokemon.name
@@ -56,6 +54,8 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         
         // hide pokemon moves table view
         self.pokeMoveTableView.isHidden = true
+        
+        pokeImageActivityIndicator.stopAnimating()
         
         loadPokemonDetails()
     }
@@ -94,6 +94,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         // activity indicator
         activityIndicator.color = UIColor.white
         loadingLabel.textColor = UIColor.white
+        pokeImageActivityIndicator.color = UIColor.white
         
         // table view separator and background color
         pokeMoveTableView.separatorColor = UIColor.darkGray
@@ -115,6 +116,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         // activity indicator
         activityIndicator.color = UIColor.black
         loadingLabel.textColor = UIColor.black
+        pokeImageActivityIndicator.color = UIColor.black
 
         // table view separator and background color
         pokeMoveTableView.separatorColor = UIColor.lightGray
@@ -124,7 +126,6 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     private func loadPokemonDetails() {
         // start activity indicator
         activityIndicator.startAnimating()
-        pokeImageActivityIndicator.startAnimating()
         // blur overlay while loading data
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         if !UIAccessibility.isReduceTransparencyEnabled {
@@ -157,19 +158,22 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
             if let jsonDict = response.result.value as? [String: Any] {
                 
                 // set the sprites, types, height, weight and abilities from jsonDict for the selected pokemon
-                self.selectedPokemon.setDefaultSprites(jsonObject: jsonDict)
+                self.selectedPokemon.setSprites(jsonObject: jsonDict)
                 self.selectedPokemon.setTypes(jsonObject: jsonDict)
                 self.selectedPokemon.setPhysicalAttributes(jsonObject: jsonDict)
                 self.selectedPokemon.setAbilities(jsonObject: jsonDict)
                 
                 // update UI from the selectedPokemon
                 // get and display the sprite from the link
-                Alamofire.request(self.selectedPokemon.defaultSprite!).responseImage { response in
-                    if let img = response.result.value {
-                        self.pokeImage.image = img
+                if self.selectedPokemon.defaultSprite! != "error" {
+                    Alamofire.request(self.selectedPokemon.defaultSprite!).responseImage { response in
+                        if let img = response.result.value {
+                            self.pokeImage.image = img
+                        }
                     }
-                    // stop activity indicator
-                    self.pokeImageActivityIndicator.stopAnimating()
+                } else {
+                    let placeholderImage: UIImage = UIImage(named: "Placeholder")!
+                    self.pokeImage.image = placeholderImage
                 }
                 // display the pokemon height and weight divided by 10 to obtain correct values
                 self.pokeHeightLabel.text = "\(self.selectedPokemon.height!/10) m"
@@ -232,21 +236,30 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         pokeImageActivityIndicator.startAnimating()
         
         if self.isShiny == false {
-            // get and display the shiny sprite from the link
-            Alamofire.request(self.selectedPokemon.shinySprite!).responseImage { response in
-                if let img = response.result.value {
-                    self.pokeImage.image = img
+            if self.selectedPokemon.shinySprite! == "error" {
+                pokeImageActivityIndicator.stopAnimating()
+                let alert = UIAlertController(title: "Not found 😟", message: "\(selectedPokemon.name) does not have a Shiny version.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                changeSpriteLabel.isEnabled = false
+                changeSpriteLabel.backgroundColor = UIColor.darkGray
+            } else {
+                // get and display the shiny sprite from the link
+                Alamofire.request(self.selectedPokemon.shinySprite!).responseImage { response in
+                    if let img = response.result.value {
+                        self.pokeImage.image = img
+                    }
+                    // stop activity indicator
+                    self.pokeImageActivityIndicator.stopAnimating()
                 }
-                // stop activity indicator
-                self.pokeImageActivityIndicator.stopAnimating()
+                // change the button's background color to default's color mode
+                self.changeSpriteLabel.backgroundColor = UIColor.darkGray
+                // change the button's text
+                self.changeSpriteLabel.setTitle("Show Default", for: .normal)
+                // add "Shiny" to the pokemon's name
+                self.pokeNameLabel.text = "Shiny \(self.selectedPokemon.name)"
+                self.isShiny = true
             }
-            // change the button's background color to default's color mode
-            self.changeSpriteLabel.backgroundColor = UIColor.darkGray
-            // change the button's text
-            self.changeSpriteLabel.setTitle("Show Default", for: .normal)
-            // add "Shiny" to the pokemon's name
-            self.pokeNameLabel.text = "Shiny \(self.selectedPokemon.name)"
-            self.isShiny = true
         } else {
             // get and display the default sprite from the link
             Alamofire.request(selectedPokemon.defaultSprite!).responseImage { response in
