@@ -75,7 +75,7 @@ class BerryInfoViewController: UIViewController {
         // blur overlay while loading data
         if !UIAccessibility.isReduceTransparencyEnabled {
             self.blurView.backgroundColor = .clear
-            let blurEffect = UIBlurEffect(style: .dark)
+            let blurEffect = UIBlurEffect(style: .light)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             // always fill the view
             blurEffectView.frame = self.blurView.bounds

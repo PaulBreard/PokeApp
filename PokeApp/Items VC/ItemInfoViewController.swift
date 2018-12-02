@@ -87,7 +87,7 @@ class ItemInfoViewController: UIViewController {
                 self.selectedItem.setSprite(jsonObject: jsonDict)
                 
                 // display the item's cost
-                self.itemCostLabel.attributedText = self.attributedText(withString: String(format: "Cost: %@", "₽\(self.selectedItem.cost!)"), regularString: "₽\(self.selectedItem.cost!)", font: self.itemCostLabel.font)
+                self.itemCostLabel.attributedText = self.attributedText(withString: String(format: "Cost: %@", self.selectedItem.cost!), regularString: self.selectedItem.cost!, font: self.itemCostLabel.font)
                 
                 // display the attributes in the View Controller, wrap text and set number of lines
                 self.attributesLabel.attributedText = self.attributedText(withString: String(format: "Attributes: %@", self.selectedItem.attributes!), regularString: self.selectedItem.attributes!, font: self.attributesLabel.font)

@@ -27,5 +27,4 @@ class HomeViewController: UIViewController {
             lightTheme()
         }
     }
-    
 }

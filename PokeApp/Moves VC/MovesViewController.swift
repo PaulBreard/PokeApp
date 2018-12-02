@@ -164,7 +164,6 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
 }
 
 class MainMoveTableViewCell: UITableViewCell {
@@ -175,16 +174,16 @@ class MainMoveTableViewCell: UITableViewCell {
     func setMoveCell(move: Moves) {
         nameLabel.text = move.name
         
-        // setting detail label with types
+        // setting detail label with type
         Alamofire.request(move.url).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
-                // get the pokemon types array
+                // get the move's type
                 guard let moveType = jsonDict["type"] as? [String: Any],
                     let moveTypeName = moveType["name"] as? String
                     else {
                         return
                 }
-                self.detailLabel.text = moveTypeName
+                self.detailLabel.text = moveTypeName.capitalized
             }
         }
     }

@@ -22,14 +22,14 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var pokeTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet weak var pokeActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pokeActivityIndicator.style = .whiteLarge
+        activityIndicator.style = .whiteLarge
         
         // setup the Search Controller
         searchController.searchResultsUpdater = self
@@ -56,14 +56,14 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             darkTheme()
             searchController.searchBar.barStyle = .black
             loadingLabel.textColor = UIColor.white
-            pokeActivityIndicator.color = UIColor.white
+            activityIndicator.color = UIColor.white
             // table view separator color
             pokeTableView.separatorColor = UIColor.darkGray
         } else {
             lightTheme()
             searchController.searchBar.barStyle = .default
             loadingLabel.textColor = UIColor.black
-            pokeActivityIndicator.color = UIColor.black
+            activityIndicator.color = UIColor.black
             // table view separator color
             pokeTableView.separatorColor = UIColor.lightGray
         }
@@ -76,7 +76,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func loadPokemon() {
         // start activity indicator
-        pokeActivityIndicator.startAnimating()
+        activityIndicator.startAnimating()
         
         Alamofire.request(Constants.PokeApi.pokeApi).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
@@ -99,7 +99,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.title = "\(self.pokeArray.count) Pokémon"
                 }
                 // stop activity indicator
-                self.pokeActivityIndicator.stopAnimating()
+                self.activityIndicator.stopAnimating()
                 UIView.animate(withDuration: 0.6, animations: {
                     self.loadingLabel.isHidden = true
                 })

@@ -176,7 +176,19 @@ class MainBerryTableViewCell: UITableViewCell {
     
     func setBerryCell(berry: Items) {
         nameLabel.text = berry.name
-        detailLabel.text = berry.url
+        
+        // setting detail label with firmness
+        Alamofire.request(berry.url).responseJSON { response in
+            if let jsonDict = response.result.value as? [String: Any] {
+                // get the berry's firmness
+                guard let berryFirmnessArray = jsonDict["firmness"] as? [String: String],
+                    let berryFirmness = berryFirmnessArray["name"]
+                    else {
+                        return
+                }
+                self.detailLabel.text = berryFirmness
+            }
+        }
         
         // add berry name in sprite url
         let berryName = berry.name.lowercased().replacingOccurrences(of: " ", with: "-")

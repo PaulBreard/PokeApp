@@ -13,6 +13,9 @@ class ChangelogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         // check from if dark theme is enabled
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         

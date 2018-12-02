@@ -15,7 +15,7 @@ struct Items {
     
     // items details
     var sprite: String?
-    var cost: Int?
+    var cost: String?
     var attributes: String?
     var description: String?
     
@@ -55,7 +55,7 @@ struct Items {
             else {
                 return
         }
-        cost = itemCost
+        cost = "₽\(itemCost)"
     }
     
     mutating func setAttributes(jsonObject: [String: Any]) {

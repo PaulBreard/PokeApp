@@ -176,11 +176,21 @@ class MainItemTableViewCell: UITableViewCell {
     
     func setItemCell(items: Items) {
         nameLabel.text = items.name
-        detailLabel.text = items.url
+        
+        // setting detail label with cost
+        Alamofire.request(items.url).responseJSON { response in
+            if let jsonDict = response.result.value as? [String: Any] {
+                // get the item's cost
+                guard let itemCost = jsonDict["cost"] as? Int
+                    else {
+                        return
+                }
+                self.detailLabel.text = "₽\(itemCost)"
+            }
+        }
 
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!
         spriteImage.image = placeholderImage
-        
         // add item name in sprite url
         let itemName = items.name.lowercased().replacingOccurrences(of: " ", with: "-")
         let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png"

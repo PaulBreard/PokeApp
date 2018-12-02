@@ -3,6 +3,12 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.1.1
+- Now showing berry's firmness instead of its link in the berries list
+- Now showing item's cost instead of its link in the items list
+- Capitalized move's type in the moves list
+- Minor improvements
+
 ### 5.1
 - Added berry sprite in berry details
 - Updated berry details (added units)
