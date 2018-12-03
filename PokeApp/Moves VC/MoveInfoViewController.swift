@@ -13,15 +13,10 @@ class MoveInfoViewController: UIViewController {
 
     @IBOutlet weak var pokeMoveNameLabel: UILabel!
     @IBOutlet weak var pokeMoveInfoView: UIView!
-    @IBOutlet weak var damageClass: UILabel!
     @IBOutlet weak var damageClassLabel: UILabel!
-    @IBOutlet weak var moveType: UILabel!
     @IBOutlet weak var moveTypeLabel: UILabel!
-    @IBOutlet weak var accuracy: UILabel!
     @IBOutlet weak var accuracyLabel: UILabel!
-    @IBOutlet weak var movePowerPoints: UILabel!
     @IBOutlet weak var movePowerPointsLabel: UILabel!
-    @IBOutlet weak var movePower: UILabel!
     @IBOutlet weak var movePowerLabel: UILabel!
     @IBOutlet weak var pokeMoveEffectLabel: UILabel!
     @IBOutlet weak var blurView: UIView!
@@ -36,6 +31,9 @@ class MoveInfoViewController: UIViewController {
         // display move name in a label and the Navigation Bar title
         pokeMoveNameLabel.text = selectedMove.name
         self.title = selectedMove.name
+        // adjusts font size of the name in the label to fit in the view if too long
+        pokeMoveNameLabel.adjustsFontSizeToFitWidth = true
+        pokeMoveNameLabel.lineBreakMode = .byClipping
         
         loadMoveDetails()
     }
@@ -56,15 +54,10 @@ class MoveInfoViewController: UIViewController {
     
     func darkThemePokeMove() {
         pokeMoveNameLabel.textColor = UIColor.white
-        damageClass.textColor = UIColor.white
         damageClassLabel.textColor = UIColor.white
-        moveType.textColor = UIColor.white
         moveTypeLabel.textColor = UIColor.white
-        accuracy.textColor = UIColor.white
         accuracyLabel.textColor = UIColor.white
-        movePowerPoints.textColor = UIColor.white
         movePowerPointsLabel.textColor = UIColor.white
-        movePower.textColor = UIColor.white
         movePowerLabel.textColor = UIColor.white
         pokeMoveEffectLabel.textColor = UIColor.white
         
@@ -77,15 +70,10 @@ class MoveInfoViewController: UIViewController {
     
     func lightThemePokeMove() {
         pokeMoveNameLabel.textColor = UIColor.black
-        damageClass.textColor = UIColor.black
         damageClassLabel.textColor = UIColor.black
-        moveType.textColor = UIColor.black
         moveTypeLabel.textColor = UIColor.black
-        accuracy.textColor = UIColor.black
         accuracyLabel.textColor = UIColor.black
-        movePowerPoints.textColor = UIColor.black
         movePowerPointsLabel.textColor = UIColor.black
-        movePower.textColor = UIColor.black
         movePowerLabel.textColor = UIColor.black
         pokeMoveEffectLabel.textColor = UIColor.black
         
@@ -135,11 +123,15 @@ class MoveInfoViewController: UIViewController {
                 self.selectedMove.setMoveEffect(jsonObject: jsonDict)
                 
                 // display damage class, type, accuracy percentage, power points number and power score
-                self.damageClassLabel.text = self.selectedMove.damage!.capitalized
-                self.moveTypeLabel.text = self.selectedMove.type!.capitalized
-                self.accuracyLabel.text = "\(self.selectedMove.accuracy!)%"
-                self.movePowerPointsLabel.text = "\(self.selectedMove.powerPoints!)"
-                self.movePowerLabel.text = "\(self.selectedMove.power!)"
+                self.damageClassLabel.attributedText = self.attributedText(withString: String(format: "Damage Class: %@", self.selectedMove.damage!), regularString: self.selectedMove.damage!, font: self.damageClassLabel.font)
+                
+                self.moveTypeLabel.attributedText = self.attributedText(withString: String(format: "Type: %@", self.selectedMove.type!), regularString: self.selectedMove.type!, font: self.moveTypeLabel.font)
+                
+                 self.accuracyLabel.attributedText = self.attributedText(withString: String(format: "Accuracy: %@", self.selectedMove.accuracy!), regularString: self.selectedMove.accuracy!, font: self.accuracyLabel.font)
+                
+                self.movePowerPointsLabel.attributedText = self.attributedText(withString: String(format: "Power Points: %@", self.selectedMove.powerPoints!), regularString: self.selectedMove.powerPoints!, font: self.movePowerPointsLabel.font)
+                
+                self.movePowerLabel.attributedText = self.attributedText(withString: String(format: "Power: %@", self.selectedMove.power!), regularString: self.selectedMove.power!, font: self.movePowerLabel.font)
                 
                 // display the move's effect with its chance
                 self.pokeMoveEffectLabel.text = self.selectedMove.effect!
@@ -156,5 +148,4 @@ class MoveInfoViewController: UIViewController {
             }
         }
     }
-    
 }

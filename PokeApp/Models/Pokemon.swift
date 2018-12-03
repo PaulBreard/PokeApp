@@ -11,8 +11,8 @@ import Foundation
 struct Pokemon {
     let name: String
     let url: String
-    var height: Double?
-    var weight: Double?
+    var height: String?
+    var weight: String?
     var defaultSprite: String?
     var shinySprite: String? = "error"
     var types: String?
@@ -71,8 +71,9 @@ struct Pokemon {
             else {
                 return
         }
-        height = pokeHeight
-        weight = pokeWeight
+        // divided by 10 to obtain correct values
+        height = "\(pokeHeight/10) m"
+        weight = "\(pokeWeight/10) kg"
     }
     
     mutating func setAbilities(jsonObject: [String: Any]) {

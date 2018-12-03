@@ -74,7 +74,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     self.itemsArray = items.map { pokeJson -> Items in
                         return Items(pokeJson: pokeJson)!
                     }
-                    
                     // tell UITable View to reload UI from the items array
                     self.itemTableView.reloadData()
                     
@@ -191,8 +190,20 @@ class MainItemTableViewCell: UITableViewCell {
 
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!
         spriteImage.image = placeholderImage
+        
+        var itemName = items.name.lowercased().replacingOccurrences(of: " ", with: "-")
+        if itemName.contains("tm") {
+            itemName = itemName.replacingOccurrences(of: itemName, with: "tm-normal")
+            // add item name in sprite url
+            let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png"
+            // get and display the sprite from the image link
+            Alamofire.request(sprite).responseImage { response in
+                if let img = response.result.value {
+                    self.spriteImage.image = img
+                }
+            }
+        }
         // add item name in sprite url
-        let itemName = items.name.lowercased().replacingOccurrences(of: " ", with: "-")
         let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png"
         // get and display the sprite from the image link
         Alamofire.request(sprite).responseImage { response in

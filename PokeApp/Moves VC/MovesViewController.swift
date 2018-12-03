@@ -13,10 +13,12 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var movesArray = [Moves]()
     var movesFilteredArray = [Moves]()
+    var isSortedAZ: Bool = false
     
     @IBOutlet weak var moveTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var moveActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var sortButton: UIBarButtonItem!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -85,6 +87,20 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 })
             }
         }
+    }
+    
+    @IBAction func sortMoves(_ sender: Any) {
+        if isSortedAZ == false {
+            // sort moves alphabetically
+            movesArray = movesArray.sorted { $0.name < $1.name }
+            sortButton.title = "Sort A-Z"
+            isSortedAZ = true
+        } else {
+            movesArray = movesArray.sorted { $0.name > $1.name }
+            sortButton.title = "Sort Z-A"
+            isSortedAZ = false
+        }
+        moveTableView.reloadData()
     }
     
     func searchBarIsEmpty() -> Bool {

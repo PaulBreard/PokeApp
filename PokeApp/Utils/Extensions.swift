@@ -48,6 +48,7 @@ extension UIViewController {
         UITextField.appearance().keyboardAppearance = .light
     }
     
+    // attributed string to allow labels to have different styles inside one label
     func attributedText(withString string: String, regularString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string, attributes: [NSAttributedString.Key.font: font])
         let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font.pointSize)]
@@ -59,17 +60,9 @@ extension UIViewController {
 
 extension PokeViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-//        let searchBar = searchController.searchBar
-//        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchController.searchBar.text!)//, scope: scope)
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
-
-//extension PokeViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-//        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-//    }
-//}
 
 extension MovesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

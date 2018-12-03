@@ -13,14 +13,10 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var darkSwitch: UISwitch!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var themeModeCell: UITableViewCell!
-    @IBOutlet weak var otherThemeOptionCell: UITableViewCell!
     @IBOutlet weak var comingSoonCell: UITableViewCell!
     @IBOutlet weak var versionCell: UITableViewCell!
-    @IBOutlet weak var changelogCell: UITableViewCell!
     @IBOutlet weak var themeModeLabel: UILabel!
-    @IBOutlet weak var otherThemeOptionLabel: UILabel!
     @IBOutlet weak var comingSoonLabel: UILabel!
-    @IBOutlet weak var changelogLabel: UILabel!
     
     let customSelectedCellColor = UIView()
     
@@ -55,21 +51,13 @@ class SettingsTableViewController: UITableViewController {
 
         // cells background color
         themeModeCell.backgroundColor = Constants.Colors.gray40
-        otherThemeOptionCell.backgroundColor = Constants.Colors.gray40
         comingSoonCell.backgroundColor = Constants.Colors.gray40
         versionCell.backgroundColor = Constants.Colors.gray40
-        changelogCell.backgroundColor = Constants.Colors.gray40
 
         // cell text color
         themeModeLabel.textColor = UIColor.white
-        otherThemeOptionLabel.textColor = UIColor.white
         comingSoonLabel.textColor = UIColor.white
         appVersionLabel.textColor = UIColor.white
-        changelogLabel.textColor = UIColor.white
-    
-        // change the selected cell background color
-        customSelectedCellColor.backgroundColor = UIColor.darkGray
-        changelogCell.selectedBackgroundView = customSelectedCellColor
     }
     
     func lightThemeSettings() {
@@ -78,21 +66,13 @@ class SettingsTableViewController: UITableViewController {
 
         // cells background color
         themeModeCell.backgroundColor = UIColor.white
-        otherThemeOptionCell.backgroundColor = UIColor.white
         comingSoonCell.backgroundColor = UIColor.white
         versionCell.backgroundColor = UIColor.white
-        changelogCell.backgroundColor = UIColor.white
 
         // cell text color
         themeModeLabel.textColor = UIColor.black
-        otherThemeOptionLabel.textColor = UIColor.black
         comingSoonLabel.textColor = UIColor.black
         appVersionLabel.textColor = UIColor.black
-        changelogLabel.textColor = UIColor.black
-
-        // change the selected cell background color
-        customSelectedCellColor.backgroundColor = UIColor.lightGray
-        changelogCell.selectedBackgroundView = customSelectedCellColor
     }
     
     @IBAction func changeMode(_ sender: UISwitch) {

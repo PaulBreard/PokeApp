@@ -13,9 +13,9 @@ struct Moves {
     var url: String
     var damage: String?
     var type: String?
-    var accuracy: Int?
-    var powerPoints: Int?
-    var power: Int?
+    var accuracy: String?
+    var powerPoints: String?
+    var power: String?
     var effect: String?
     
     init?(pokeJson: [String: Any]) {
@@ -53,11 +53,11 @@ struct Moves {
             else {
                 return
         }
-        damage = damageClass
-        type = moveType
-        accuracy = moveAccuracy
-        powerPoints = movePowerPoints
-        power = movePower
+        damage = damageClass.capitalized
+        type = moveType.capitalized
+        accuracy = "\(moveAccuracy)%"
+        powerPoints = "\(movePowerPoints)"
+        power = "\(movePower)"
     }
     
     mutating func setMoveEffect(jsonObject : [String: Any]) {

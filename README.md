@@ -3,6 +3,10 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.2.1
+- Added option to sort Pokémon alphabetically
+- Cleaned code
+
 ### 5.2
 - Fixed "Show Shiny" button
 - Displaying an alert if a Pokémon does not have a shiny sprite

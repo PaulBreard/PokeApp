@@ -18,15 +18,11 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet weak var pokeNameLabel: UILabel!
     @IBOutlet weak var pokeTypeLabel: UILabel!
-    @IBOutlet weak var typeOrTypesLabel: UILabel!
     @IBOutlet weak var pokeImage: UIImageView!
     @IBOutlet weak var pokeImageActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var pokeInfoView: UIView!
-    @IBOutlet weak var pokeHeight: UILabel!
     @IBOutlet weak var pokeHeightLabel: UILabel!
-    @IBOutlet weak var pokeWeight: UILabel!
     @IBOutlet weak var pokeWeightLabel: UILabel!
-    @IBOutlet weak var pokeAbilities: UILabel!
     @IBOutlet weak var pokeAbilitiesLabel: UILabel!
     @IBOutlet weak var changeSpriteLabel: UIButton!
     @IBOutlet weak var pokeMovesViewButton: UIButton!
@@ -81,13 +77,9 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     
     func darkThemePoke() {
         pokeNameLabel.textColor = UIColor.white
-        typeOrTypesLabel.textColor = UIColor.white
         pokeTypeLabel.textColor = UIColor.white
-        pokeHeight.textColor = UIColor.white
         pokeHeightLabel.textColor = UIColor.white
-        pokeWeight.textColor = UIColor.white
         pokeWeightLabel.textColor = UIColor.white
-        pokeAbilities.textColor = UIColor.white
         pokeAbilitiesLabel.textColor = UIColor.white
         pokeInfoView.backgroundColor = Constants.Colors.gray40
 
@@ -103,13 +95,9 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     
     func lightThemePoke() {
         pokeNameLabel.textColor = UIColor.black
-        typeOrTypesLabel.textColor = UIColor.black
         pokeTypeLabel.textColor = UIColor.black
-        pokeHeight.textColor = UIColor.black
         pokeHeightLabel.textColor = UIColor.black
-        pokeWeight.textColor = UIColor.black
         pokeWeightLabel.textColor = UIColor.black
-        pokeAbilities.textColor = UIColor.black
         pokeAbilitiesLabel.textColor = UIColor.black
         pokeInfoView.backgroundColor = UIColor.white
         
@@ -175,20 +163,16 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
                     let placeholderImage: UIImage = UIImage(named: "Placeholder")!
                     self.pokeImage.image = placeholderImage
                 }
-                // display the pokemon height and weight divided by 10 to obtain correct values
-                self.pokeHeightLabel.text = "\(self.selectedPokemon.height!/10) m"
-                self.pokeWeightLabel.text = "\(self.selectedPokemon.weight!/10) kg"
-                // display the types in the View Controller
-                self.pokeTypeLabel.text = self.selectedPokemon.types!
-                // writes Types when pokemon has several types and Type when it has only one
-                if self.selectedPokemon.typeOrTypes! > 1 {
-                    self.typeOrTypesLabel.text = "Types:"
-                }
-                else {
-                    self.typeOrTypesLabel.text = "Type:"
-                }
-                // display the abilities in the View Controller
-                self.pokeAbilitiesLabel.text = self.selectedPokemon.abilities!
+                // display the pokemon height and weight
+                self.pokeHeightLabel.attributedText = self.attributedText(withString: String(format: "Height: %@", self.selectedPokemon.height!), regularString: self.selectedPokemon.height!, font: self.pokeHeightLabel.font)
+                
+                self.pokeWeightLabel.attributedText = self.attributedText(withString: String(format: "Weight: %@", self.selectedPokemon.weight!), regularString: self.selectedPokemon.weight!, font: self.pokeWeightLabel.font)
+                
+                // display the types
+                self.pokeTypeLabel.attributedText = self.attributedText(withString: String(format: self.typeTypes(), self.selectedPokemon.types!), regularString: self.selectedPokemon.types!, font: self.pokeTypeLabel.font)
+                
+                // display the abilities
+                self.pokeAbilitiesLabel.attributedText = self.attributedText(withString: String(format: "Abilities: %@", self.selectedPokemon.abilities!), regularString: self.selectedPokemon.abilities!, font: self.pokeAbilitiesLabel.font)
                 self.pokeAbilitiesLabel.lineBreakMode = .byWordWrapping
                 self.pokeAbilitiesLabel.numberOfLines = 0
                 
@@ -215,6 +199,18 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
                     self.loadingLabel.isHidden = true
                 })
             }
+        }
+    }
+    
+    func typeTypes() -> String {
+        // writes Types when pokemon has several types and Type when it has only one
+        if self.selectedPokemon.typeOrTypes! > 1 {
+            let typeOrTypes = "Types: %@"
+            return typeOrTypes
+        }
+        else {
+            let typeOrTypes = "Type: %@"
+            return typeOrTypes
         }
     }
     

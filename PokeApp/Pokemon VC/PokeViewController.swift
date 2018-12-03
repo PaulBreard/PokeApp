@@ -18,14 +18,14 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var pokeDict = [String: [Pokemon]]()
     var pokeSectionTitles = [String]()
     
-//    var people: [NSManagedObject] = []
-    
     var pokeArray = [Pokemon]()
     var pokeFilteredArray = [Pokemon]()
+    var isSortedAZ: Bool = false
     
     @IBOutlet weak var pokeTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var sortButton: UIBarButtonItem!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -34,16 +34,13 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         activityIndicator.style = .whiteLarge
         
-        // setup the Search Controller
+        // setup the search sontroller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search a Pokémon"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-//        // Setup the Scope Bar
-//        searchController.searchBar.scopeButtonTitles = ["All", "Poison", "Grass", "Fire"]
-//        searchController.searchBar.delegate = self
-        
+
         // set the cell height
         self.pokeTableView.rowHeight = 71.0
         
@@ -87,14 +84,8 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.pokeArray = pokemons.map { pokeJson -> Pokemon in
                         return Pokemon(pokeJson: pokeJson)!
                     }
-//                    for pokemon in self.pokeArray {
-//                        let pokeKey = self.pokeArray.prefix(1)
-//                        if var pokeValues = pokeDict[pokeKey] {
-//
-//                        }
-//                    }
                     // sort pokémon alphabetically
-//                    self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
+                    // self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
                     
                     // tell UITable View to reload UI from the poke array
                     self.pokeTableView.reloadData()
@@ -110,6 +101,20 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    @IBAction func sortPokemon(_ sender: Any) {
+        if isSortedAZ == false {
+            // sort pokémon alphabetically
+            pokeArray = pokeArray.sorted { $0.name < $1.name }
+            sortButton.title = "Sort by ID"
+            isSortedAZ = true
+        } else {
+            pokeArray = pokeArray.sorted { $0.url.split(separator: "/").last! < $1.url.split(separator: "/").last! }
+            sortButton.title = "Sort A-Z"
+            isSortedAZ = false
+        }
+        pokeTableView.reloadData()
+    }
+    
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
@@ -117,13 +122,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         pokeFilteredArray = pokeArray.filter({(poke : Pokemon) -> Bool in
-            let doesCategoryMatch = (scope == "All") //|| ("Poison" == scope)
-            
-            if searchBarIsEmpty() {
-                return doesCategoryMatch
-            } else {
-                return doesCategoryMatch && poke.name.lowercased().contains(searchText.lowercased())
-            }
+            return poke.name.lowercased().contains(searchText.lowercased())
         })
         pokeTableView.reloadData()
     }
@@ -140,16 +139,6 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return pokeArray.count
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerLabel = UILabel()
-//        headerLabel.text = "A"
-//        return headerLabel
-//    }
-    
-//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        <#code#>
-//    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a real cell using the prototype
@@ -216,31 +205,31 @@ class MainPokeTableViewCell: UITableViewCell {
     func setPokeCell(poke: Pokemon) {
         // setting name label with pokemon name
         nameLabel.text = poke.name
-        
-        // setting detail label with types
-        Alamofire.request(poke.url).responseJSON { response in
-            if let jsonDict = response.result.value as? [String: Any] {
-                // get the pokemon types array
-                guard let pokeTypesArray = jsonDict["types"] as? [[String: Any]]
-                    else {
-                        return
-                }
-                var arrayOfPokeTypes: [String] = []
-                // get all the types of the pokemon
-                for dic in pokeTypesArray {
-                    let pokeType = dic["type"] as? [String: String]
-                    let pokeTypeName = pokeType!["name"]
-                    
-                    // create an array with the types of the selected pokemon
-                    arrayOfPokeTypes.append(pokeTypeName!.capitalized)
-                    // concatenate the types into a single string
-                    let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
-                    
-                    // display the types in the View Controller
-                    self.detailLabel.text = selectedPokemonTypes
-                }
-            }
-        }
+        detailLabel.text = poke.url
+//        // setting detail label with types
+//        Alamofire.request(poke.url).responseJSON { response in
+//            if let jsonDict = response.result.value as? [String: Any] {
+//                // get the pokemon types array
+//                guard let pokeTypesArray = jsonDict["types"] as? [[String: Any]]
+//                    else {
+//                        return
+//                }
+//                var arrayOfPokeTypes: [String] = []
+//                // get all the types of the pokemon
+//                for dic in pokeTypesArray {
+//                    let pokeType = dic["type"] as? [String: String]
+//                    let pokeTypeName = pokeType!["name"]
+//
+//                    // create an array with the types of the selected pokemon
+//                    arrayOfPokeTypes.append(pokeTypeName!.capitalized)
+//                    // concatenate the types into a single string
+//                    let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
+//
+//                    // display the types in the View Controller
+//                    self.detailLabel.text = selectedPokemonTypes
+//                }
+//            }
+//        }
         
         // setting image
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!

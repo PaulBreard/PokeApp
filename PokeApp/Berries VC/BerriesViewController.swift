@@ -93,7 +93,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String) {
         berriesFilteredArray = berriesArray.filter({(berry : Items) -> Bool in
             return berry.name.lowercased().contains(searchText.lowercased())
         })
