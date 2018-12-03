@@ -11,6 +11,7 @@ import Foundation
 struct Pokemon {
     let name: String
     let url: String
+    let id: Int
     var height: String?
     var weight: String?
     var defaultSprite: String?
@@ -25,8 +26,9 @@ struct Pokemon {
             else {
                 return nil
         }
-        self.name = pokeName.capitalized.replacingOccurrences(of: "Nidoran-M", with: "Nidoran ♂").replacingOccurrences(of: "Nidoran-F", with: "Nidoran ♀").replacingOccurrences(of: "-", with: " ")
-        self.url = pokeUrl
+        name = pokeName.capitalized.replacingOccurrences(of: "Nidoran-M", with: "Nidoran ♂").replacingOccurrences(of: "Nidoran-F", with: "Nidoran ♀").replacingOccurrences(of: "-", with: " ")
+        url = pokeUrl
+        id = Int(url.split(separator: "/").last!)!
     }
     
     mutating func setSprites(jsonObject: [String: Any]) {

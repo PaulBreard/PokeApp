@@ -49,7 +49,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
             loadingLabel.textColor = UIColor.white
             moveActivityIndicator.color = UIColor.white
             // table view separator color
-            moveTableView.separatorColor = UIColor.darkGray
+            moveTableView.separatorColor = Constants.Colors.gray40
         } else {
             lightTheme()
             searchController.searchBar.barStyle = .default
@@ -58,6 +58,8 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // table view separator color
             moveTableView.separatorColor = UIColor.lightGray
         }
+        // update table view UI
+        moveTableView.reloadData()
         
         // auto deselect cell
         if let index = self.moveTableView.indexPathForSelectedRow {
@@ -93,10 +95,10 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if isSortedAZ == false {
             // sort moves alphabetically
             movesArray = movesArray.sorted { $0.name < $1.name }
-            sortButton.title = "Sort A-Z"
+            sortButton.title = "Sort by ID"
             isSortedAZ = true
         } else {
-            movesArray = movesArray.sorted { $0.name > $1.name }
+            movesArray = movesArray.sorted { $0.id < $1.id }
             sortButton.title = "Sort Z-A"
             isSortedAZ = false
         }
@@ -136,6 +138,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if darkSwitch == true {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
+            cell.backgroundColor = Constants.Colors.gray28
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
@@ -143,8 +146,9 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
+            cell.backgroundColor = Constants.Colors.light
             // change the selected cell background color
-            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            customSelectedCellColor.backgroundColor = Constants.Colors.light200
             cell.selectedBackgroundView = customSelectedCellColor
         }
         

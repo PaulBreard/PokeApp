@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import AlamofireImage
-import CoreData
 
 class PokeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -58,7 +57,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             loadingLabel.textColor = UIColor.white
             activityIndicator.color = UIColor.white
             // table view separator color
-            pokeTableView.separatorColor = UIColor.darkGray
+            pokeTableView.separatorColor = Constants.Colors.gray40
         } else {
             lightTheme()
             searchController.searchBar.barStyle = .default
@@ -67,6 +66,8 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             // table view separator color
             pokeTableView.separatorColor = UIColor.lightGray
         }
+        // update table view UI
+        pokeTableView.reloadData()
         
         // auto deselect cell
         if let index = self.pokeTableView.indexPathForSelectedRow {
@@ -108,7 +109,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             sortButton.title = "Sort by ID"
             isSortedAZ = true
         } else {
-            pokeArray = pokeArray.sorted { $0.url.split(separator: "/").last! < $1.url.split(separator: "/").last! }
+            pokeArray = pokeArray.sorted { $0.id < $1.id }
             sortButton.title = "Sort A-Z"
             isSortedAZ = false
         }
@@ -150,6 +151,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if darkSwitch == true {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
+            cell.backgroundColor = Constants.Colors.gray28
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
@@ -157,8 +159,9 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
+            cell.backgroundColor = Constants.Colors.light
             // change the selected cell background color
-            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            customSelectedCellColor.backgroundColor = Constants.Colors.light200
             cell.selectedBackgroundView = customSelectedCellColor
         }
         
@@ -205,31 +208,31 @@ class MainPokeTableViewCell: UITableViewCell {
     func setPokeCell(poke: Pokemon) {
         // setting name label with pokemon name
         nameLabel.text = poke.name
-        detailLabel.text = poke.url
-//        // setting detail label with types
-//        Alamofire.request(poke.url).responseJSON { response in
-//            if let jsonDict = response.result.value as? [String: Any] {
-//                // get the pokemon types array
-//                guard let pokeTypesArray = jsonDict["types"] as? [[String: Any]]
-//                    else {
-//                        return
-//                }
-//                var arrayOfPokeTypes: [String] = []
-//                // get all the types of the pokemon
-//                for dic in pokeTypesArray {
-//                    let pokeType = dic["type"] as? [String: String]
-//                    let pokeTypeName = pokeType!["name"]
-//
-//                    // create an array with the types of the selected pokemon
-//                    arrayOfPokeTypes.append(pokeTypeName!.capitalized)
-//                    // concatenate the types into a single string
-//                    let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
-//
-//                    // display the types in the View Controller
-//                    self.detailLabel.text = selectedPokemonTypes
-//                }
-//            }
-//        }
+        
+        // setting detail label with types
+        Alamofire.request(poke.url).responseJSON { response in
+            if let jsonDict = response.result.value as? [String: Any] {
+                // get the pokemon types array
+                guard let pokeTypesArray = jsonDict["types"] as? [[String: Any]]
+                    else {
+                        return
+                }
+                var arrayOfPokeTypes: [String] = []
+                // get all the types of the pokemon
+                for dic in pokeTypesArray {
+                    let pokeType = dic["type"] as? [String: String]
+                    let pokeTypeName = pokeType!["name"]
+
+                    // create an array with the types of the selected pokemon
+                    arrayOfPokeTypes.append(pokeTypeName!.capitalized)
+                    // concatenate the types into a single string
+                    let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
+
+                    // display the types in the View Controller
+                    self.detailLabel.text = selectedPokemonTypes
+                }
+            }
+        }
         
         // setting image
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!

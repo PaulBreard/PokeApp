@@ -14,10 +14,12 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var itemsArray = [Items]()
     var itemsFilteredArray = [Items]()
+    var isSortedAZ: Bool = false
     
     @IBOutlet weak var itemTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var itemActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var sortButton: UIBarButtonItem!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -48,7 +50,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             loadingLabel.textColor = UIColor.white
             itemActivityIndicator.color = UIColor.white
             // table view separator color
-            itemTableView.separatorColor = UIColor.darkGray
+            itemTableView.separatorColor = Constants.Colors.gray40
         } else {
             lightTheme()
             searchController.searchBar.barStyle = .default
@@ -57,6 +59,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // table view separator color
             itemTableView.separatorColor = UIColor.lightGray
         }
+        // update table view UI
+        itemTableView.reloadData()
         
         // auto deselect cell
         if let index = self.itemTableView.indexPathForSelectedRow {
@@ -86,6 +90,20 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 })
             }
         }
+    }
+    
+    @IBAction func sortItems(_ sender: Any) {
+        if isSortedAZ == false {
+            // sort pokémon alphabetically
+            itemsArray = itemsArray.sorted { $0.name < $1.name }
+            sortButton.title = "Sort by ID"
+            isSortedAZ = true
+        } else {
+            itemsArray = itemsArray.sorted { $0.id < $1.id }
+            sortButton.title = "Sort A-Z"
+            isSortedAZ = false
+        }
+        itemTableView.reloadData()
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -121,6 +139,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if darkSwitch == true {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
+            cell.backgroundColor = Constants.Colors.gray28
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
@@ -128,8 +147,9 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
+            cell.backgroundColor = Constants.Colors.light
             // change the selected cell background color
-            customSelectedCellColor.backgroundColor = UIColor.lightGray
+            customSelectedCellColor.backgroundColor = Constants.Colors.light200
             cell.selectedBackgroundView = customSelectedCellColor
         }
         

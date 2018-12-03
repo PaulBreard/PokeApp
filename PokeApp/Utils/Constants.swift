@@ -23,9 +23,10 @@ struct Constants {
         static let itemApi = "https://pokeapi.co/api/v2/item/"
     }
     struct Colors {
-        static let gray40 = UIColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
         static let gray28 = UIColor(red: 28.0/255.0, green: 28.0/255.0, blue: 28.0/255.0, alpha: 1.0)
+        static let gray40 = UIColor(red: 50.0/255.0, green: 50.0/255.0, blue: 50.0/255.0, alpha: 1.0)
         static let light = UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1.0)
+        static let light200 = UIColor(red: 200.0/255.0, green: 200.0/255.0, blue: 200.0/255.0, alpha: 1.0)
     }
     struct Settings {
         static let themeDefault = UserDefaults.standard

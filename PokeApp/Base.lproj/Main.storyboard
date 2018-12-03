@@ -181,14 +181,17 @@
                                                 </connections>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="QyC-Kc-yT4"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="vDr-df-oNt" secondAttribute="bottom" constant="50" id="8pK-X8-6ys"/>
-                                    <constraint firstItem="vDr-df-oNt" firstAttribute="leading" secondItem="nwx-aH-WA8" secondAttribute="leading" constant="50" id="9sF-oD-gr2"/>
+                                    <constraint firstItem="vDr-df-oNt" firstAttribute="top" secondItem="nwx-aH-WA8" secondAttribute="top" constant="50" id="9Gf-Un-Jee"/>
+                                    <constraint firstItem="vDr-df-oNt" firstAttribute="leading" secondItem="nwx-aH-WA8" secondAttribute="leading" priority="999" constant="50" id="9sF-oD-gr2"/>
                                     <constraint firstItem="vDr-df-oNt" firstAttribute="centerX" secondItem="nwx-aH-WA8" secondAttribute="centerX" id="D1x-jU-TmP"/>
-                                    <constraint firstAttribute="trailing" secondItem="vDr-df-oNt" secondAttribute="trailing" constant="50" id="YKl-KC-NMf"/>
-                                    <constraint firstItem="vDr-df-oNt" firstAttribute="top" secondItem="nwx-aH-WA8" secondAttribute="top" constant="50" id="eni-y0-ZjK"/>
+                                    <constraint firstAttribute="trailing" secondItem="vDr-df-oNt" secondAttribute="trailing" priority="999" constant="50" id="YKl-KC-NMf"/>
+                                    <constraint firstAttribute="bottom" secondItem="vDr-df-oNt" secondAttribute="bottom" constant="50" id="qsR-fb-BqT"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -244,7 +247,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vym-MD-jN1">
                                 <rect key="frame" x="0.0" y="140" width="375" height="672"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="pokeCell" rowHeight="71" id="PnF-lz-9BT" customClass="MainPokeTableViewCell" customModule="PokeApp" customModuleProvider="target">
@@ -534,6 +537,7 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="EQl-S0-yfH" secondAttribute="bottom" constant="40" id="C7V-nL-uMk"/>
                                             <constraint firstItem="c8V-zg-LuF" firstAttribute="centerX" secondItem="oi9-3X-S4S" secondAttribute="centerX" id="H5R-4w-ag2"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="ZCZ-IZ-8eL"/>
                                             <constraint firstItem="EQl-S0-yfH" firstAttribute="top" secondItem="c8V-zg-LuF" secondAttribute="bottom" constant="10" id="dRn-NP-KVB"/>
                                             <constraint firstItem="25O-cu-AME" firstAttribute="centerX" secondItem="oi9-3X-S4S" secondAttribute="centerX" id="ddJ-Ac-v0H"/>
                                             <constraint firstItem="c8V-zg-LuF" firstAttribute="top" secondItem="oi9-3X-S4S" secondAttribute="top" constant="10" id="fs3-jg-hvv"/>
@@ -544,9 +548,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="oi9-3X-S4S" firstAttribute="leading" secondItem="Gob-RP-aVW" secondAttribute="leading" id="CHT-Gq-wvS"/>
+                                    <constraint firstItem="oi9-3X-S4S" firstAttribute="leading" secondItem="Gob-RP-aVW" secondAttribute="leading" priority="999" id="CHT-Gq-wvS"/>
                                     <constraint firstItem="oi9-3X-S4S" firstAttribute="top" secondItem="Gob-RP-aVW" secondAttribute="top" id="FYc-3X-oc9"/>
-                                    <constraint firstAttribute="trailing" secondItem="oi9-3X-S4S" secondAttribute="trailing" id="QJt-PJ-0VM"/>
+                                    <constraint firstAttribute="trailing" secondItem="oi9-3X-S4S" secondAttribute="trailing" priority="999" id="QJt-PJ-0VM"/>
+                                    <constraint firstItem="oi9-3X-S4S" firstAttribute="centerX" secondItem="Gob-RP-aVW" secondAttribute="centerX" id="Vfe-CD-yad"/>
                                     <constraint firstAttribute="bottom" secondItem="oi9-3X-S4S" secondAttribute="bottom" id="yWj-P5-wpn"/>
                                 </constraints>
                             </scrollView>
@@ -576,7 +581,6 @@
                             <constraint firstItem="y6W-H3-spD" firstAttribute="centerX" secondItem="0TZ-1i-1Po" secondAttribute="centerX" id="Pnq-pr-I0g"/>
                             <constraint firstItem="y6W-H3-spD" firstAttribute="centerY" secondItem="0TZ-1i-1Po" secondAttribute="centerY" id="Y1s-Io-gkF"/>
                             <constraint firstItem="WLT-Mu-l2u" firstAttribute="trailing" secondItem="Gob-RP-aVW" secondAttribute="trailing" id="bQy-De-0Ea"/>
-                            <constraint firstItem="oi9-3X-S4S" firstAttribute="width" secondItem="WLT-Mu-l2u" secondAttribute="width" id="gCa-LS-TKw"/>
                             <constraint firstItem="SGo-MF-uJk" firstAttribute="centerY" secondItem="0TZ-1i-1Po" secondAttribute="centerY" id="jXE-YM-Nx3"/>
                             <constraint firstItem="y6W-H3-spD" firstAttribute="top" secondItem="Hkn-cU-O2l" secondAttribute="bottom" constant="30" id="ozE-gl-wgD"/>
                             <constraint firstItem="Hkn-cU-O2l" firstAttribute="centerX" secondItem="0TZ-1i-1Po" secondAttribute="centerX" id="ryo-Ln-tTA"/>
@@ -618,7 +622,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="POa-2k-hva">
                                 <rect key="frame" x="0.0" y="140" width="375" height="672"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="moveCell" rowHeight="71" id="KRA-gX-ws0" customClass="MainMoveTableViewCell" customModule="PokeApp" customModuleProvider="target">
@@ -722,7 +726,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WL2-Ai-Hqq">
                                 <rect key="frame" x="0.0" y="140" width="375" height="672"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="berryCell" rowHeight="71" id="DMa-Xg-1KP" customClass="MainBerryTableViewCell" customModule="PokeApp" customModuleProvider="target">
@@ -808,11 +812,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t0h-N6-Fd8"/>
                     </view>
-                    <navigationItem key="navigationItem" title="64 Berries" largeTitleDisplayMode="always" id="GGB-86-8RB"/>
+                    <navigationItem key="navigationItem" title="64 Berries" largeTitleDisplayMode="always" id="GGB-86-8RB">
+                        <barButtonItem key="rightBarButtonItem" title="Sort A-Z" id="JyA-Pd-taG">
+                            <connections>
+                                <action selector="sortBerries:" destination="QQv-GX-SLo" id="lrM-rO-ZlK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="berryActivityIndicator" destination="6qw-kq-Ysw" id="g7x-zo-7ht"/>
                         <outlet property="berryTableView" destination="WL2-Ai-Hqq" id="23i-Ls-Wk2"/>
                         <outlet property="loadingLabel" destination="qXf-u5-5vJ" id="Ck1-fA-SfS"/>
+                        <outlet property="sortButton" destination="JyA-Pd-taG" id="xln-5T-ENP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fvi-2e-vdY" sceneMemberID="firstResponder"/>
@@ -911,6 +922,7 @@
                                             <constraint firstAttribute="bottom" secondItem="xdc-gb-BJv" secondAttribute="bottom" constant="35" id="Lr9-Hb-thu"/>
                                             <constraint firstItem="T38-HT-T9P" firstAttribute="leading" secondItem="exi-7b-X9d" secondAttribute="leading" constant="20" id="Ou3-yU-eVt"/>
                                             <constraint firstAttribute="trailing" secondItem="T38-HT-T9P" secondAttribute="trailing" constant="20" id="S7O-ss-FQQ"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="T3k-mv-pXY"/>
                                             <constraint firstItem="xdc-gb-BJv" firstAttribute="top" secondItem="T38-HT-T9P" secondAttribute="bottom" constant="50" id="WH6-dZ-se0"/>
                                             <constraint firstItem="xdc-gb-BJv" firstAttribute="leading" secondItem="exi-7b-X9d" secondAttribute="leading" constant="16" id="ih9-gX-Vgp"/>
                                             <constraint firstItem="T38-HT-T9P" firstAttribute="top" secondItem="exi-7b-X9d" secondAttribute="top" constant="50" id="jpa-tq-WFK"/>
@@ -919,9 +931,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="exi-7b-X9d" secondAttribute="bottom" id="CmX-8b-QLd"/>
-                                    <constraint firstItem="exi-7b-X9d" firstAttribute="leading" secondItem="hke-Fi-eIT" secondAttribute="leading" id="IW8-BL-hUe"/>
+                                    <constraint firstItem="exi-7b-X9d" firstAttribute="leading" secondItem="hke-Fi-eIT" secondAttribute="leading" priority="999" id="IW8-BL-hUe"/>
                                     <constraint firstItem="exi-7b-X9d" firstAttribute="top" secondItem="hke-Fi-eIT" secondAttribute="top" id="cFP-oK-yZb"/>
-                                    <constraint firstAttribute="trailing" secondItem="exi-7b-X9d" secondAttribute="trailing" id="eZO-V9-wm3"/>
+                                    <constraint firstAttribute="trailing" secondItem="exi-7b-X9d" secondAttribute="trailing" priority="999" id="eZO-V9-wm3"/>
+                                    <constraint firstItem="exi-7b-X9d" firstAttribute="centerX" secondItem="hke-Fi-eIT" secondAttribute="centerX" id="rAZ-S9-9kM"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IsF-sS-FEv">
@@ -949,7 +962,6 @@
                             <constraint firstItem="IsF-sS-FEv" firstAttribute="width" secondItem="UZz-6Z-xO1" secondAttribute="width" id="Nm5-fd-MET"/>
                             <constraint firstItem="6iU-Wa-yxb" firstAttribute="centerX" secondItem="UZz-6Z-xO1" secondAttribute="centerX" id="Ql0-hg-N9U"/>
                             <constraint firstItem="IsF-sS-FEv" firstAttribute="height" secondItem="UZz-6Z-xO1" secondAttribute="height" id="SEl-32-gKH"/>
-                            <constraint firstItem="exi-7b-X9d" firstAttribute="width" secondItem="8al-0B-pxb" secondAttribute="width" id="VgA-US-N96"/>
                             <constraint firstItem="Zjf-zX-3nO" firstAttribute="top" secondItem="6iU-Wa-yxb" secondAttribute="bottom" constant="30" id="X7s-w3-QJH"/>
                             <constraint firstItem="8al-0B-pxb" firstAttribute="trailing" secondItem="hke-Fi-eIT" secondAttribute="trailing" id="e4h-Bh-h8M"/>
                             <constraint firstAttribute="bottom" secondItem="hke-Fi-eIT" secondAttribute="bottom" id="kOZ-nH-1bp"/>
@@ -989,7 +1001,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gHX-Iy-CAn">
                                 <rect key="frame" x="0.0" y="140" width="375" height="672"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" rowHeight="71" id="Zl2-9D-6ce" customClass="MainItemTableViewCell" customModule="PokeApp" customModuleProvider="target">
@@ -1075,11 +1087,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FZf-Br-Adg"/>
                     </view>
-                    <navigationItem key="navigationItem" title="867 Items" largeTitleDisplayMode="always" id="10K-Q1-MGD"/>
+                    <navigationItem key="navigationItem" title="867 Items" largeTitleDisplayMode="always" id="10K-Q1-MGD">
+                        <barButtonItem key="rightBarButtonItem" title="Sort A-Z" id="EVE-pp-Z8A">
+                            <connections>
+                                <action selector="sortItems:" destination="Ty1-Xx-gko" id="CuU-vY-UOl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="itemActivityIndicator" destination="OIi-Og-DcR" id="uSx-y6-e8s"/>
                         <outlet property="itemTableView" destination="gHX-Iy-CAn" id="vJr-5z-DP9"/>
                         <outlet property="loadingLabel" destination="BzA-8r-6TR" id="9Zf-55-XoW"/>
+                        <outlet property="sortButton" destination="EVE-pp-Z8A" id="KNS-ep-nO2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B3Z-wF-nFX" sceneMemberID="firstResponder"/>
@@ -1188,6 +1207,7 @@
                                         <constraints>
                                             <constraint firstItem="6hc-RA-bup" firstAttribute="leading" secondItem="WkP-af-eo0" secondAttribute="leading" constant="16" id="6PM-Cp-Cyh"/>
                                             <constraint firstAttribute="trailing" secondItem="6hc-RA-bup" secondAttribute="trailing" constant="16" id="6oe-Nm-7Gh"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="7XN-bc-9kF"/>
                                             <constraint firstAttribute="bottom" secondItem="6hc-RA-bup" secondAttribute="bottom" constant="40" id="Clg-jY-g9O"/>
                                             <constraint firstItem="1Mw-Dk-94D" firstAttribute="top" secondItem="WkP-af-eo0" secondAttribute="top" constant="10" id="L92-7M-23H"/>
                                             <constraint firstItem="1Mw-Dk-94D" firstAttribute="centerX" secondItem="WkP-af-eo0" secondAttribute="centerX" id="bPm-os-aU3"/>
@@ -1196,9 +1216,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="WkP-af-eo0" firstAttribute="leading" secondItem="QsY-HK-Bkd" secondAttribute="leading" id="MnC-z0-JPd"/>
+                                    <constraint firstItem="WkP-af-eo0" firstAttribute="centerX" secondItem="QsY-HK-Bkd" secondAttribute="centerX" id="0F9-Yg-Uju"/>
+                                    <constraint firstItem="WkP-af-eo0" firstAttribute="leading" secondItem="QsY-HK-Bkd" secondAttribute="leading" priority="999" id="MnC-z0-JPd"/>
                                     <constraint firstAttribute="bottom" secondItem="WkP-af-eo0" secondAttribute="bottom" id="W7f-61-hcd"/>
-                                    <constraint firstAttribute="trailing" secondItem="WkP-af-eo0" secondAttribute="trailing" id="abO-Ya-dEC"/>
+                                    <constraint firstAttribute="trailing" secondItem="WkP-af-eo0" secondAttribute="trailing" priority="999" id="abO-Ya-dEC"/>
                                     <constraint firstItem="WkP-af-eo0" firstAttribute="top" secondItem="QsY-HK-Bkd" secondAttribute="top" id="hhc-vz-03b"/>
                                 </constraints>
                             </scrollView>
@@ -1230,7 +1251,6 @@
                             <constraint firstItem="i6w-xS-uGT" firstAttribute="height" secondItem="cfb-4K-VMd" secondAttribute="height" id="OCI-Ew-six"/>
                             <constraint firstItem="i6w-xS-uGT" firstAttribute="width" secondItem="cfb-4K-VMd" secondAttribute="width" id="YSV-7r-age"/>
                             <constraint firstItem="gWo-UX-NFQ" firstAttribute="centerY" secondItem="cfb-4K-VMd" secondAttribute="centerY" id="eav-hX-6wQ"/>
-                            <constraint firstItem="WkP-af-eo0" firstAttribute="width" secondItem="Qd1-zV-RO4" secondAttribute="width" id="gen-Dv-Nmi"/>
                             <constraint firstAttribute="bottom" secondItem="QsY-HK-Bkd" secondAttribute="bottom" id="h3U-Fw-5My"/>
                             <constraint firstItem="QsY-HK-Bkd" firstAttribute="top" secondItem="Qd1-zV-RO4" secondAttribute="top" id="nqO-xy-bPd"/>
                             <constraint firstItem="qdB-dg-AyX" firstAttribute="centerX" secondItem="cfb-4K-VMd" secondAttribute="centerX" id="oOs-db-85c"/>
@@ -1365,15 +1385,17 @@
                                             <constraint firstItem="89m-NY-09M" firstAttribute="top" secondItem="QqP-yM-zEy" secondAttribute="top" constant="10" id="iMW-8P-6co"/>
                                             <constraint firstItem="zIe-L6-82d" firstAttribute="top" secondItem="7OT-wX-y85" secondAttribute="bottom" constant="30" id="pK8-pr-UcH"/>
                                             <constraint firstItem="7OT-wX-y85" firstAttribute="centerX" secondItem="QqP-yM-zEy" secondAttribute="centerX" id="rYF-mf-gFL"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="uDM-PZ-HZY"/>
                                             <constraint firstItem="zIe-L6-82d" firstAttribute="leading" secondItem="QqP-yM-zEy" secondAttribute="leading" constant="16" id="xoH-bU-ROL"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="QqP-yM-zEy" secondAttribute="trailing" id="2U3-L1-fKe"/>
+                                    <constraint firstAttribute="trailing" secondItem="QqP-yM-zEy" secondAttribute="trailing" priority="999" id="2U3-L1-fKe"/>
                                     <constraint firstItem="QqP-yM-zEy" firstAttribute="top" secondItem="9t5-DZ-heD" secondAttribute="top" id="Mtv-yH-WDo"/>
+                                    <constraint firstItem="QqP-yM-zEy" firstAttribute="centerX" secondItem="9t5-DZ-heD" secondAttribute="centerX" id="T1O-N7-sCj"/>
                                     <constraint firstAttribute="bottom" secondItem="QqP-yM-zEy" secondAttribute="bottom" id="m3K-xU-oJs"/>
-                                    <constraint firstItem="QqP-yM-zEy" firstAttribute="leading" secondItem="9t5-DZ-heD" secondAttribute="leading" id="pwL-dV-FhF"/>
+                                    <constraint firstItem="QqP-yM-zEy" firstAttribute="leading" secondItem="9t5-DZ-heD" secondAttribute="leading" priority="999" id="pwL-dV-FhF"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6X9-1W-PRM">
@@ -1404,7 +1426,6 @@
                             <constraint firstAttribute="bottom" secondItem="9t5-DZ-heD" secondAttribute="bottom" id="WKS-k0-ohu"/>
                             <constraint firstItem="6X9-1W-PRM" firstAttribute="centerX" secondItem="HUw-J1-zGM" secondAttribute="centerX" id="fk9-my-CuM"/>
                             <constraint firstItem="6X9-1W-PRM" firstAttribute="centerY" secondItem="HUw-J1-zGM" secondAttribute="centerY" id="q6F-8m-ifa"/>
-                            <constraint firstItem="QqP-yM-zEy" firstAttribute="width" secondItem="m7c-9r-KNg" secondAttribute="width" id="rh2-L1-xeE"/>
                             <constraint firstItem="NwQ-3g-hEO" firstAttribute="centerX" secondItem="HUw-J1-zGM" secondAttribute="centerX" id="uLU-Md-y50"/>
                             <constraint firstItem="NwQ-3g-hEO" firstAttribute="top" secondItem="3kq-uL-CbJ" secondAttribute="bottom" constant="30" id="uPc-3I-8s9"/>
                             <constraint firstItem="NwQ-3g-hEO" firstAttribute="centerY" secondItem="HUw-J1-zGM" secondAttribute="centerY" id="wB3-TD-xRT"/>
@@ -1694,10 +1715,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="ezO-yy-pDt"/>
         <segue reference="mWh-IP-3Zb"/>
-        <segue reference="vgc-8p-6Ue"/>
-        <segue reference="lgZ-Aq-zG0"/>
-        <segue reference="aqT-gT-VvY"/>
-        <segue reference="fgZ-9L-uhk"/>
+        <segue reference="UGT-s1-9WH"/>
+        <segue reference="eLd-zz-9Yp"/>
+        <segue reference="EPA-an-om3"/>
+        <segue reference="sf8-ZQ-Aqe"/>
         <segue reference="6OI-fb-75j"/>
         <segue reference="N8z-8S-qhv"/>
     </inferredMetricsTieBreakers>

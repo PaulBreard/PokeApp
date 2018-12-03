@@ -56,14 +56,17 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="ppl-Lw-Q1e"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="1bJ-Fi-G3d" firstAttribute="leading" secondItem="l41-RI-kP6" secondAttribute="leading" constant="50" id="R4b-1y-MXw"/>
+                                    <constraint firstItem="1bJ-Fi-G3d" firstAttribute="centerX" secondItem="l41-RI-kP6" secondAttribute="centerX" id="9iC-ga-W98"/>
+                                    <constraint firstItem="1bJ-Fi-G3d" firstAttribute="leading" secondItem="l41-RI-kP6" secondAttribute="leading" priority="999" constant="50" id="R4b-1y-MXw"/>
                                     <constraint firstItem="1bJ-Fi-G3d" firstAttribute="top" secondItem="l41-RI-kP6" secondAttribute="top" constant="50" id="Vtm-Vu-08Z"/>
-                                    <constraint firstItem="1bJ-Fi-G3d" firstAttribute="centerX" secondItem="l41-RI-kP6" secondAttribute="centerX" id="edS-SZ-cIu"/>
                                     <constraint firstAttribute="bottom" secondItem="1bJ-Fi-G3d" secondAttribute="bottom" constant="50" id="gOg-51-cIy"/>
-                                    <constraint firstAttribute="trailing" secondItem="1bJ-Fi-G3d" secondAttribute="trailing" constant="50" id="nUN-59-XWm"/>
+                                    <constraint firstAttribute="trailing" secondItem="1bJ-Fi-G3d" secondAttribute="trailing" priority="999" constant="50" id="nUN-59-XWm"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -109,6 +112,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="tzU-OD-La9"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BK7-5P-TUY">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>

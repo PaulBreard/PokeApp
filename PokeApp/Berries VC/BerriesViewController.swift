@@ -14,10 +14,12 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var berriesArray = [Items]()
     var berriesFilteredArray = [Items]()
+    var isSortedAZ: Bool = false
     
     @IBOutlet weak var berryTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
     @IBOutlet weak var berryActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var sortButton: UIBarButtonItem!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -48,7 +50,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             loadingLabel.textColor = UIColor.white
             berryActivityIndicator.color = UIColor.white
             // table view separator color
-            berryTableView.separatorColor = UIColor.darkGray
+            berryTableView.separatorColor = Constants.Colors.gray40
         } else {
             lightTheme()
             searchController.searchBar.barStyle = .default
@@ -57,6 +59,8 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
             // table view separator color
             berryTableView.separatorColor = UIColor.lightGray
         }
+        // update table view UI
+        berryTableView.reloadData()
         
         // auto deselect cell
         if let index = self.berryTableView.indexPathForSelectedRow {
@@ -86,6 +90,20 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
                 })
             }
         }
+    }
+    
+    @IBAction func sortBerries(_ sender: Any) {
+        if isSortedAZ == false {
+            // sort pokémon alphabetically
+            berriesArray = berriesArray.sorted { $0.name < $1.name }
+            sortButton.title = "Sort by ID"
+            isSortedAZ = true
+        } else {
+            berriesArray = berriesArray.sorted { $0.id < $1.id }
+            sortButton.title = "Sort A-Z"
+            isSortedAZ = false
+        }
+        berryTableView.reloadData()
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -121,6 +139,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         if darkSwitch == true {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
+            cell.backgroundColor = Constants.Colors.gray28
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
@@ -128,6 +147,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
         else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
+            cell.backgroundColor = Constants.Colors.light
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.lightGray
             cell.selectedBackgroundView = customSelectedCellColor

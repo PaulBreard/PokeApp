@@ -68,6 +68,8 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
             lightTheme()
             lightThemePoke()
         }
+        // update table view UI
+        pokeMoveTableView.reloadData()
         
         // auto deselect cells
         if let index = self.pokeMoveTableView.indexPathForSelectedRow {

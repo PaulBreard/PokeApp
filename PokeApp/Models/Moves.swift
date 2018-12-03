@@ -9,8 +9,9 @@
 import Foundation
 
 struct Moves {
-    var name: String
-    var url: String
+    let name: String
+    let url: String
+    let id: Int
     var damage: String?
     var type: String?
     var accuracy: String?
@@ -25,8 +26,9 @@ struct Moves {
             else {
                 return nil
         }
-        self.name = pokeMoveName.capitalized.replacingOccurrences(of: "-", with: " ")
-        self.url = pokeMoveUrl
+        name = pokeMoveName.capitalized.replacingOccurrences(of: "-", with: " ")
+        url = pokeMoveUrl
+        id = Int(url.split(separator: "/").last!)!
     }
     
     init?(moveJson: [String: Any]) {
@@ -37,8 +39,9 @@ struct Moves {
             else {
                 return nil
         }
-        self.name = pokeMoveName.capitalized.replacingOccurrences(of: "-", with: " ")
-        self.url = pokeMoveUrl
+        name = pokeMoveName.capitalized.replacingOccurrences(of: "-", with: " ")
+        url = pokeMoveUrl
+        id = Int(url.split(separator: "/").last!)!
     }
     
     mutating func setMoveDetails(jsonObject: [String: Any]) {

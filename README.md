@@ -3,6 +3,13 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.2.2
+- Fixed lists' labels not changing color when switching theme mode
+- Added option to sort Moves, Items and Berries alphabetically or by ID number
+- Pokémon sorted alphabetically can now be sorted by their ID number as well
+- Pokemon's type is back in the Pokémon list (instead of its detail link)
+- Updated iPad's version UI
+
 ### 5.2.1
 - Added option to sort Pokémon alphabetically
 - Cleaned code

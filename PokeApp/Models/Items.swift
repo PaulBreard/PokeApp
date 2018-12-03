@@ -12,6 +12,7 @@ import Foundation
 struct Items {
     let name: String
     let url: String
+    let id: Int
     
     // items details
     var sprite: String?
@@ -35,8 +36,9 @@ struct Items {
             else {
                 return nil
         }
-        self.name = itemName.capitalized.replacingOccurrences(of: "-", with: " ").replacingOccurrences(of: "Tm", with: "TM").replacingOccurrences(of: "Hm", with: "HM")
-        self.url = itemUrl
+        name = itemName.capitalized.replacingOccurrences(of: "-", with: " ").replacingOccurrences(of: "Tm", with: "TM").replacingOccurrences(of: "Hm", with: "HM")
+        url = itemUrl
+        id = Int(url.split(separator: "/").last!)!
     }
     
     mutating func setSprite(jsonObject: [String: Any]) {
