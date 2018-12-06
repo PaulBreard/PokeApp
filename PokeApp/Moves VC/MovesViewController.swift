@@ -142,8 +142,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
-        }
-        else {
+        } else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
             cell.backgroundColor = Constants.Colors.light
@@ -156,8 +155,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let move: Moves
         if isFiltering() {
             move = movesFilteredArray[indexPath.row]
-        }
-        else {
+        } else {
             move = movesArray[indexPath.row]
         }
         cell.setMoveCell(move: move)
@@ -175,8 +173,7 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let selectedMove: Moves
                 if isFiltering() {
                     selectedMove = movesFilteredArray[indexPath!.row]
-                }
-                else {
+                } else {
                     selectedMove = movesArray[indexPath!.row]
                 }
                 // send the move selected to the destination View Controller

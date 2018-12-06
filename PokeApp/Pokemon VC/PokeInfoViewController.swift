@@ -113,7 +113,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         pokeMoveTableView.backgroundColor = UIColor.white
     }
     
-    private func loadPokemonDetails() {
+    public func setBlurView() {
         // start activity indicator
         activityIndicator.startAnimating()
         // blur overlay while loading data
@@ -142,6 +142,10 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
                 self.blurView.backgroundColor = .white
             }
         }
+    }
+    
+    private func loadPokemonDetails() {
+        setBlurView()
 
         // get the detail dictionary of the pokemon from the url of the pokemon
         Alamofire.request(selectedPokemon.url).responseJSON { response in
@@ -221,8 +225,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         if pokeMoveTableView.isHidden == true {
             // change the button's text
             self.pokeMovesViewButton.setTitle("\(self.selectedPokemon.name) has \(self.pokeMovesArray.count) moves ↓", for: .normal)
-        }
-        else {
+        } else {
             // change the button's text
             self.pokeMovesViewButton.setTitle("\(self.selectedPokemon.name) has \(self.pokeMovesArray.count) moves ↑", for: .normal)
         }

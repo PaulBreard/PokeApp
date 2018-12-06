@@ -36,7 +36,7 @@
                                                                     <constraint firstAttribute="width" constant="68" id="4L5-iD-6AK"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Pokémon" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hFg-UV-UIy">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Pokémon" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFg-UV-UIy">
                                                                 <rect key="frame" x="84" y="19" width="159" height="30"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -211,6 +211,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="pokemonLabel" destination="hFg-UV-UIy" id="9W7-hd-lcv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AiJ-bN-Na8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="lP0-0p-nFu" userLabel="Poke Tap Gesture Recognizer">
@@ -258,7 +261,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uBu-pz-e8w">
-                                                    <rect key="frame" x="102.66666666666666" y="13.999999999999996" width="256.33333333333337" height="42.666666666666657"/>
+                                                    <rect key="frame" x="102.66666666666667" y="13.999999999999996" width="212.33333333333331" height="42.666666666666657"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXb-Oc-qRT">
                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="20.333333333333332"/>
@@ -280,19 +283,31 @@
                                                         <constraint firstAttribute="width" secondItem="bu7-Jp-NW3" secondAttribute="height" multiplier="1:1" id="LeF-AH-BbY"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ke-bn-Q4h">
+                                                    <rect key="frame" x="325" y="28.333333333333332" width="30" height="14.333333333333332"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="G9M-mZ-nnT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="uBu-pz-e8w" firstAttribute="centerY" secondItem="5tW-L3-5W5" secondAttribute="centerY" id="3Jk-eS-WyJ"/>
+                                                <constraint firstItem="8Ke-bn-Q4h" firstAttribute="leading" secondItem="uBu-pz-e8w" secondAttribute="trailing" constant="10" id="6Ea-Ea-0Or"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8Ke-bn-Q4h" secondAttribute="trailing" constant="5" id="Eeo-QE-Boc"/>
                                                 <constraint firstItem="bu7-Jp-NW3" firstAttribute="top" secondItem="5tW-L3-5W5" secondAttribute="top" id="aM1-bk-bAe"/>
                                                 <constraint firstAttribute="bottom" secondItem="bu7-Jp-NW3" secondAttribute="bottom" id="cMe-Kv-tXx"/>
-                                                <constraint firstAttribute="trailing" secondItem="uBu-pz-e8w" secondAttribute="trailing" constant="16" id="ckP-NV-exr"/>
                                                 <constraint firstItem="bu7-Jp-NW3" firstAttribute="leading" secondItem="5tW-L3-5W5" secondAttribute="leading" constant="16" id="ohJ-zO-4KN"/>
+                                                <constraint firstItem="8Ke-bn-Q4h" firstAttribute="centerY" secondItem="5tW-L3-5W5" secondAttribute="centerY" id="omE-wN-z0L"/>
                                                 <constraint firstItem="uBu-pz-e8w" firstAttribute="leading" secondItem="bu7-Jp-NW3" secondAttribute="trailing" constant="16" id="pHl-xy-J3H"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="detailLabel" destination="92Y-b2-MS1" id="aYr-Xj-66m"/>
+                                            <outlet property="idLabel" destination="8Ke-bn-Q4h" id="tv2-oQ-LWB"/>
                                             <outlet property="nameLabel" destination="HXb-Oc-qRT" id="Q8m-py-krc"/>
                                             <outlet property="spriteImage" destination="bu7-Jp-NW3" id="Gni-Yg-mMv"/>
                                             <segue destination="LA5-NR-bVI" kind="show" id="6OI-fb-75j">
@@ -334,7 +349,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="949 Pokémon" largeTitleDisplayMode="always" id="PrO-yx-iLf">
-                        <barButtonItem key="rightBarButtonItem" title="Sort A-Z" id="itH-gR-Q2i">
+                        <barButtonItem key="rightBarButtonItem" title="Sort Pokémon" id="itH-gR-Q2i">
                             <connections>
                                 <action selector="sortPokemon:" destination="BYZ-38-t0r" id="ajV-4h-EzJ"/>
                             </connections>
@@ -1631,9 +1646,10 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="App version" id="QtL-UE-hCH">
+                                <string key="footerTitle">App based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contributors. Pokémon and Pokémon character names are trademarks of Nintendo.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="FBW-E0-BmB">
-                                        <rect key="frame" x="0.0" y="199.33333333333334" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="206.66666666666669" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FBW-E0-BmB" id="O8x-ka-gDG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>

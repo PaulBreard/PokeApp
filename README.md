@@ -3,12 +3,17 @@ iOS app based on pokeapi.co API
 
 ## Changelog
 
+### 5.2.3
+- Added Pokémon ID number to the Pokémon list
+- Added more sorting options (by id number reversed, alphabetically reversed, and randomly)
+- Fixed UI issues on iPhone SE (3,5" screens)
+
 ### 5.2.2
 - Fixed lists' labels not changing color when switching theme mode
 - Added option to sort Moves, Items and Berries alphabetically or by ID number
 - Pokémon sorted alphabetically can now be sorted by their ID number as well
 - Pokemon's type is back in the Pokémon list (instead of its detail link)
-- Updated iPad's version UI
+- Adjusted UI to fit the iPad's screens
 
 ### 5.2.1
 - Added option to sort Pokémon alphabetically
@@ -25,7 +30,7 @@ iOS app based on pokeapi.co API
 ### 5.1.2
 - Capitalized berry's firmness type in the berries list
 - Replaced hyphens in berries name with blank spaces
-- Bug fixes on settings' page
+- Fixed an issue on settings' page
 - Blur overlay while loading details pages now adapts to the theme mode
 
 ### 5.1.1
@@ -43,7 +48,7 @@ iOS app based on pokeapi.co API
 
 ### 5.0
 - Fixed missing Pokémon's sprites
-- Fixed and finished light mode
+- Fixed and completed light mode
 - Now showing Pokemon's type instead of its detail link in the Pokémon list
 - Added berry's sprite in berries list
 - Temporarily disabling "Show Shiny" button because of a bug
@@ -69,7 +74,6 @@ iOS app based on pokeapi.co API
 ### 4.0.2
 - Updated launchscreen
 - Added settings icon
-- Added icons source
 
 ### 4.0.1
 - Bug fixes and minor improvements

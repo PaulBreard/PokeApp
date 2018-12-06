@@ -10,9 +10,14 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var pokemonLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // adjusts font size of the pokémon label to fit in the view if too small
+        pokemonLabel.adjustsFontSizeToFitWidth = true
+        pokemonLabel.lineBreakMode = .byClipping
     }
     
     override func viewWillAppear(_ animated: Bool) {

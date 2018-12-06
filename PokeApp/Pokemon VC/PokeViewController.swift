@@ -19,7 +19,6 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var pokeArray = [Pokemon]()
     var pokeFilteredArray = [Pokemon]()
-    var isSortedAZ: Bool = false
     
     @IBOutlet weak var pokeTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -84,10 +83,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if let pokemons = jsonDict["results"] as? [[String: Any]] {
                     self.pokeArray = pokemons.map { pokeJson -> Pokemon in
                         return Pokemon(pokeJson: pokeJson)!
-                    }
-                    // sort pokémon alphabetically
-                    // self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
-                    
+                    }                    
                     // tell UITable View to reload UI from the poke array
                     self.pokeTableView.reloadData()
                     
@@ -103,17 +99,41 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func sortPokemon(_ sender: Any) {
-        if isSortedAZ == false {
+        // setup an action sheet and its title
+        let actionSheet = UIAlertController(title: "Choose a way to sort Pokémon", message: nil, preferredStyle: .actionSheet)
+        // then we add a cancel button and our sorting options
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID number", style: .default) { action in
+            // sort pokémon by id number
+            self.pokeArray = self.pokeArray.sorted { $0.id < $1.id }
+            self.sortButton.title = "Sorting by ID"
+            self.pokeTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID reversed", style: .default) { action in
+            // sort pokémon by id number
+            self.pokeArray = self.pokeArray.sorted { $0.id > $1.id }
+            self.sortButton.title = "Sorting by ID reversed"
+            self.pokeTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort A-Z", style: .default) { action in
             // sort pokémon alphabetically
-            pokeArray = pokeArray.sorted { $0.name < $1.name }
-            sortButton.title = "Sort by ID"
-            isSortedAZ = true
-        } else {
-            pokeArray = pokeArray.sorted { $0.id < $1.id }
-            sortButton.title = "Sort A-Z"
-            isSortedAZ = false
-        }
-        pokeTableView.reloadData()
+            self.pokeArray = self.pokeArray.sorted { $0.name < $1.name }
+            self.sortButton.title = "Sorting A-Z"
+            self.pokeTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Z-A", style: .default) { action in
+            // sort pokémon "un-alphabetically"
+            self.pokeArray = self.pokeArray.sorted { $0.name > $1.name }
+            self.sortButton.title = "Sorting Z-A"
+            self.pokeTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Randomly 👻", style: .default) { action in
+            // sort pokémon randomly
+            self.pokeArray = self.pokeArray.shuffled()
+            self.sortButton.title = "Sorting Randomly"
+            self.pokeTableView.reloadData()
+        })
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -151,6 +171,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if darkSwitch == true {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
+            cell.idLabel.textColor = UIColor.lightGray
             cell.backgroundColor = Constants.Colors.gray28
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
@@ -159,6 +180,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
+            cell.idLabel.textColor = UIColor.darkGray
             cell.backgroundColor = Constants.Colors.light
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = Constants.Colors.light200
@@ -204,10 +226,15 @@ class MainPokeTableViewCell: UITableViewCell {
     @IBOutlet weak var spriteImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
     
     func setPokeCell(poke: Pokemon) {
-        // setting name label with pokemon name
+        // setting name label with pokemon name and id label with pokemon id
         nameLabel.text = poke.name
+        idLabel.text = "\(poke.id)"
+        // adjusting pokémon name if too long to fit
+        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.lineBreakMode = .byClipping
         
         // setting detail label with types
         Alamofire.request(poke.url).responseJSON { response in
