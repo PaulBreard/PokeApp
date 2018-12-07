@@ -1,7 +1,11 @@
 # PokeApp
-iOS app based on pokeapi.co API
+iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contributors. Pokémon and Pokémon character names are trademarks of Nintendo.
 
 ## Changelog
+
+### 5.3
+- Redesigned homescreen
+- Added user name and pop up at first launch if user name is not set (user name can be edited in the settings)
 
 ### 5.2.3
 - Added Pokémon ID number to the Pokémon list

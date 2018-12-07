@@ -13,7 +13,6 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var movesArray = [Moves]()
     var movesFilteredArray = [Moves]()
-    var isSortedAZ: Bool = false
     
     @IBOutlet weak var moveTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -92,17 +91,41 @@ class MovesViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func sortMoves(_ sender: Any) {
-        if isSortedAZ == false {
+        // setup an action sheet and its title
+        let actionSheet = UIAlertController(title: "Choose a way to sort moves", message: nil, preferredStyle: .actionSheet)
+        // then we add a cancel button and our sorting options
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID number", style: .default) { action in
+            // sort moves by id number
+            self.movesArray = self.movesArray.sorted { $0.id < $1.id }
+            self.sortButton.title = "Sorting by ID"
+            self.moveTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID reversed", style: .default) { action in
+            // sort moves by id number
+            self.movesArray = self.movesArray.sorted { $0.id > $1.id }
+            self.sortButton.title = "Sorting by ID reversed"
+            self.moveTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort A-Z", style: .default) { action in
             // sort moves alphabetically
-            movesArray = movesArray.sorted { $0.name < $1.name }
-            sortButton.title = "Sort by ID"
-            isSortedAZ = true
-        } else {
-            movesArray = movesArray.sorted { $0.id < $1.id }
-            sortButton.title = "Sort Z-A"
-            isSortedAZ = false
-        }
-        moveTableView.reloadData()
+            self.movesArray = self.movesArray.sorted { $0.name < $1.name }
+            self.sortButton.title = "Sorting A-Z"
+            self.moveTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Z-A", style: .default) { action in
+            // sort moves "un-alphabetically"
+            self.movesArray = self.movesArray.sorted { $0.name > $1.name }
+            self.sortButton.title = "Sorting Z-A"
+            self.moveTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Randomly 👻", style: .default) { action in
+            // sort moves randomly
+            self.movesArray = self.movesArray.shuffled()
+            self.sortButton.title = "Sorting Randomly"
+            self.moveTableView.reloadData()
+        })
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func searchBarIsEmpty() -> Bool {

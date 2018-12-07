@@ -8,20 +8,27 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var darkSwitch: UISwitch!
+    @IBOutlet weak var userNameCell: UITableViewCell!
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var themeModeCell: UITableViewCell!
     @IBOutlet weak var comingSoonCell: UITableViewCell!
     @IBOutlet weak var versionCell: UITableViewCell!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var themeModeLabel: UILabel!
     @IBOutlet weak var comingSoonLabel: UILabel!
     
     let customSelectedCellColor = UIView()
+    let themeDefault = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set user name if it already exists
+        userNameTextField.text = themeDefault.string(forKey: "UserName")
         
         // check from if dark theme is enabled
         darkSwitch.isOn = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
@@ -30,8 +37,7 @@ class SettingsTableViewController: UITableViewController {
         if darkSwitch.isOn == true {
             darkTheme()
             darkThemeSettings()
-        }
-        else {
+        } else {
             lightTheme()
             lightThemeSettings()
         }
@@ -43,36 +49,57 @@ class SettingsTableViewController: UITableViewController {
         let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
         let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         appVersionLabel.text = "Version \(appVersion ?? "1.0") (\(buildNumber))"
+        
+        userNameTextField.delegate = self
+    }
+
+    func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
+        // dismiss keyboard when return key is hit
+        self.view.endEditing(true)
+        return true
+    }
+    
+    @IBAction func setUserName(_ sender: Any) {
+        let userName = userNameTextField.text
+        themeDefault.set(userName, forKey: "UserName")
     }
     
     func darkThemeSettings() {
         // table view separator color
-        tableView.separatorColor = UIColor.darkGray
+        tableView.separatorColor = .darkGray
 
         // cells background color
+        userNameCell.backgroundColor = Constants.Colors.gray40
         themeModeCell.backgroundColor = Constants.Colors.gray40
         comingSoonCell.backgroundColor = Constants.Colors.gray40
         versionCell.backgroundColor = Constants.Colors.gray40
 
         // cell text color
-        themeModeLabel.textColor = UIColor.white
-        comingSoonLabel.textColor = UIColor.white
-        appVersionLabel.textColor = UIColor.white
+        userNameLabel.textColor = .white
+        userNameTextField.textColor = .white
+        userNameTextField.setValue(UIColor.lightGray, forKeyPath: "placeholderLabel.textColor")
+        themeModeLabel.textColor = .white
+        comingSoonLabel.textColor = .white
+        appVersionLabel.textColor = .white
     }
     
     func lightThemeSettings() {
         // table view separator color
-        tableView.separatorColor = UIColor.lightGray
+        tableView.separatorColor = .lightGray
 
         // cells background color
-        themeModeCell.backgroundColor = UIColor.white
-        comingSoonCell.backgroundColor = UIColor.white
-        versionCell.backgroundColor = UIColor.white
+        userNameCell.backgroundColor = .white
+        themeModeCell.backgroundColor = .white
+        comingSoonCell.backgroundColor = .white
+        versionCell.backgroundColor = .white
 
         // cell text color
-        themeModeLabel.textColor = UIColor.black
-        comingSoonLabel.textColor = UIColor.black
-        appVersionLabel.textColor = UIColor.black
+        userNameLabel.textColor = .black
+        userNameTextField.textColor = .black
+        userNameTextField.setValue(UIColor.darkGray, forKeyPath: "placeholderLabel.textColor")
+        themeModeLabel.textColor = .black
+        comingSoonLabel.textColor = .black
+        appVersionLabel.textColor = .black
     }
     
     @IBAction func changeMode(_ sender: UISwitch) {
@@ -80,14 +107,12 @@ class SettingsTableViewController: UITableViewController {
             darkTheme()
             darkThemeSettings()
             // save in app
-            let themeDefault = UserDefaults.standard
             themeDefault.set(true, forKey: "themeDefault")
         }
         if darkSwitch.isOn == false {
             lightTheme()
             lightThemeSettings()
             // save in app
-            let themeDefault = UserDefaults.standard
             themeDefault.set(false, forKey: "themeDefault")
         }
     }

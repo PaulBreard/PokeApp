@@ -35,21 +35,21 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         // display pokemon name in the Navigation Bar title and a label
-        self.title = selectedPokemon.name
+        title = selectedPokemon.name
         pokeNameLabel.text = selectedPokemon.name
         // adjusts font size of the name in the label to fit in the view if too long
         pokeNameLabel.adjustsFontSizeToFitWidth = true
         pokeNameLabel.lineBreakMode = .byClipping
         
         // set background color of the button to orange
-        self.changeSpriteLabel.backgroundColor = UIColor.orange
+        changeSpriteLabel.backgroundColor = UIColor.orange
         
         // set round top corners to something
         // bug: element's width do not change when holding device in landscape mode
         // self.add something here.roundCorners([.topLeft, .topRight], radius: 4)
         
         // hide pokemon moves table view
-        self.pokeMoveTableView.isHidden = true
+        pokeMoveTableView.isHidden = true
         
         pokeImageActivityIndicator.stopAnimating()
         
@@ -113,38 +113,39 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         pokeMoveTableView.backgroundColor = UIColor.white
     }
     
-    public func setBlurView() {
-        // start activity indicator
-        activityIndicator.startAnimating()
+    func setBlurView() {
         // blur overlay while loading data
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         if !UIAccessibility.isReduceTransparencyEnabled {
-            self.blurView.backgroundColor = .clear
+            blurView.backgroundColor = .clear
             if darkSwitch == true {
                 let blurEffect = UIBlurEffect(style: .dark)
                 let blurEffectView = UIVisualEffectView(effect: blurEffect)
                 // always fill the view
-                blurEffectView.frame = self.blurView.bounds
+                blurEffectView.frame = blurView.bounds
                 blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                self.blurView.addSubview(blurEffectView)
+                blurView.addSubview(blurEffectView)
             } else {
                 let blurEffect = UIBlurEffect(style: .light)
                 let blurEffectView = UIVisualEffectView(effect: blurEffect)
                 // always fill the view
-                blurEffectView.frame = self.blurView.bounds
+                blurEffectView.frame = blurView.bounds
                 blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                self.blurView.addSubview(blurEffectView)
+                blurView.addSubview(blurEffectView)
             }
         } else {
             if darkSwitch == true {
-                self.blurView.backgroundColor = Constants.Colors.gray28
+                blurView.backgroundColor = Constants.Colors.gray28
             } else {
-                self.blurView.backgroundColor = .white
+                blurView.backgroundColor = .white
             }
         }
     }
     
     private func loadPokemonDetails() {
+        // start activity indicator
+        activityIndicator.startAnimating()
+        // set blur view
         setBlurView()
 
         // get the detail dictionary of the pokemon from the url of the pokemon
@@ -296,8 +297,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
-        }
-        else {
+        } else {
             cell.textLabel?.textColor = UIColor.black
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.lightGray

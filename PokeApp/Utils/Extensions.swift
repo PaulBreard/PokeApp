@@ -9,7 +9,25 @@
 import UIKit
 import Foundation
 
+extension UIView {
+    func dropShadow(scale: Bool = true) {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.4
+        layer.shadowOffset = CGSize(width: 0, height: 5)
+        layer.shadowRadius = 10
+        
+        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+        layer.shouldRasterize = true
+        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+        
+        // round corners
+        layer.cornerRadius = 8
+    }
+}
+
 extension UIViewController {
+    
     func darkTheme() {
         // view background color
         view.backgroundColor = Constants.Colors.gray28

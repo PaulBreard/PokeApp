@@ -176,8 +176,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray
             cell.selectedBackgroundView = customSelectedCellColor
-        }
-        else {
+        } else {
             cell.nameLabel.textColor = UIColor.black
             cell.detailLabel.textColor = UIColor.darkGray
             cell.idLabel.textColor = UIColor.darkGray
@@ -191,8 +190,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let poke: Pokemon
         if isFiltering() {
             poke = pokeFilteredArray[indexPath.row]
-        }
-        else {
+        } else {
             poke = pokeArray[indexPath.row]
         }
         cell.setPokeCell(poke: poke)
@@ -210,8 +208,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let selectedPokemon: Pokemon
                 if isFiltering() {
                     selectedPokemon = pokeFilteredArray[indexPath!.row]
-                }
-                else {
+                } else {
                     selectedPokemon = pokeArray[indexPath!.row]
                 }
                 // send the pokemon selected to the destination View Controller

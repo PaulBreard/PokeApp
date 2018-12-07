@@ -14,7 +14,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var itemsArray = [Items]()
     var itemsFilteredArray = [Items]()
-    var isSortedAZ: Bool = false
     
     @IBOutlet weak var itemTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -93,17 +92,41 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func sortItems(_ sender: Any) {
-        if isSortedAZ == false {
-            // sort pokémon alphabetically
-            itemsArray = itemsArray.sorted { $0.name < $1.name }
-            sortButton.title = "Sort by ID"
-            isSortedAZ = true
-        } else {
-            itemsArray = itemsArray.sorted { $0.id < $1.id }
-            sortButton.title = "Sort A-Z"
-            isSortedAZ = false
-        }
-        itemTableView.reloadData()
+        // setup an action sheet and its title
+        let actionSheet = UIAlertController(title: "Choose a way to sort items", message: nil, preferredStyle: .actionSheet)
+        // then we add a cancel button and our sorting options
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID number", style: .default) { action in
+            // sort items by id number
+            self.itemsArray = self.itemsArray.sorted { $0.id < $1.id }
+            self.sortButton.title = "Sorting by ID"
+            self.itemTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID reversed", style: .default) { action in
+            // sort items by id number
+            self.itemsArray = self.itemsArray.sorted { $0.id > $1.id }
+            self.sortButton.title = "Sorting by ID reversed"
+            self.itemTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort A-Z", style: .default) { action in
+            // sort items alphabetically
+            self.itemsArray = self.itemsArray.sorted { $0.name < $1.name }
+            self.sortButton.title = "Sorting A-Z"
+            self.itemTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Z-A", style: .default) { action in
+            // sort items "un-alphabetically"
+            self.itemsArray = self.itemsArray.sorted { $0.name > $1.name }
+            self.sortButton.title = "Sorting Z-A"
+            self.itemTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Randomly 👻", style: .default) { action in
+            // sort items randomly
+            self.itemsArray = self.itemsArray.shuffled()
+            self.sortButton.title = "Sorting Randomly"
+            self.itemTableView.reloadData()
+        })
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func searchBarIsEmpty() -> Bool {

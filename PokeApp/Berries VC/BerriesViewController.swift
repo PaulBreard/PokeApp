@@ -14,7 +14,6 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var berriesArray = [Items]()
     var berriesFilteredArray = [Items]()
-    var isSortedAZ: Bool = false
     
     @IBOutlet weak var berryTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -93,17 +92,41 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func sortBerries(_ sender: Any) {
-        if isSortedAZ == false {
-            // sort pokémon alphabetically
-            berriesArray = berriesArray.sorted { $0.name < $1.name }
-            sortButton.title = "Sort by ID"
-            isSortedAZ = true
-        } else {
-            berriesArray = berriesArray.sorted { $0.id < $1.id }
-            sortButton.title = "Sort A-Z"
-            isSortedAZ = false
-        }
-        berryTableView.reloadData()
+        // setup an action sheet and its title
+        let actionSheet = UIAlertController(title: "Choose a way to sort items", message: nil, preferredStyle: .actionSheet)
+        // then we add a cancel button and our sorting options
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID number", style: .default) { action in
+            // sort items by id number
+            self.berriesArray = self.berriesArray.sorted { $0.id < $1.id }
+            self.sortButton.title = "Sorting by ID"
+            self.berryTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort by ID reversed", style: .default) { action in
+            // sort items by id number
+            self.berriesArray = self.berriesArray.sorted { $0.id > $1.id }
+            self.sortButton.title = "Sorting by ID reversed"
+            self.berryTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort A-Z", style: .default) { action in
+            // sort items alphabetically
+            self.berriesArray = self.berriesArray.sorted { $0.name < $1.name }
+            self.sortButton.title = "Sorting A-Z"
+            self.berryTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Z-A", style: .default) { action in
+            // sort items "un-alphabetically"
+            self.berriesArray = self.berriesArray.sorted { $0.name > $1.name }
+            self.sortButton.title = "Sorting Z-A"
+            self.berryTableView.reloadData()
+        })
+        actionSheet.addAction(UIAlertAction(title: "Sort Randomly 👻", style: .default) { action in
+            // sort items randomly
+            self.berriesArray = self.berriesArray.shuffled()
+            self.sortButton.title = "Sorting Randomly"
+            self.berryTableView.reloadData()
+        })
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func searchBarIsEmpty() -> Bool {
