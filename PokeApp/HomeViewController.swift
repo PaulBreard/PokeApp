@@ -11,6 +11,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     let messageArray = ["Hi", "Welcome", "Hello", "What's up", "Hey", "Howdy"]
+    let themeDefault = UserDefaults.standard
     
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -22,13 +23,15 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var itemsView: UIView!
     @IBOutlet weak var movesLabel: UILabel!
     @IBOutlet weak var movesView: UIView!
-    @IBOutlet weak var settingsView: UIView!
+    @IBOutlet weak var favoritesView: UIView!
+    @IBOutlet weak var favoritesSubtitle: UILabel!
+    @IBOutlet weak var favImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // ask for user name if not set
-        let userName = Constants.Settings.themeDefault.string(forKey: "UserName")
+        let userName = themeDefault.string(forKey: "UserName")
         if userName == "" || userName == nil {
             let alert = UIAlertController(title: "Hi! What's your name?", message: "You can edit it in the settings later", preferredStyle: .alert)
             alert.addTextField(configurationHandler: { textField in
@@ -44,7 +47,14 @@ class HomeViewController: UIViewController {
         } else {
             setWelcome()
         }
-    
+        
+        // set default favorite subtitle
+        favoritesSubtitle.text = "You have no favorites"
+        
+        // set favorited icon to white
+        favImage.image = favImage.image!.withRenderingMode(.alwaysTemplate)
+        favImage.tintColor = UIColor.white
+        
         // adjusts font size of labels to fit in the view
         pokemonLabel.adjustsFontSizeToFitWidth = true
         pokemonLabel.lineBreakMode = .byClipping
@@ -54,6 +64,7 @@ class HomeViewController: UIViewController {
         itemsLabel.lineBreakMode = .byClipping
         movesLabel.adjustsFontSizeToFitWidth = true
         movesLabel.lineBreakMode = .byClipping
+        favoritesSubtitle.lineBreakMode = .byWordWrapping
     }
     
     func setWelcome() {
@@ -70,14 +81,23 @@ class HomeViewController: UIViewController {
         if darkSwitch == true {
             darkTheme()
             welcomeLabel.textColor = .white
-            settingsView.backgroundColor = .lightGray
             subtitleLabel.textColor = .lightGray
         } else {
             lightTheme()
             welcomeLabel.textColor = .black
-            settingsView.backgroundColor = .darkGray
             subtitleLabel.textColor = .darkGray
         }
+        
+        // check favArray to show how many pokémon are in the favorites
+        if let data = themeDefault.value(forKey:"FavPokemon") as? Data {
+            let favArray = try! PropertyListDecoder().decode([Pokemon].self, from: data)
+            if favArray.count >= 1 {
+                favoritesSubtitle.text = "You have \(favArray.count) Pokémon to your favorites"
+            } else {
+                favoritesSubtitle.text = "You have no favorites"
+            }
+        }
+        
         setWelcome()
     }
     
@@ -86,6 +106,6 @@ class HomeViewController: UIViewController {
         berriesView.dropShadow()
         itemsView.dropShadow()
         movesView.dropShadow()
-        settingsView.dropShadow()
+        favoritesView.dropShadow()
     }
 }

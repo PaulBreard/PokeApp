@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct Pokemon {
-    let name: String
-    let url: String
-    let id: Int
+struct Pokemon:Codable {
+    var name: String
+    var url: String
+    var id: Int
     var height: String?
     var weight: String?
     var defaultSprite: String?

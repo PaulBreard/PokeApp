@@ -93,7 +93,7 @@ class BerriesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func sortBerries(_ sender: Any) {
         // setup an action sheet and its title
-        let actionSheet = UIAlertController(title: "Choose a way to sort items", message: nil, preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Choose a way to sort berries", message: nil, preferredStyle: .actionSheet)
         // then we add a cancel button and our sorting options
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         actionSheet.addAction(UIAlertAction(title: "Sort by ID number", style: .default) { action in

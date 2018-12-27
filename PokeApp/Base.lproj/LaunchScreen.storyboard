@@ -164,27 +164,35 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRq-vY-bMQ">
                                                 <rect key="frame" x="0.0" y="1323" width="315" height="593.66666666666652"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="6ls-ru-Sdk">
-                                                        <rect key="frame" x="12" y="12" width="291" height="569.66666666666663"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Mt7-H1-q7Z">
+                                                        <rect key="frame" x="12" y="12" width="273" height="565.66666666666663"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Settings Icon" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-b4-kYe">
-                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="498.33333333333331"/>
-                                                            </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQJ-bQ-TWd">
-                                                                <rect key="frame" x="0.0" y="538.33333333333326" width="23" height="31.333333333333371"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dBe-LF-guK">
+                                                                <rect key="frame" x="0.0" y="254.66666666666671" width="273" height="56.666666666666657"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbk-PQ-M7e">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="23" height="31.333333333333332"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrz-el-WXP">
+                                                                        <rect key="frame" x="0.0" y="36.333333333333258" width="16.666666666666668" height="20.333333333333329"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                        <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="6ls-ru-Sdk" firstAttribute="leading" secondItem="cRq-vY-bMQ" secondAttribute="leading" constant="12" id="7bV-KQ-VbI"/>
-                                                    <constraint firstAttribute="trailing" secondItem="6ls-ru-Sdk" secondAttribute="trailing" constant="12" id="BFa-gg-lQh"/>
-                                                    <constraint firstAttribute="bottom" secondItem="6ls-ru-Sdk" secondAttribute="bottom" constant="12" id="cHU-zs-aET"/>
-                                                    <constraint firstItem="6ls-ru-Sdk" firstAttribute="top" secondItem="cRq-vY-bMQ" secondAttribute="top" constant="12" id="fi1-Ha-B0t"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Mt7-H1-q7Z" secondAttribute="bottom" constant="16" id="KIy-F0-36O"/>
+                                                    <constraint firstItem="Mt7-H1-q7Z" firstAttribute="leading" secondItem="cRq-vY-bMQ" secondAttribute="leading" constant="12" id="mP1-2O-DOU"/>
+                                                    <constraint firstItem="Mt7-H1-q7Z" firstAttribute="top" secondItem="cRq-vY-bMQ" secondAttribute="top" constant="12" id="o8G-4V-cTF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Mt7-H1-q7Z" secondAttribute="trailing" constant="30" id="oq1-hy-Jzo"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -264,6 +272,5 @@
         <image name="Item" width="126" height="180"/>
         <image name="Move" width="93" height="180"/>
         <image name="Pokemon" width="179" height="180"/>
-        <image name="Settings Icon" width="64" height="64"/>
     </resources>
 </document>

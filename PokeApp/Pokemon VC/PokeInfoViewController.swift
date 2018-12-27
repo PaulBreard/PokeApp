@@ -15,7 +15,10 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     var selectedPokemon: Pokemon!
     var pokeMovesArray = [Moves]()
     var isShiny: Bool = false
+    var favArray = [Pokemon]()
+    let themeDefault = UserDefaults.standard
 
+    @IBOutlet weak var favButton: UIBarButtonItem!
     @IBOutlet weak var pokeNameLabel: UILabel!
     @IBOutlet weak var pokeTypeLabel: UILabel!
     @IBOutlet weak var pokeImage: UIImageView!
@@ -57,8 +60,18 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // check if pokemon is favorite
+        if let data = themeDefault.value(forKey:"FavPokemon") as? Data {
+            favArray = try! PropertyListDecoder().decode([Pokemon].self, from: data)
+        }
+        if favArray.contains(where: { $0.name == selectedPokemon.name }) {
+            favButton.title = "Unfav"
+        } else {
+            favButton.title = "Fav"
+        }
+        
         // check from if dark theme is enabled
-        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        let darkSwitch = themeDefault.bool(forKey: "themeDefault")
         
         // if dark theme is enabled, app theme will be dark, else it will be light
         if darkSwitch == true {
@@ -115,7 +128,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     
     func setBlurView() {
         // blur overlay while loading data
-        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+        let darkSwitch = themeDefault.bool(forKey: "themeDefault")
         if !UIAccessibility.isReduceTransparencyEnabled {
             blurView.backgroundColor = .clear
             if darkSwitch == true {
@@ -218,6 +231,32 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             let typeOrTypes = "Type: %@"
             return typeOrTypes
+        }
+    }
+    
+    @IBAction func addToFav(_ sender: Any) {
+        // get the fav array saved
+        if let data = themeDefault.value(forKey:"FavPokemon") as? Data {
+            favArray = try! PropertyListDecoder().decode([Pokemon].self, from: data)
+        }
+        
+        if favArray.contains(where: { $0.name == selectedPokemon.name }) == false {
+            // change button's title
+            favButton.title = "Unfav"
+            // add pokémon to favArray
+            favArray.append(selectedPokemon)
+            // save the array
+            themeDefault.set(try? PropertyListEncoder().encode(favArray), forKey:"FavPokemon")
+        } else {
+            // change button's title
+            favButton.title = "Fav"
+            // finding index using index(where:) method
+            if let index = self.favArray.index(where: { $0.name == selectedPokemon.name }) {
+                // removing item
+                self.favArray.remove(at: index)
+                // save the array
+                themeDefault.set(try? PropertyListEncoder().encode(favArray), forKey:"FavPokemon")
+            }
         }
     }
     

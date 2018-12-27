@@ -11,14 +11,11 @@ import Alamofire
 import AlamofireImage
 
 class PokeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    // faire un dictionnaire comprenant les lettres de l'alphabet en clé et les tableaux de pokémon pokeArray en valeur
-    // créer un tableau contenant les titres de section
-    var pokeDict = [String: [Pokemon]]()
-    var pokeSectionTitles = [String]()
-    
+
     var pokeArray = [Pokemon]()
     var pokeFilteredArray = [Pokemon]()
+    var favArray = [Pokemon]()
+    let themeDefault = UserDefaults.standard
     
     @IBOutlet weak var pokeTableView: UITableView!
     @IBOutlet weak var loadingLabel: UILabel!
@@ -141,7 +138,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String) {
         pokeFilteredArray = pokeArray.filter({(poke : Pokemon) -> Bool in
             return poke.name.lowercased().contains(searchText.lowercased())
         })
@@ -195,6 +192,53 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         cell.setPokeCell(poke: poke)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let pokemon = pokeArray[indexPath.row]
+        // get the fav array saved
+        if let data = themeDefault.value(forKey:"FavPokemon") as? Data {
+            favArray = try! PropertyListDecoder().decode([Pokemon].self, from: data)
+        }
+        
+        let favAction = UIContextualAction(style: .normal, title: "Add to favorite") { (action, view, completion) in
+            if self.favArray.contains(where: { $0.name == pokemon.name }) == false {
+                // add pokémon to favArray
+                self.favArray.append(pokemon)
+                // save the array
+                self.themeDefault.set(try? PropertyListEncoder().encode(self.favArray), forKey:"FavPokemon")
+            } else {
+                // finding index using index(where:) method
+                if let index = self.favArray.index(where: { $0.name == pokemon.name }) {
+                    // removing item
+                    self.favArray.remove(at: index)
+                    // save the array
+                    self.themeDefault.set(try? PropertyListEncoder().encode(self.favArray), forKey:"FavPokemon")
+                }
+            }
+            
+            completion(true)
+        }
+        
+        if self.favArray.contains(where: { $0.name == pokemon.name }) == false {
+            // set favorite icon when pokemon is not favorite
+            favAction.image = UIImage(named: "Favorite")!
+            // set the background to blue when pokemon is not favorite
+            favAction.backgroundColor = .blue
+        } else {
+            // set favorited icon when pokemon is favorite
+            favAction.image = UIImage(named: "Favorited")!
+            // set the background to orange when pokemon is favorite
+            favAction.backgroundColor = .orange
+        }
+        
+        return UISwipeActionsConfiguration(actions: [favAction])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // return an empty array to disable trailing swipe actions
+        return UISwipeActionsConfiguration(actions: [])
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -262,14 +306,11 @@ class MainPokeTableViewCell: UITableViewCell {
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!
         spriteImage.image = placeholderImage
         
-        // récupère l'id du pokemon dans l'url
-        if let pokeId = poke.url.split(separator: "/").last {
-            let frontSprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokeId).png"
-            // get and display the sprite from the image link + the pokemon id
-            Alamofire.request(frontSprite).responseImage { response in
-                if let img = response.result.value {
-                    self.spriteImage.image = img
-                }
+        let frontSprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(poke.id).png"
+        // get and display the sprite from the image link + the pokemon id
+        Alamofire.request(frontSprite).responseImage { response in
+            if let img = response.result.value {
+                self.spriteImage.image = img
             }
         }
     }

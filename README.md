@@ -3,6 +3,14 @@ iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contribu
 
 ## Changelog
 
+### 5.4
+- Added favorite section
+- Added options to sort favorites
+- Added a swipe action to fav or unfav a Pokémon in the Pokémon list
+- Added a button to fav or unfav a Pokémon in its detail view
+- Added a swipe action to remove a Pokémon from favorites
+- Updated home screen and launch screen to match changes
+
 ### 5.3
 - Redesigned homescreen
 - Added user name and pop up at first launch if user name is not set (user name can be edited in the settings)

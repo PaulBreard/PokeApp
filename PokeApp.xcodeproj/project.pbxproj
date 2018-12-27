@@ -16,6 +16,7 @@
 		DA30AC9221B1CB49000DA614 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA30AC9121B1CB49000DA614 /* Moves.swift */; };
 		DA82540821AACBCB00A009CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA82540721AACBCB00A009CC /* SettingsViewController.swift */; };
 		DA8F928321788D7D00FB11F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8F928221788D7D00FB11F8 /* Constants.swift */; };
+		DAA33DAA21C6B88C00D5C2CE /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA33DA921C6B88C00D5C2CE /* FavoritesViewController.swift */; };
 		DAB22DCD218E5F9E00619BB1 /* MovesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DCC218E5F9E00619BB1 /* MovesViewController.swift */; };
 		DAB22DCF218E602700619BB1 /* BerriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DCE218E602700619BB1 /* BerriesViewController.swift */; };
 		DAB22DDB218F142100619BB1 /* BerryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB22DDA218F142100619BB1 /* BerryInfoViewController.swift */; };
@@ -41,6 +42,7 @@
 		DA30AC9121B1CB49000DA614 /* Moves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moves.swift; sourceTree = "<group>"; };
 		DA82540721AACBCB00A009CC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA8F928221788D7D00FB11F8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DAA33DA921C6B88C00D5C2CE /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesViewController.swift; path = PokeApp/FavoritesViewController.swift; sourceTree = SOURCE_ROOT; };
 		DAB22DCC218E5F9E00619BB1 /* MovesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovesViewController.swift; sourceTree = "<group>"; };
 		DAB22DCE218E602700619BB1 /* BerriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerriesViewController.swift; sourceTree = "<group>"; };
 		DAB22DDA218F142100619BB1 /* BerryInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerryInfoViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				DAD805BF21762457004EF9C4 /* AppDelegate.swift */,
 				DA29157C21ABF3AC00297C14 /* HomeViewController.swift */,
 				DA82540721AACBCB00A009CC /* SettingsViewController.swift */,
+				DAA33DA921C6B88C00D5C2CE /* FavoritesViewController.swift */,
 				DAB22DD2218E6EBA00619BB1 /* Pokemon VC */,
 				DAB22DD3218E70FA00619BB1 /* Moves VC */,
 				DAB22DDC218F185100619BB1 /* Items VC */,
@@ -308,6 +311,7 @@
 				DAB22DCD218E5F9E00619BB1 /* MovesViewController.swift in Sources */,
 				DA0C885C218CF8EA00EC4489 /* Extensions.swift in Sources */,
 				DA82540821AACBCB00A009CC /* SettingsViewController.swift in Sources */,
+				DAA33DAA21C6B88C00D5C2CE /* FavoritesViewController.swift in Sources */,
 				DAE958BD21892BBA0091A55A /* MoveInfoViewController.swift in Sources */,
 				DAB22DCF218E602700619BB1 /* BerriesViewController.swift in Sources */,
 				DA30AC9221B1CB49000DA614 /* Moves.swift in Sources */,
