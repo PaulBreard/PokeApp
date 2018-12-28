@@ -66,8 +66,10 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         }
         if favArray.contains(where: { $0.name == selectedPokemon.name }) {
             favButton.title = "Unfav"
+            favButton.image = UIImage(named: "Favorited")!
         } else {
             favButton.title = "Fav"
+            favButton.image = UIImage(named: "Favorite")!
         }
         
         // check from if dark theme is enabled
@@ -243,6 +245,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         if favArray.contains(where: { $0.name == selectedPokemon.name }) == false {
             // change button's title
             favButton.title = "Unfav"
+            favButton.image = UIImage(named: "Favorited")!
             // add pokémon to favArray
             favArray.append(selectedPokemon)
             // save the array
@@ -250,6 +253,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             // change button's title
             favButton.title = "Fav"
+            favButton.image = UIImage(named: "Favorite")!
             // finding index using index(where:) method
             if let index = self.favArray.index(where: { $0.name == selectedPokemon.name }) {
                 // removing item

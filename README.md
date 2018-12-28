@@ -3,11 +3,15 @@ iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contribu
 
 ## Changelog
 
+### 5.4.1
+- Fixed wrong Pokémon added to favorites when using the search bar 
+- Replaced fav button's text by an icon in Pokémon details view
+
 ### 5.4
 - Added favorite section
 - Added options to sort favorites
 - Added a swipe action to fav or unfav a Pokémon in the Pokémon list
-- Added a button to fav or unfav a Pokémon in its detail view
+- Added a button to fav or unfav a Pokémon in its details view
 - Added a swipe action to remove a Pokémon from favorites
 - Updated home screen and launch screen to match changes
 

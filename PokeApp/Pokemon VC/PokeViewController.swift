@@ -195,8 +195,13 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let pokemon = pokeArray[indexPath.row]
+
+        let pokemon: Pokemon
+        if isFiltering() {
+            pokemon = pokeFilteredArray[indexPath.row]
+        } else {
+            pokemon = pokeArray[indexPath.row]
+        }
         // get the fav array saved
         if let data = themeDefault.value(forKey:"FavPokemon") as? Data {
             favArray = try! PropertyListDecoder().decode([Pokemon].self, from: data)
@@ -217,7 +222,6 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.themeDefault.set(try? PropertyListEncoder().encode(self.favArray), forKey:"FavPokemon")
                 }
             }
-            
             completion(true)
         }
         
@@ -225,12 +229,12 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             // set favorite icon when pokemon is not favorite
             favAction.image = UIImage(named: "Favorite")!
             // set the background to blue when pokemon is not favorite
-            favAction.backgroundColor = .blue
+            favAction.backgroundColor = Constants.Colors.blue
         } else {
             // set favorited icon when pokemon is favorite
             favAction.image = UIImage(named: "Favorited")!
             // set the background to orange when pokemon is favorite
-            favAction.backgroundColor = .orange
+            favAction.backgroundColor = .darkGray
         }
         
         return UISwipeActionsConfiguration(actions: [favAction])
