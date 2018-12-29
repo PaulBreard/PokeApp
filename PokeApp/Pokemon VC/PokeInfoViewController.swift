@@ -16,6 +16,8 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     var pokeMovesArray = [Moves]()
     var isShiny: Bool = false
     var favArray = [Pokemon]()
+    var blurEffectView: UIVisualEffectView!
+    var favMessage: UILabel!
     let themeDefault = UserDefaults.standard
 
     @IBOutlet weak var favButton: UIBarButtonItem!
@@ -130,24 +132,21 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     
     func setBlurView() {
         // blur overlay while loading data
+        // get theme mode
         let darkSwitch = themeDefault.bool(forKey: "themeDefault")
+        let blurEffect: UIBlurEffect!
         if !UIAccessibility.isReduceTransparencyEnabled {
             blurView.backgroundColor = .clear
             if darkSwitch == true {
-                let blurEffect = UIBlurEffect(style: .dark)
-                let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                // always fill the view
-                blurEffectView.frame = blurView.bounds
-                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                blurView.addSubview(blurEffectView)
+                blurEffect = UIBlurEffect(style: .dark)
             } else {
-                let blurEffect = UIBlurEffect(style: .light)
-                let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                // always fill the view
-                blurEffectView.frame = blurView.bounds
-                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                blurView.addSubview(blurEffectView)
+                blurEffect = UIBlurEffect(style: .light)
             }
+            blurEffectView = UIVisualEffectView(effect: blurEffect)
+            // always fill the view
+            blurEffectView.frame = blurView.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            blurView.addSubview(blurEffectView)
         } else {
             if darkSwitch == true {
                 blurView.backgroundColor = Constants.Colors.gray28
@@ -250,6 +249,8 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
             favArray.append(selectedPokemon)
             // save the array
             themeDefault.set(try? PropertyListEncoder().encode(favArray), forKey:"FavPokemon")
+            // show message
+            showAlert()
         } else {
             // change button's title
             favButton.title = "Fav"
@@ -261,6 +262,56 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
                 // save the array
                 themeDefault.set(try? PropertyListEncoder().encode(favArray), forKey:"FavPokemon")
             }
+        }
+    }
+    
+    func showAlert() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.blurView.alpha = 1.0
+        })
+        // set blur background
+        setBlurView()
+        
+        // create a label with the message
+        favMessage = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 120, y: UIScreen.main.bounds.height/2 - 40, width: 240, height: 80))
+        let attributedString = NSMutableAttributedString(string: "\(selectedPokemon.name) has been added to your favorites!")
+        // create instance of NSMutableParagraphStyle
+        let paragraphStyle = NSMutableParagraphStyle()
+        // set line spacing in points
+        paragraphStyle.lineSpacing = 8
+        // apply attribute to string
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        favMessage.attributedText = attributedString
+        favMessage.font = UIFont.boldSystemFont(ofSize: 20.0)
+        
+        // set text color
+        let darkSwitch = themeDefault.bool(forKey: "themeDefault")
+        if darkSwitch == true {
+            favMessage.textColor = UIColor.white
+        } else {
+            favMessage.textColor = UIColor.black
+        }
+        
+        // set text behaviour
+        favMessage.lineBreakMode = .byWordWrapping
+        favMessage.numberOfLines = 0
+        favMessage.textAlignment = .center
+        
+        // show on screen
+        blurView.addSubview(favMessage)
+        
+        // set the timer
+        Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
+    }
+    
+    @objc func dismissAlert(){
+        // dismiss the view
+        if blurView != nil {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.blurView.alpha = 0.0
+            })
+            blurEffectView.removeFromSuperview()
+            favMessage.removeFromSuperview()
         }
     }
     

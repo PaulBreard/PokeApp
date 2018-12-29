@@ -177,13 +177,41 @@ class FavTableViewCell: UITableViewCell {
     @IBOutlet weak var idLabel: UILabel!
     
     func setPokeCell(favPoke: Pokemon) {
-        // setting name label with pokemon name, detail label with url and id label with pokemon id
+        // setting name label with pokemon name and id label with pokemon id
         nameLabel.text = favPoke.name
-        detailLabel.text = favPoke.url
         idLabel.text = "\(favPoke.id)"
         // adjusting pokémon name if too long to fit
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.lineBreakMode = .byClipping
+        
+        // setting detail label with types
+        if favPoke.types != nil {
+            detailLabel.text = favPoke.types
+        } else {
+            Alamofire.request(favPoke.url).responseJSON { response in
+                if let jsonDict = response.result.value as? [String: Any] {
+                    // get the pokemon types array
+                    guard let pokeTypesArray = jsonDict["types"] as? [[String: Any]]
+                        else {
+                            return
+                    }
+                    var arrayOfPokeTypes: [String] = []
+                    // get all the types of the pokemon
+                    for dic in pokeTypesArray {
+                        let pokeType = dic["type"] as? [String: String]
+                        let pokeTypeName = pokeType!["name"]
+                        
+                        // create an array with the types of the selected pokemon
+                        arrayOfPokeTypes.append(pokeTypeName!.capitalized)
+                        // concatenate the types into a single string
+                        let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
+                        
+                        // display the types in the View Controller
+                        self.detailLabel.text = selectedPokemonTypes
+                    }
+                }
+            }
+        }
         
         // setting image
         let placeholderImage: UIImage = UIImage(named: "Placeholder")!

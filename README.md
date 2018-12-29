@@ -3,6 +3,10 @@ iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contribu
 
 ## Changelog
 
+### 5.4.2
+- Added an indicator when adding a Pokémon to favorites from its details view
+- Now showing Pokemon's type instead of its detail link in the favorites list
+
 ### 5.4.1
 - Fixed wrong Pokémon added to favorites when using the search bar 
 - Replaced fav button's text by an icon in Pokémon details view
