@@ -233,14 +233,12 @@ class MainBerryTableViewCell: UITableViewCell {
             }
         }
         
-        // add berry name in sprite url
+        // setting image
+        let placeholderImage = UIImage(named: "Placeholder")!
+        // create sprite link with berry name
         let berryName = berry.name.lowercased().replacingOccurrences(of: " ", with: "-")
-        let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(berryName)-berry.png"
-        // get and display the sprite from the image link
-        Alamofire.request(sprite).responseImage { response in
-            if let img = response.result.value {
-                self.spriteImage.image = img
-            }
-        }
+        let sprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(berryName)-berry.png")!
+        // display image or placeholder
+        spriteImage.af_setImage(withURL: sprite, placeholderImage: placeholderImage)
     }
 }

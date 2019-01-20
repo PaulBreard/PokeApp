@@ -10,12 +10,15 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var selectedPokemon: Pokemon!
     var pokeMovesArray = [Moves]()
     var isShiny: Bool = false
     var favArray = [Pokemon]()
+    
+    var activityIndicator: UIActivityIndicatorView!
+    var blurView: UIView!
     var blurEffectView: UIVisualEffectView!
     var favMessage: UILabel!
     let themeDefault = UserDefaults.standard
@@ -32,9 +35,6 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var changeSpriteLabel: UIButton!
     @IBOutlet weak var pokeMovesViewButton: UIButton!
     @IBOutlet weak var pokeMoveTableView: UITableView!
-    @IBOutlet weak var blurView: UIView!
-    @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +78,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         let darkSwitch = themeDefault.bool(forKey: "themeDefault")
         
         // if dark theme is enabled, app theme will be dark, else it will be light
-        if darkSwitch == true {
+        if darkSwitch {
             darkTheme()
             darkThemePoke()
         } else {
@@ -103,9 +103,8 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         pokeInfoView.backgroundColor = Constants.Colors.gray40
 
         // activity indicator
-        activityIndicator.color = UIColor.white
-        loadingLabel.textColor = UIColor.white
         pokeImageActivityIndicator.color = UIColor.white
+        activityIndicator.color = UIColor.white
         
         // table view separator and background color
         pokeMoveTableView.separatorColor = UIColor.darkGray
@@ -121,23 +120,27 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         pokeInfoView.backgroundColor = UIColor.white
         
         // activity indicator
-        activityIndicator.color = UIColor.black
-        loadingLabel.textColor = UIColor.black
         pokeImageActivityIndicator.color = UIColor.black
+        activityIndicator.color = UIColor.black
 
         // table view separator and background color
         pokeMoveTableView.separatorColor = UIColor.lightGray
         pokeMoveTableView.backgroundColor = UIColor.white
     }
     
-    func setBlurView() {
-        // blur overlay while loading data
+    func setLoadingView() {
+        // create blur overlay
+        blurView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        view.addSubview(blurView)
+        
+        let blurEffect: UIBlurEffect!
+        
         // get theme mode
         let darkSwitch = themeDefault.bool(forKey: "themeDefault")
-        let blurEffect: UIBlurEffect!
+        
         if !UIAccessibility.isReduceTransparencyEnabled {
             blurView.backgroundColor = .clear
-            if darkSwitch == true {
+            if darkSwitch {
                 blurEffect = UIBlurEffect(style: .dark)
             } else {
                 blurEffect = UIBlurEffect(style: .light)
@@ -148,20 +151,26 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             blurView.addSubview(blurEffectView)
         } else {
-            if darkSwitch == true {
+            if darkSwitch {
                 blurView.backgroundColor = Constants.Colors.gray28
             } else {
                 blurView.backgroundColor = .white
             }
         }
+        
+        // create activity indicator
+        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        // start activity indicator
+        activityIndicator.startAnimating()
+        // show activity indicator
+        view.addSubview(activityIndicator)
     }
     
     private func loadPokemonDetails() {
-        // start activity indicator
-        activityIndicator.startAnimating()
-        // set blur view
-        setBlurView()
-
+        setLoadingView()
+        
         // get the detail dictionary of the pokemon from the url of the pokemon
         Alamofire.request(selectedPokemon.url).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
@@ -217,7 +226,6 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
                 self.activityIndicator.stopAnimating()
                 UIView.animate(withDuration: 0.6, animations: {
                     self.blurView.alpha = 0.0
-                    self.loadingLabel.isHidden = true
                 })
             }
         }
@@ -266,11 +274,10 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func showAlert() {
+        // show blur view
         UIView.animate(withDuration: 0.2, animations: {
             self.blurView.alpha = 1.0
         })
-        // set blur background
-        setBlurView()
         
         // create a label with the message
         favMessage = UILabel(frame: CGRect(x: UIScreen.main.bounds.width/2 - 120, y: UIScreen.main.bounds.height/2 - 40, width: 240, height: 80))
@@ -286,7 +293,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         
         // set text color
         let darkSwitch = themeDefault.bool(forKey: "themeDefault")
-        if darkSwitch == true {
+        if darkSwitch {
             favMessage.textColor = UIColor.white
         } else {
             favMessage.textColor = UIColor.black
@@ -301,7 +308,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         blurView.addSubview(favMessage)
         
         // set the timer
-        Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 1.6, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
     }
     
     @objc func dismissAlert(){
@@ -310,14 +317,13 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
             UIView.animate(withDuration: 0.6, animations: {
                 self.blurView.alpha = 0.0
             })
-            blurEffectView.removeFromSuperview()
             favMessage.removeFromSuperview()
         }
     }
     
     @IBAction func pokeMovesButton(_ sender: Any) {
         UIStackView.animateVisibilityOfViews([pokeMoveTableView], hidden: !pokeMoveTableView.isHidden)
-        if pokeMoveTableView.isHidden == true {
+        if pokeMoveTableView.isHidden {
             // change the button's text
             self.pokeMovesViewButton.setTitle("\(self.selectedPokemon.name) has \(self.pokeMovesArray.count) moves ↓", for: .normal)
         } else {
@@ -386,7 +392,7 @@ class PokeInfoController: UIViewController, UITableViewDelegate, UITableViewData
         let customSelectedCellColor = UIView()
         // change background color and labels' color to match the app theme
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
-        if darkSwitch == true {
+        if darkSwitch {
             cell.textLabel?.textColor = UIColor.white
             // change the selected cell background color
             customSelectedCellColor.backgroundColor = UIColor.darkGray

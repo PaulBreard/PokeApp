@@ -60,7 +60,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
             loadingLabel.textColor = UIColor.black
             activityIndicator.color = UIColor.black
             // table view separator color
-            pokeTableView.separatorColor = UIColor.lightGray
+            pokeTableView.separatorColor = Constants.Colors.light088
         }
         // update table view UI
         pokeTableView.reloadData()
@@ -134,7 +134,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
+        // returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
@@ -247,7 +247,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check if it is the right destination View Controller
-        if let detailPokemon = segue.destination as? PokeInfoController {
+        if let detailPokemon = segue.destination as? PokeInfoViewController {
             // get selected cell
             if let cell = sender as? UITableViewCell {
                 // get its index
@@ -281,6 +281,13 @@ class MainPokeTableViewCell: UITableViewCell {
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.lineBreakMode = .byClipping
         
+        // setting image
+        let placeholderImage = UIImage(named: "Placeholder")!
+        // create sprite link with pokemon id
+        let frontSprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(poke.id).png")!
+        // display image or placeholder
+        spriteImage.af_setImage(withURL: frontSprite, placeholderImage: placeholderImage)
+        
         // setting detail label with types
         Alamofire.request(poke.url).responseJSON { response in
             if let jsonDict = response.result.value as? [String: Any] {
@@ -294,27 +301,15 @@ class MainPokeTableViewCell: UITableViewCell {
                 for dic in pokeTypesArray {
                     let pokeType = dic["type"] as? [String: String]
                     let pokeTypeName = pokeType!["name"]
-
+                    
                     // create an array with the types of the selected pokemon
                     arrayOfPokeTypes.append(pokeTypeName!.capitalized)
                     // concatenate the types into a single string
                     let selectedPokemonTypes = arrayOfPokeTypes.joined(separator: ", ")
-
+                    
                     // display the types in the View Controller
                     self.detailLabel.text = selectedPokemonTypes
                 }
-            }
-        }
-        
-        // setting image
-        let placeholderImage: UIImage = UIImage(named: "Placeholder")!
-        spriteImage.image = placeholderImage
-        
-        let frontSprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(poke.id).png"
-        // get and display the sprite from the image link + the pokemon id
-        Alamofire.request(frontSprite).responseImage { response in
-            if let img = response.result.value {
-                self.spriteImage.image = img
             }
         }
     }

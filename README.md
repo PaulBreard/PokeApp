@@ -3,6 +3,11 @@ iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contribu
 
 ## Changelog
 
+### 5.4.3
+- Fixed Pokémon, Berries, Items and Moves lists showing only the 20 first results (due to a change in the API)
+- Improved image loading in the lists
+- Updated loading view
+
 ### 5.4.2
 - Added an indicator when adding a Pokémon to favorites from its details view
 - Now showing Pokemon's type instead of its detail link in the favorites list

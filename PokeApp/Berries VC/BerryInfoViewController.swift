@@ -13,6 +13,10 @@ import AlamofireImage
 class BerryInfoViewController: UIViewController {
 
     var selectedBerry: Items!
+    var blurView: UIView!
+    var blurEffectView: UIVisualEffectView!
+    var activityIndicator: UIActivityIndicatorView!
+    let themeDefault = UserDefaults.standard
     
     @IBOutlet weak var berryImage: UIImageView!
     @IBOutlet weak var berryNameLabel: UILabel!
@@ -24,9 +28,6 @@ class BerryInfoViewController: UIViewController {
     @IBOutlet weak var smoothnessLabel: UILabel!
     @IBOutlet weak var giftPowerLabel: UILabel!
     @IBOutlet weak var giftTypeLabel: UILabel!
-    @IBOutlet weak var blurView: UIView!
-    @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ class BerryInfoViewController: UIViewController {
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         
         // if dark theme is enabled, app theme will be dark, else it will be light
-        if darkSwitch == true {
+        if darkSwitch {
             darkTheme()
             berryInfoView.backgroundColor = Constants.Colors.gray40
             berryNameLabel.textColor = UIColor.white
@@ -56,7 +57,6 @@ class BerryInfoViewController: UIViewController {
             giftTypeLabel.textColor = UIColor.white
             // activity indicator
             activityIndicator.color = UIColor.white
-            loadingLabel.textColor = UIColor.white
         } else {
             lightTheme()
             berryInfoView.backgroundColor = UIColor.white
@@ -71,39 +71,51 @@ class BerryInfoViewController: UIViewController {
             giftTypeLabel.textColor = UIColor.black
             // activity indicator
             activityIndicator.color = UIColor.black
-            loadingLabel.textColor = UIColor.black
         }
     }
     
-    private func loadBerryDetails() {
-        // start activity indicator
-        activityIndicator.startAnimating()
-        // blur overlay while loading data
-        let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
+    func setLoadingView() {
+        // create blur overlay
+        blurView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        view.addSubview(blurView)
+        
+        let blurEffect: UIBlurEffect!
+        
+        // get theme mode
+        let darkSwitch = themeDefault.bool(forKey: "themeDefault")
+        
         if !UIAccessibility.isReduceTransparencyEnabled {
-            self.blurView.backgroundColor = .clear
+            blurView.backgroundColor = .clear
             if darkSwitch == true {
-                let blurEffect = UIBlurEffect(style: .dark)
-                let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                // always fill the view
-                blurEffectView.frame = self.blurView.bounds
-                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                self.blurView.addSubview(blurEffectView)
+                blurEffect = UIBlurEffect(style: .dark)
             } else {
-                let blurEffect = UIBlurEffect(style: .light)
-                let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                // always fill the view
-                blurEffectView.frame = self.blurView.bounds
-                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                self.blurView.addSubview(blurEffectView)
+                blurEffect = UIBlurEffect(style: .light)
             }
+            blurEffectView = UIVisualEffectView(effect: blurEffect)
+            // always fill the view
+            blurEffectView.frame = blurView.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            blurView.addSubview(blurEffectView)
         } else {
             if darkSwitch == true {
-                self.blurView.backgroundColor = Constants.Colors.gray28
+                blurView.backgroundColor = Constants.Colors.gray28
             } else {
-                self.blurView.backgroundColor = .white
+                blurView.backgroundColor = .white
             }
         }
+        
+        // create activity indicator
+        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        // start activity indicator
+        activityIndicator.startAnimating()
+        // show activity indicator
+        view.addSubview(activityIndicator)
+    }
+    
+    private func loadBerryDetails() {
+        setLoadingView()
         
         // get the move's details from the url of the selected move
         Alamofire.request(selectedBerry.url).responseJSON { response in
@@ -139,7 +151,6 @@ class BerryInfoViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                     UIView.animate(withDuration: 0.6, animations: {
                         self.blurView.alpha = 0.0
-                        self.loadingLabel.isHidden = true
                     })
                 }
             }

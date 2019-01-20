@@ -111,7 +111,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         let customSelectedCellColor = UIView()
         // change background color and labels' color to match the app theme
         let darkSwitch = themeDefault.bool(forKey: "themeDefault")
-        if darkSwitch == true {
+        if darkSwitch {
             cell.nameLabel.textColor = UIColor.white
             cell.detailLabel.textColor = UIColor.lightGray
             cell.idLabel.textColor = UIColor.lightGray
@@ -138,7 +138,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Remove from favorite") { (action, view, completion) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Remove from favorites") { (action, view, completion) in
             // remove pokémon from favArray
             self.favArray.remove(at: indexPath.row)
             // save updated favArray
@@ -154,7 +154,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // check if it is the right destination View Controller
-        if let detailPokemon = segue.destination as? PokeInfoController {
+        if let detailPokemon = segue.destination as? PokeInfoViewController {
             // get selected cell
             if let cell = sender as? UITableViewCell {
                 // get its index
@@ -214,16 +214,11 @@ class FavTableViewCell: UITableViewCell {
         }
         
         // setting image
-        let placeholderImage: UIImage = UIImage(named: "Placeholder")!
-        spriteImage.image = placeholderImage
-        
-        let frontSprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(favPoke.id).png"
-        // get and display the sprite from the image link + the pokemon id
-        Alamofire.request(frontSprite).responseImage { response in
-            if let img = response.result.value {
-                self.spriteImage.image = img
-            }
-        }
+        let placeholderImage = UIImage(named: "Placeholder")!
+        // create sprite link with pokemon id
+        let frontSprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(favPoke.id).png")!
+        // display image or placeholder
+        spriteImage.af_setImage(withURL: frontSprite, placeholderImage: placeholderImage)
     }
     
 }

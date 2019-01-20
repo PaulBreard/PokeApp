@@ -231,29 +231,16 @@ class MainItemTableViewCell: UITableViewCell {
             }
         }
 
-        let placeholderImage: UIImage = UIImage(named: "Placeholder")!
-        spriteImage.image = placeholderImage
-        
+        // setting image
+        let placeholderImage = UIImage(named: "Placeholder")!
         var itemName = items.name.lowercased().replacingOccurrences(of: " ", with: "-")
         if itemName.contains("tm") {
             itemName = itemName.replacingOccurrences(of: itemName, with: "tm-normal")
-            // add item name in sprite url
-            let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png"
-            // get and display the sprite from the image link
-            Alamofire.request(sprite).responseImage { response in
-                if let img = response.result.value {
-                    self.spriteImage.image = img
-                }
-            }
         }
-        // add item name in sprite url
-        let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png"
-        // get and display the sprite from the image link
-        Alamofire.request(sprite).responseImage { response in
-            if let img = response.result.value {
-                self.spriteImage.image = img
-            }
-        }
+        // create sprite link with item name
+        let sprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(itemName).png")!
+        // display image or placeholder
+        spriteImage.af_setImage(withURL: sprite, placeholderImage: placeholderImage)
     }
 }
 
