@@ -293,7 +293,7 @@
             </objects>
             <point key="canvasLocation" x="3728.8000000000002" y="-1309.3596059113302"/>
         </scene>
-        <!--949 Pokémon-->
+        <!--Pokémon-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PokeViewController" customModule="PokeApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -320,8 +320,8 @@
                                                         <constraint firstAttribute="width" secondItem="bu7-Jp-NW3" secondAttribute="height" multiplier="1:1" id="LeF-AH-BbY"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uBu-pz-e8w">
-                                                    <rect key="frame" x="102.66666666666667" y="13.999999999999996" width="212.33333333333331" height="42.666666666666657"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="uBu-pz-e8w">
+                                                    <rect key="frame" x="102.66666666666667" y="14.999999999999996" width="212.33333333333331" height="40.666666666666657"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXb-Oc-qRT">
                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="20.333333333333332"/>
@@ -330,7 +330,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92Y-b2-MS1">
-                                                            <rect key="frame" x="0.0" y="28.333333333333332" width="11" height="14.333333333333332"/>
+                                                            <rect key="frame" x="0.0" y="26.333333333333332" width="11" height="14.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -358,15 +358,15 @@
                                                 <constraint firstItem="uBu-pz-e8w" firstAttribute="leading" secondItem="bu7-Jp-NW3" secondAttribute="trailing" constant="16" id="pHl-xy-J3H"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="detailLabel" destination="92Y-b2-MS1" id="aYr-Xj-66m"/>
                                             <outlet property="idLabel" destination="8Ke-bn-Q4h" id="tv2-oQ-LWB"/>
                                             <outlet property="nameLabel" destination="HXb-Oc-qRT" id="Q8m-py-krc"/>
                                             <outlet property="spriteImage" destination="bu7-Jp-NW3" id="Gni-Yg-mMv"/>
                                             <segue destination="LA5-NR-bVI" kind="show" id="6OI-fb-75j">
-                                                <segue key="commit" inheritsFrom="parent" id="Sw9-06-pj3"/>
-                                                <segue key="preview" inheritsFrom="commit" id="EUJ-JV-fpt"/>
+                                                <segue key="commit" inheritsFrom="parent" id="YRB-4n-Hjf"/>
+                                                <segue key="preview" inheritsFrom="commit" id="SFA-5e-Qvc"/>
                                             </segue>
                                         </connections>
                                     </tableViewCell>
@@ -393,32 +393,28 @@
                         <constraints>
                             <constraint firstItem="Vym-MD-jN1" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="0iw-sU-8Jo"/>
                             <constraint firstItem="vtH-LG-Z1y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8mV-Xd-tyv"/>
+                            <constraint firstItem="Vym-MD-jN1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Dp7-ZU-Zfy"/>
                             <constraint firstItem="vtH-LG-Z1y" firstAttribute="top" secondItem="0CA-TL-4L6" secondAttribute="bottom" constant="30" id="Mf1-Xz-xUX"/>
                             <constraint firstItem="0CA-TL-4L6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WGV-bz-s1J"/>
                             <constraint firstItem="Vym-MD-jN1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="YZg-qx-vLb"/>
-                            <constraint firstItem="Vym-MD-jN1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cdk-n8-eID"/>
                             <constraint firstItem="Vym-MD-jN1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hFa-4d-qMd"/>
                             <constraint firstItem="vtH-LG-Z1y" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="m1c-cN-iLh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="949 Pokémon" largeTitleDisplayMode="always" id="PrO-yx-iLf">
-                        <barButtonItem key="rightBarButtonItem" title="Sort Pokémon" id="itH-gR-Q2i">
-                            <connections>
-                                <action selector="sortPokemon:" destination="BYZ-38-t0r" id="ajV-4h-EzJ"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Pokémon" largeTitleDisplayMode="always" id="PrO-yx-iLf">
+                        <barButtonItem key="rightBarButtonItem" title="Sort Pokémon" id="itH-gR-Q2i"/>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="0CA-TL-4L6" id="LJ3-AW-PHX"/>
                         <outlet property="loadingLabel" destination="vtH-LG-Z1y" id="qSr-5J-yZr"/>
                         <outlet property="pokeTableView" destination="Vym-MD-jN1" id="ORb-5c-aQX"/>
-                        <outlet property="sortButton" destination="itH-gR-Q2i" id="qbv-wd-80y"/>
+                        <outlet property="sortButton" destination="itH-gR-Q2i" id="ryB-pj-Oac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3729" y="-553"/>
+            <point key="canvasLocation" x="3728.8000000000002" y="-553.44827586206895"/>
         </scene>
         <!--pokeInfoView-->
         <scene sceneID="hKT-Cz-jvT">
@@ -1532,7 +1528,7 @@
         <!--Favorites-->
         <scene sceneID="os3-cM-klG">
             <objects>
-                <viewController id="W5G-a3-Z1w" customClass="FavoritesViewController" customModule="PokeApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoritesViewController" id="W5G-a3-Z1w" customClass="FavoritesViewController" customModule="PokeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6KD-55-NPY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1635,12 +1631,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eo-tD-BOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4502" y="-1987"/>
+            <point key="canvasLocation" x="4502" y="-1309"/>
         </scene>
         <!--Settings-->
         <scene sceneID="pQw-H5-41N">
             <objects>
-                <tableViewController id="on3-Fr-6pH" customClass="SettingsTableViewController" customModule="PokeApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsViewController" id="on3-Fr-6pH" customClass="SettingsTableViewController" customModule="PokeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tOy-74-qhG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1685,7 +1681,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Theme Options" id="PdS-Up-YpT">
+                            <tableViewSection headerTitle="App Preferences" id="PdS-Up-YpT">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="0V6-GA-ZI9">
                                         <rect key="frame" x="0.0" y="155.33333333333334" width="375" height="44"/>
@@ -1700,7 +1696,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LYh-aQ-NYq">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LYh-aQ-NYq">
                                                     <rect key="frame" x="310" y="6.3333333333333321" width="51" height="30.999999999999996"/>
                                                     <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
@@ -1725,16 +1721,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More options coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPC-5e-uSb">
-                                                    <rect key="frame" x="16" y="11.333333333333336" width="343" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show the Shiny sprite in the list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPC-5e-uSb">
+                                                    <rect key="frame" x="16" y="11.333333333333336" width="278" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="f9S-e1-hJi">
+                                                    <rect key="frame" x="310" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                    <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <action selector="setSpritePreference:" destination="on3-Fr-6pH" eventType="valueChanged" id="oDG-8D-S2p"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pPC-5e-uSb" firstAttribute="centerY" secondItem="rKC-tN-wjW" secondAttribute="centerY" id="LP2-5X-3uD"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="pPC-5e-uSb" secondAttribute="trailing" id="bTR-5D-aIR"/>
+                                                <constraint firstItem="f9S-e1-hJi" firstAttribute="centerY" secondItem="rKC-tN-wjW" secondAttribute="centerY" id="OH6-J7-DB0"/>
+                                                <constraint firstItem="f9S-e1-hJi" firstAttribute="leading" secondItem="pPC-5e-uSb" secondAttribute="trailing" constant="16" id="iHP-AX-KyW"/>
+                                                <constraint firstAttribute="trailing" secondItem="f9S-e1-hJi" secondAttribute="trailing" constant="16" id="l0S-Q7-QVW"/>
                                                 <constraint firstItem="pPC-5e-uSb" firstAttribute="leading" secondItem="rKC-tN-wjW" secondAttribute="leadingMargin" id="x44-nE-twB"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1781,6 +1786,7 @@
                         <outlet property="comingSoonCell" destination="L9d-Oh-hiH" id="YJy-di-EDd"/>
                         <outlet property="comingSoonLabel" destination="pPC-5e-uSb" id="maU-le-OQd"/>
                         <outlet property="darkSwitch" destination="LYh-aQ-NYq" id="UfX-d5-vG5"/>
+                        <outlet property="shinySwitch" destination="f9S-e1-hJi" id="Opf-QE-c0F"/>
                         <outlet property="themeModeCell" destination="0V6-GA-ZI9" id="dC0-Sw-IYB"/>
                         <outlet property="themeModeLabel" destination="Ocb-Dt-IOx" id="S12-9p-uLb"/>
                         <outlet property="userNameCell" destination="Y48-dq-bcx" id="f7t-CQ-L9c"/>
@@ -1791,7 +1797,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yev-7v-eap" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4502" y="-1309"/>
+            <point key="canvasLocation" x="4502" y="-2010"/>
         </scene>
         <!--Home-->
         <scene sceneID="lZF-rC-hoT">

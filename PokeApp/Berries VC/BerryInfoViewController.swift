@@ -139,20 +139,20 @@ class BerryInfoViewController: UIViewController {
                 
                 self.giftTypeLabel.attributedText = self.attributedText(withString: String(format: "Gift Type: %@", self.selectedBerry.giftType!), regularString: self.selectedBerry.giftType!, font: self.giftTypeLabel.font)
                 
+                // setting image
+                let placeholderImage = UIImage(named: "Placeholder")!
                 // add berry name in sprite url
                 let berryName = self.selectedBerry.name.lowercased().replacingOccurrences(of: " ", with: "-")
-                let sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(berryName)-berry.png"
-                // get and display the sprite from the image link
-                Alamofire.request(sprite).responseImage { response in
-                    if let img = response.result.value {
-                        self.berryImage.image = img
-                    }
-                    // stop activity indicator
-                    self.activityIndicator.stopAnimating()
-                    UIView.animate(withDuration: 0.6, animations: {
-                        self.blurView.alpha = 0.0
-                    })
-                }
+                // get berry sprite link
+                let spriteURL = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/\(berryName)-berry.png")!
+                // display image or placeholder
+                self.berryImage.af_setImage(withURL: spriteURL, placeholderImage: placeholderImage)
+                
+                // stop activity indicator
+                self.activityIndicator.stopAnimating()
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.blurView.alpha = 0.0
+                })
             }
         }
     }

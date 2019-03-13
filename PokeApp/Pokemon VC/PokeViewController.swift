@@ -47,7 +47,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         
         // if dark theme is enabled, app theme will be dark, else it will be light
-        if darkSwitch == true {
+        if darkSwitch {
             darkTheme()
             searchController.searchBar.barStyle = .black
             loadingLabel.textColor = UIColor.white
@@ -81,7 +81,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     self.pokeArray = pokemons.map { pokeJson -> Pokemon in
                         return Pokemon(pokeJson: pokeJson)!
                     }                    
-                    // tell UITable View to reload UI from the poke array
+                    // tell table view to reload UI from the poke array
                     self.pokeTableView.reloadData()
                     
                     self.title = "\(self.pokeArray.count) Pokémon"
@@ -140,7 +140,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func filterContentForSearchText(_ searchText: String) {
         pokeFilteredArray = pokeArray.filter({(poke : Pokemon) -> Bool in
-            return poke.name.lowercased().contains(searchText.lowercased())
+            return poke.name.lowercased().contains(searchText.lowercased()) || "\(poke.id)".contains(searchText.lowercased())
         })
         pokeTableView.reloadData()
     }
@@ -283,8 +283,18 @@ class MainPokeTableViewCell: UITableViewCell {
         
         // setting image
         let placeholderImage = UIImage(named: "Placeholder")!
+        
+        // check if the shiny sprite is selected or not
+        let spritePreference = Constants.Settings.themeDefault.bool(forKey: "spritePreference")
+        
         // create sprite link with pokemon id
-        let frontSprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(poke.id).png")!
+        let frontSprite: URL
+        if spritePreference {
+            frontSprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/\(poke.id).png")!
+        } else {
+            frontSprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(poke.id).png")!
+        }
+        
         // display image or placeholder
         spriteImage.af_setImage(withURL: frontSprite, placeholderImage: placeholderImage)
         

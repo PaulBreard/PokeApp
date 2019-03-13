@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var shinySwitch: UISwitch!
     @IBOutlet weak var darkSwitch: UISwitch!
     @IBOutlet weak var userNameCell: UITableViewCell!
     @IBOutlet weak var appVersionLabel: UILabel!
@@ -34,13 +35,16 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         darkSwitch.isOn = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
 
         // if dark theme is enabled, app theme will be dark, else it will be light
-        if darkSwitch.isOn == true {
+        if darkSwitch.isOn {
             darkTheme()
             darkThemeSettings()
         } else {
             lightTheme()
             lightThemeSettings()
         }
+        
+        // check from if shiny preference is true or false
+        shinySwitch.isOn = Constants.Settings.themeDefault.bool(forKey: "spritePreference")
         
         // set the cell height
         tableView.rowHeight = 44.0
@@ -103,13 +107,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func changeMode(_ sender: UISwitch) {
-        if darkSwitch.isOn == true {
+        if darkSwitch.isOn {
             darkTheme()
             darkThemeSettings()
             // save in app
             themeDefault.set(true, forKey: "themeDefault")
-        }
-        if darkSwitch.isOn == false {
+        } else {
             lightTheme()
             lightThemeSettings()
             // save in app
@@ -117,4 +120,13 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func setSpritePreference(_ sender: UISwitch) {
+        if shinySwitch.isOn {
+            // save in app
+            themeDefault.set(true, forKey: "spritePreference")
+        } else {
+            // save in app
+            themeDefault.set(false, forKey: "spritePreference")
+        }
+    }
 }

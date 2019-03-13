@@ -3,6 +3,11 @@ iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contribu
 
 ## Changelog
 
+### 5.5
+- New option: you can choose to display the shiny sprite in the Pokémon list
+- You can now find a Pokémon by typing its ID in the search bar
+- Improved image loading in details views
+
 ### 5.4.3
 - Fixed Pokémon, Berries, Items and Moves lists showing only the 20 first results (due to a change in the API)
 - Improved image loading in the lists

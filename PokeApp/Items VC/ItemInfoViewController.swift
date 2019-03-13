@@ -138,17 +138,18 @@ class ItemInfoViewController: UIViewController {
                 self.itemEffectLabel.lineBreakMode = .byWordWrapping
                 self.itemEffectLabel.numberOfLines = 0
                 
-                // get and display the sprite from the link
-                Alamofire.request(self.selectedItem.sprite!).responseImage { response in
-                    if let img = response.result.value {
-                        self.itemImage.image = img
-                    }
-                    // stop activity indicator
-                    self.activityIndicator.stopAnimating()
-                    UIView.animate(withDuration: 0.6, animations: {
-                        self.blurView.alpha = 0.0
-                    })
-                }
+                // setting image
+                let placeholderImage = UIImage(named: "Placeholder")!
+                // get item sprite link
+                let frontSprite = URL(string: self.selectedItem.sprite!)!
+                // display image or placeholder
+                self.itemImage.af_setImage(withURL: frontSprite, placeholderImage: placeholderImage)
+                
+                // stop activity indicator
+                self.activityIndicator.stopAnimating()
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.blurView.alpha = 0.0
+                })
             }
         }
     }    

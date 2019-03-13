@@ -43,7 +43,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let darkSwitch = Constants.Settings.themeDefault.bool(forKey: "themeDefault")
         
         // if dark theme is enabled, app theme will be dark, else it will be light
-        if darkSwitch == true {
+        if darkSwitch {
             darkTheme()
             searchController.searchBar.barStyle = .black
             loadingLabel.textColor = UIColor.white
@@ -56,7 +56,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             loadingLabel.textColor = UIColor.black
             itemActivityIndicator.color = UIColor.black
             // table view separator color
-            itemTableView.separatorColor = UIColor.lightGray
+            itemTableView.separatorColor = Constants.Colors.light088
         }
         // update table view UI
         itemTableView.reloadData()

@@ -17,6 +17,9 @@ class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableView
     var isShiny: Bool = false
     var favArray = [Pokemon]()
     
+    // setting placeholder image
+    let placeholderImage = UIImage(named: "Placeholder")!
+    
     var activityIndicator: UIActivityIndicatorView!
     var blurView: UIView!
     var blurEffectView: UIVisualEffectView!
@@ -181,18 +184,11 @@ class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableView
                 self.selectedPokemon.setPhysicalAttributes(jsonObject: jsonDict)
                 self.selectedPokemon.setAbilities(jsonObject: jsonDict)
                 
-                // update UI from the selectedPokemon
-                // get and display the sprite from the link
-                if self.selectedPokemon.defaultSprite! != "error" {
-                    Alamofire.request(self.selectedPokemon.defaultSprite!).responseImage { response in
-                        if let img = response.result.value {
-                            self.pokeImage.image = img
-                        }
-                    }
-                } else {
-                    let placeholderImage: UIImage = UIImage(named: "Placeholder")!
-                    self.pokeImage.image = placeholderImage
-                }
+                // get sprite link
+                let spriteURL = URL(string: self.selectedPokemon.defaultSprite!)!
+                // display image or placeholder
+                self.pokeImage.af_setImage(withURL: spriteURL, placeholderImage: self.placeholderImage)
+
                 // display the pokemon height and weight
                 self.pokeHeightLabel.attributedText = self.attributedText(withString: String(format: "Height: %@", self.selectedPokemon.height!), regularString: self.selectedPokemon.height!, font: self.pokeHeightLabel.font)
                 
@@ -236,8 +232,7 @@ class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableView
         if self.selectedPokemon.typeOrTypes! > 1 {
             let typeOrTypes = "Types: %@"
             return typeOrTypes
-        }
-        else {
+        } else {
             let typeOrTypes = "Type: %@"
             return typeOrTypes
         }
@@ -340,7 +335,7 @@ class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableView
         if self.isShiny == false {
             if self.selectedPokemon.shinySprite! == "error" {
                 pokeImageActivityIndicator.stopAnimating()
-                let alert = UIAlertController(title: "Not found 😟", message: "\(selectedPokemon.name) does not have a Shiny version.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Not found 😟", message: "\(selectedPokemon.name) does not have a Shiny sprite.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 changeSpriteLabel.isEnabled = false
@@ -363,14 +358,14 @@ class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableView
                 self.isShiny = true
             }
         } else {
-            // get and display the default sprite from the link
-            Alamofire.request(selectedPokemon.defaultSprite!).responseImage { response in
-                if let img = response.result.value {
-                    self.pokeImage.image = img
-                }
-                // stop activity indicator
-                self.pokeImageActivityIndicator.stopAnimating()
-            }
+            // get shiny sprite link
+            let spriteURL = URL(string: self.selectedPokemon.defaultSprite!)!
+            // display image or placeholder
+            self.pokeImage.af_setImage(withURL: spriteURL, placeholderImage: placeholderImage)
+            
+            // stop activity indicator
+            self.pokeImageActivityIndicator.stopAnimating()
+            
              // change the button's background color to shiny's color mode
             self.changeSpriteLabel.backgroundColor = UIColor.orange
             // change the button's text

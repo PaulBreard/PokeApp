@@ -35,7 +35,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             lightTheme()
             // table view separator color
-            favTableView.separatorColor = UIColor.lightGray
+            favTableView.separatorColor = Constants.Colors.light088 
         }
         
         // check favArray
