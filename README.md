@@ -3,6 +3,14 @@ iOS app based on pokeapi.co API © 2013–2018 Paul Hallet and PokéAPI contribu
 
 ## Changelog
 
+*Known issue: some items and moves can lead the app to crash. I will investigate and try to fix them as soon as possible.*
+
+### 5.5.2
+- Updated with Swift 5
+
+### 5.5.1
+- Fixed Pokémon sorting button
+
 ### 5.5
 - New option: you can choose to display the shiny sprite in the Pokémon list
 - You can now find a Pokémon by typing its ID in the search bar

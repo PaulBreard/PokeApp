@@ -215,7 +215,7 @@ class PokeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.themeDefault.set(try? PropertyListEncoder().encode(self.favArray), forKey:"FavPokemon")
             } else {
                 // finding index using index(where:) method
-                if let index = self.favArray.index(where: { $0.name == pokemon.name }) {
+                if let index = self.favArray.firstIndex(where: { $0.name == pokemon.name }) {
                     // removing item
                     self.favArray.remove(at: index)
                     // save the array

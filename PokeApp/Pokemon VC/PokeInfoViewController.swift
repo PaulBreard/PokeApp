@@ -259,7 +259,7 @@ class PokeInfoViewController: UIViewController, UITableViewDelegate, UITableView
             favButton.title = "Fav"
             favButton.image = UIImage(named: "Favorite")!
             // finding index using index(where:) method
-            if let index = self.favArray.index(where: { $0.name == selectedPokemon.name }) {
+            if let index = self.favArray.firstIndex(where: { $0.name == selectedPokemon.name }) {
                 // removing item
                 self.favArray.remove(at: index)
                 // save the array

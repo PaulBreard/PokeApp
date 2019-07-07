@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dnr-aJ-cnA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dnr-aJ-cnA">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,7 +51,7 @@
                                                                 <rect key="frame" x="12.000000000000007" y="12" width="123.66666666666669" height="569.66666666666663"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="Pokemon" translatesAutoresizingMaskIntoConstraints="NO" id="oqn-Fx-9ep">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="123.66666666666667" height="498.33333333333331"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="59.666666666666679" height="498.33333333333331"/>
                                                                         <gestureRecognizers/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokémon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PyR-FS-gPv">
@@ -82,7 +82,7 @@
                                                                 <rect key="frame" x="11.999999999999993" y="12" width="123.33333333333331" height="569.66666666666663"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="Berry" translatesAutoresizingMaskIntoConstraints="NO" id="UzJ-ho-g0D">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="123.33333333333333" height="498.33333333333331"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="498.33333333333331"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Berries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHD-ou-tbM">
                                                                         <rect key="frame" x="0.0" y="538.33333333333337" width="86.666666666666671" height="31.333333333333371"/>
@@ -120,7 +120,7 @@
                                                                 <rect key="frame" x="12.000000000000007" y="12" width="123.66666666666669" height="569.66666666666663"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="Item" translatesAutoresizingMaskIntoConstraints="NO" id="I0b-Z8-H86">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="123.66666666666667" height="498.33333333333331"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="42" height="498.33333333333331"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foU-re-NEs">
                                                                         <rect key="frame" x="0.0" y="538.33333333333337" width="68" height="31.333333333333371"/>
@@ -149,7 +149,7 @@
                                                                 <rect key="frame" x="11.999999999999993" y="12" width="123.33333333333331" height="569.66666666666663"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Move" translatesAutoresizingMaskIntoConstraints="NO" id="gdt-3a-38C">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="93" height="498.33333333333331"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="31" height="498.33333333333331"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Xm-Fs-mJo">
                                                                         <rect key="frame" x="0.0" y="538.33333333333337" width="80" height="31.333333333333371"/>
@@ -184,7 +184,7 @@
                                                         <rect key="frame" x="12" y="12" width="273" height="565.66666666666663"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zfc-N4-aAu">
-                                                                <rect key="frame" x="0.0" y="254.66666666666671" width="216" height="56.666666666666657"/>
+                                                                <rect key="frame" x="0.0" y="254.66666666666671" width="244.66666666666666" height="56.666666666666657"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX7-XK-ipf">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112" height="31.333333333333332"/>
@@ -201,7 +201,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Favorited" translatesAutoresizingMaskIntoConstraints="NO" id="GPl-8a-aVQ">
-                                                                <rect key="frame" x="221" y="257" width="52" height="52"/>
+                                                                <rect key="frame" x="249.66666666666671" y="271.33333333333326" width="23.333333333333343" height="23.333333333333314"/>
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
@@ -403,7 +403,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pokémon" largeTitleDisplayMode="always" id="PrO-yx-iLf">
-                        <barButtonItem key="rightBarButtonItem" title="Sort Pokémon" id="itH-gR-Q2i"/>
+                        <barButtonItem key="rightBarButtonItem" title="Sort Pokémon" id="itH-gR-Q2i">
+                            <connections>
+                                <action selector="sortPokemon:" destination="BYZ-38-t0r" id="iV4-er-Erf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="0CA-TL-4L6" id="LJ3-AW-PHX"/>
@@ -1822,19 +1826,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Berry" width="128" height="180"/>
-        <image name="Berry Icon" width="53" height="75"/>
-        <image name="Favorite" width="52.5" height="52.5"/>
-        <image name="Favorited" width="52.5" height="52.5"/>
-        <image name="Home Icon" width="60" height="60"/>
-        <image name="Item" width="126" height="180"/>
-        <image name="Item Icon" width="53" height="75"/>
-        <image name="Move" width="93" height="180"/>
-        <image name="Move Icon" width="38" height="75"/>
-        <image name="Placeholder" width="288" height="288"/>
-        <image name="Pokemon" width="179" height="180"/>
-        <image name="Pokemon Icon" width="75" height="75"/>
-        <image name="Settings Icon" width="64" height="64"/>
+        <image name="Berry" width="42.666667938232422" height="60"/>
+        <image name="Berry Icon" width="17.666666030883789" height="25"/>
+        <image name="Favorite" width="23.333333969116211" height="23.333333969116211"/>
+        <image name="Favorited" width="23.333333969116211" height="23.333333969116211"/>
+        <image name="Home Icon" width="25" height="25"/>
+        <image name="Item" width="42" height="60"/>
+        <image name="Item Icon" width="17.666666030883789" height="25"/>
+        <image name="Move" width="31" height="60"/>
+        <image name="Move Icon" width="12.666666984558105" height="25"/>
+        <image name="Placeholder" width="120" height="120"/>
+        <image name="Pokemon" width="59.666667938232422" height="60"/>
+        <image name="Pokemon Icon" width="25" height="25"/>
+        <image name="Settings Icon" width="26.666666030883789" height="26.666666030883789"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ezO-yy-pDt"/>
@@ -1843,7 +1847,7 @@
         <segue reference="aRB-3V-nvI"/>
         <segue reference="EPA-an-om3"/>
         <segue reference="sf8-ZQ-Aqe"/>
-        <segue reference="6OI-fb-75j"/>
+        <segue reference="qOX-Tz-w4q"/>
         <segue reference="N8z-8S-qhv"/>
     </inferredMetricsTieBreakers>
 </document>
